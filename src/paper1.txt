@@ -1,0 +1,1413 @@
+J Nanopart Res (2014) 16:2752
+DOI 10.1007/s11051-014-2752-0
+
+R E S E A R C H P A P E R
+
+Effect of size on fracture and tensile manipulation
+of gold nanowires
+
+Fenying Wang • Yanfeng Dai • Jianwei Zhao •
+Qianjin Li • Bin Zhang
+
+Received: 23 July 2014 / Accepted: 12 November 2014 / Published online: 27 November 2014
+Ó Springer Science+Business Media Dordrecht 2014
+
+Abstract The fracture of metallic nanowires has
+attracted much attention owing to its reliability of
+application in nanoelectromechanical system. In this
+paper, we studied the fracture of [100] single-crystal
+gold nanowire subjected to uniaxial
+tension. The
+statistical breaking position distributions showed that
+the size effects had dominated the deformation and
+fracture of nanowires, and the quasi-static tensile
+deformations are insensitive to the styles of tensile
+rates. Furthermore, it was observed that the small-
+sized nanowire broke in the middle with disordered
+crystalline structure; for the middle-sized nanowire,
+although slippage plane had maintained the lattice
+degree, the fracture also happened in the middle due to
+symmetric tension; for the large-sized nanowire, the
+slippage was destroyed by symmetric tension, which
+induced the broken neck at one end of the nanowire.
+
+Electronic supplementary material The online version of
+this article (doi:10.1007/s11051-014-2752-0) contains supple-
+mentary material, which is available to authorized users.
+F. Wang (&)  Y. Dai  B. Zhang
+School of chemistry, Material Science and Engineering,
+Nanchang University, Nanchang 330031,
+People’s Republic of China
+e-mail: wangfenying@ncu.edu.cn
+J. Zhao  Q. Li
+State Key Laboratory of Analytical Chemistry for Life
+Science, School of Chemistry and Chemical Engineering,
+Nanjing University, Nanjing 210008,
+People’s Republic of China
+
+When the nanowire width is less than 5a (‘‘a’’ means
+lattice constant, 0.408 nm for gold), the mechanical
+strength is relatively strong with obvious uncertainty,
+which can be attributed to the surface atom effect;
+when the width is larger than 5a, the inﬂuence of size
+on the mechanical property is more obvious at the
+constant strain rate than that at the absolute rate.
+Finally,
+the mechanical strength of the nanowire
+decreases with the size increasing.
+Keywords Fracture  Tensile manipulation  Size
+effect  Gold nanowire  Molecular dynamic
+simulation  Modeling and simulation
+
+Introduction
+
+In recent years, the metallic nanowire has attracted
+increasing attention owing to their special mechanical
+(Diao et al. 2003),
+thermal (Miao et al. 2005),
+electrical (Melosh et al. 2003), and magnetic (Alex-
+androv and Kabanov 2005) properties. As part of
+nanoconnector (Wu et al. 2005) and active compo-
+nents of nanoelectromechanical
+system (NEMS)
+device (Husain et al. 2003; Lieber 2003), the defor-
+mation and fracture of the nanowire are directly
+related with the reliability of NEMS, which usually
+requires a fundamental description about the defor-
+mation mechanism of nanowires (Hemker 2004).
+Because the size of nanowires is very small, it is
+difﬁcult to manipulate and control the deformation
+
+123
+
+2752 Page 2 of 12
+
+J Nanopart Res (2014) 16:2752
+
+Methodology
+
+To reveal the dependence of absolute rate and strain
+rate on the fracture of the gold nanowire at different
+sizes, MD simulations were performed to study the
+deformation behaviors of single-crystal gold nano-
+wires. As shown in Fig. 1, geometric models of face-
+centered cubic (FCC) were generated as a regular
+lattice along the [100] crystallographic orientations.
+The rectangular cross-sectional shape was from the
+previous work, in which the dynamic characterization
+of the postbreaking behavior of a nanowire was
+investigated by incorporation of MD simulation and
+experimental MCBJ in a wide range of strain rates
+(Zhao et al. 2008a). The geometric dimensions of the
+nanowire were set as La 9 Wa 9 Ha (L, W, and H
+the
+stand for
+nanowire,
+lattice
+constant, 0.408 nm for gold). The previous results
+indicated that, the mean-square error of the stress was
+a stable value for copper nanowires with an aspect
+ratio of about (1:3) (Liu et al. 2009; Liu and Zhao
+2011), which might be enough to minimize the
+constraints posed by rigid boundaries on the tops
+and bottoms of the gold nanowires. In this study, the
+ratio of L:W:H was ﬁxed to be 1:1:3, and the height of
+the nanowire varied from 9a (3.672 nm) to 36a
+(14.69 nm). For the model in Fig. 1, both ends with
+three lattices were set as ﬁxed layers, and others were
+the thermal controlled layers of the nanowire. Before
+the nanowire was relaxed under zero
+stretching,
+
+the length, width, and height of
+respectively, and a stands for
+
+(Legoas et al. 2002),
+
+mechanism of nanowires by experimental ways, such
+as scanning tunneling microscopy (STM) (Landman
+et al. 1996; Agrait et al. 1995), atomic force micros-
+copy (AFM)
+transmission
+electron microscope (TEM) (Rodrigues et al. 2000;
+Muller et al. 1992a), and mechanically controllable
+break junctions (MCBJ) (Muller et al. 1992b; Hemker
+2004). However, molecular dynamics (MD) simula-
+tion (Allen and Tildesley 1997; Rapaport 2004), which
+solves Newton’s equations of motion for a collection
+of interacting particle over a number of time steps, is
+an effective method to study the deformation and
+fracture properties of metallic nanowires.
+
+the broken position of
+
+With MD simulation, Park and Zimmerman (2005)
+the accurate modeling of
+have demonstrated that
+stacking fault and surface energies is crucial
+in
+capturing the fundamental deformation behavior of
+gold nanowires. Hasmy and Medina (2002) have
+studied the thickness induced structural transition in
+suspended face-centered cubic (FCC) metal nano-
+ﬁlms, and demonstrated that surface reconstruction
+only occurred in 5d metals. Liu et al. (2009) have
+showed that
+the copper
+nanowire is dependant on the nanowire length. These
+studies indicate that size effect is of vital importance
+for developing and processing the nanoscale systems
+of metallic nanowires. For the single crystal materials,
+the plastic response could occur rapidly with the
+strong mechanical shock. For example, amorphization
+in nickel nanowire can be induced by high strain rate
+(Ikeda et al. 1999). Moreover, a competition between
+tensile shocks and atomic vacancies was discovered
+for the tensile deformation of the gold nanowire at
+different strain rates (Wang et al. 2011b). Therefore,
+the size effect in single crystal materials would be
+related to the mechanical shock with different tensile
+rates. However,
+is not clear which factor will
+dominate the deformation and fracture mechanism of
+nanowires.
+
+it
+
+In order to make this question clear, it is very
+necessary to study the effect of size and tensile rate on
+the tensile deformation and fracture of nanowires.
+Here, different initial equilibrium states were designed
+to investigate statistically size effects on the uniaxial
+tensile manipulation of the gold nanowire with two
+different tensile rates. The results indicated that size
+effect had dominated the deformation mechanism of
+nanowires, and the tensile actions with different rates
+could only affect the deformation processes.
+
+123
+
+Fig. 1 Schematic illustration of theoretical models
+
+J Nanopart Res (2014) 16:2752
+
+Page 3 of 12
+
+2752
+
+traction (xy-plane) and zero stress (z-direction). With
+increasing relaxation time,
+the equilibration was
+achieved when the recorded average potential energy
+per atom reached to a stable state. After that, the
+uniaxial tension was performed via moving the ﬁxed
+layers at two ends, and the tension was applied along
+the direction of nanowire height. The strain rate was
+deﬁned as _e ¼ de=dt (ps-1), which was the rate of
+change in strain (e) with respect to time (t). Whereas,
+the absolute rate with the unit of m s-1 was deﬁned as
+the rate of change in displacement vector with respect
+to time. The constant strain rate was set as 1.00 % ps-1
+for all sizes, corresponding to absolute rates from
+36.72 to 146.9 m s-1 at part (I) of Table 1. With
+statistical analysis, the most probable broken position
+(MPBP) was got from the ﬁtting peak of broken
+position distribution of the single-crystal gold nano-
+wire. According to the MPBP of the nanowire with
+size of (8a 9 8a 9 24a), the constant absolute rate
+was selected as 97.92 m s-1. For each height at part
+(II) of Table 1,
+the constant absolute rate of
+97.92 m s-1 corresponded to strain rates from 0.667
+to 2.667 % ps-1. The strain rates and the absolute rates
+of nanowires both plotting against the width of the
+nanowire at two tensile rates, are shown in Figs. S1a
+and b. From Fig. S1, it could be seen that when the
+strain rate was constant at part (I), the corresponding
+absolute rate increased with the width of the nanowire
+
+Table 1 The simulation conditions of nanowires
+
+increasing. For the constant absolute rate at part (II),
+the corresponding strain rate decreased with an
+increase in width of the nanowire. In total, there were
+two different tensile rates for ten different sizes. At
+each condition, different and sufﬁcient relaxation time
+was adopted for the nanowire to get 300 initial
+equilibrium states. For the size (8a 9 8a 9 24a), the
+absolute rate of 97.92 m s-1 corresponded to the
+strain rate of 1.00 % ps-1. So a total samples of 5,700
+{(10 ? 9) 9 300} were performed for the tensile
+deformation of gold single-crystal nanowires.
+
+All the presented MD simulations and visualization
+processes were performed with the software NanoMD
+(Zhao et al. 2008b). The single-crystal gold nanowires
+were subjected to uniaxial tension by moving two
+ﬁxed layers uniformly along the tensile z-direction.
+The Verlet
+leapfrog algorithm was used for the
+integration of motion equations to obtain velocity
+and trajectories of atoms, which were adopted under
+free boundary condition. As a rescaling method of
+velocity, Nos´e–Hoover thermostat (Nos´e 1984a, b;
+Hoover 1985) was used to maintain the system at
+300 K. The interaction between gold atoms was
+described through embedded-atom method (EAM)
+potential
+function developed by Johnson (1989),
+which could provide an effective description of the
+transition metals with the FCC structure. The total
+energy was given by
+
+Nos.
+
+Size
+
+(I)
+
+(II)
+
+La 9 Wa 9 Ha
+
+Strain rate (% ps-1)
+
+Corresponding
+absolute rate (m s-1)
+
+Absolute
+rate (m s-1)
+
+Corresponding strain
+rate (% ps-1)
+
+h1i
+h2i
+h3i
+h4i
+h5i
+h6i
+h7i
+h8i
+h9i
+h10i
+
+3 9 3 9 9
+
+4 9 4 9 12
+
+5 9 5 9 15
+
+6 9 6 9 18
+
+7 9 7 9 21
+8 3 8 3 24
+
+9 9 9 9 27
+
+10 9 10 9 30
+
+11 9 11 9 33
+
+12 9 12 9 36
+
+1.000
+
+1.000
+
+1.000
+
+1.000
+
+1.000
+
+1.000
+
+1.000
+
+1.000
+
+1.000
+
+1.000
+
+36.72
+
+48.96
+
+61.20
+
+73.44
+
+85.68
+
+97.92
+
+110.2
+
+122.4
+
+134.6
+
+146.9
+
+97.92
+
+97.92
+
+97.92
+
+97.92
+
+97.92
+
+97.92
+
+97.92
+
+97.92
+
+97.92
+
+97.92
+
+2.667
+
+2.000
+
+1.600
+
+1.333
+
+1.143
+
+1.000
+
+0.889
+
+0.800
+
+0.727
+
+0.667
+
+(L, W, and H stand for the length, width, and height of the nanowire, respectively. a stands for lattice constant, 0.408 nm for gold. For
+I, the deformation of nanowires is at the constant strain rate of 1.00 % ps-1. For II, the deformation of nanowires is at constant
+absolute rate of 97.92 m s-1)
+
+Bold values indicate the strain and absolute rates were designed according to the original size (8a 9 8a 9 24a) with absolute rate of
+97.92 m s-1 and strain rate of 1.0 % ps-1
+
+123
+
+2752 Page 4 of 12
+
+X
+
+X
+
+E ¼ 1
+2
+X
+
+ij
+
+qi ¼
+
+i6¼j
+
+VðrijÞ þ
+
+FðqiÞ;
+
+i
+
+uðrijÞ;
+
+ð1Þ
+
+ð2Þ
+
+where E is the total internal energy of the system, V is
+the pair potential between atoms i and j, and rij is the
+distance between them, F(qi) is the energy to embed
+atom i in an electron density qi, and u(rij) is the electron
+density at atom i due to atom j as a function of the
+distance rij. The stress (r) in z-direction was calculated
+by the Virial scheme (Wu 2006) as following:
+
+(
+
+rzz
+i
+¼ 1
+Xi
+
+X
+
+o/
+orij
+
+"
+
+ 
+
+!
+
+#
+
+)
+
+oF
+oqi
+
+þ
+
+oF
+oqj
+
+of
+orij
+
+ij
+
+þ
+
+2
+
+j6¼i
+
+ mivz
+i þ 1
+i vz
+
+ijrz
+rz
+;
+rij
+ð3Þ
+zz is the stress tensor of atoms in the tensile
+where ri
+direction (z-axis), Xi is the volume of i atoms, m is the
+mass, and viz is the velocity component of atom i in
+the z-direction. /, F, q, f are parameters from EAM
+potential (Johnson 1989), which corresponding to the
+pair potential,
+the electron
+density between the atom i or j and all other atoms, the
+electron density in rij between atomic i and j,
+respectively. The ﬁrst and second terms in the right
+side of the above equation represent the thermal effect
+and the atomic interactions, respectively.
+
+the embedded energy,
+
+Results and discussion
+
+Effect of size on deformation under different
+tensile rates
+
+From atomic view, size effect could induce different
+ways of atomic movements (Wang et al. 2014), which
+were related with mechanical shocks at different
+tensile rates. From Fig. 2a–c,
+it can be seen the
+representative deformation characteristics of nano-
+wires by MD simulation method, when the nanowires
+are subjected to uniaxial tension at the strain rate of
+1.00 % ps-1. From Fig. 2a, (see Supplementary Video
+S1), the observed structure at state h1i shows that the
+atoms in the corner collapse inward. It is because that
+surface atoms account for a large proportion, and free
+relaxation in xy-plane could easily destroy the original
+
+123
+
+J Nanopart Res (2014) 16:2752
+
+crystalline structure. During uniaxial stretching, it can
+be seen that
+the whole deformation of the gold
+nanowire with size (4a 9 4a 9 12a) shows disor-
+dered crystalline structure. The irreversible structural
+the state h3i, Fig. 2a,
+rearrangement appears at
+indicating plastic deformation has happened in the
+nanowire. From the ampliﬁed atomic conﬁguration
+h3-Ai in Fig. 2a, a disordered structure is observed to
+concentrate in the middle region of the nanowire.
+Upon further stretching, a broken neck appears at the
+state h6i in Fig. 2a with amorphous structure (see the
+state h6-Bi, Fig. 2a), then the nanowire breaks in the
+middle. When the nanowire size increases
+to
+(5a 9 5a 9 15a) at the strain rate of 1.00 % ps-1
+(Wang et al. 2011a), the nanowire remains perfect
+crystalline form in the deformation process. After the
+initial elastic deformation, slippage planes appear only
+with some amorphous structure at the edge of the
+nanowire. Upon further stretching, the slippage along
+(111) plane becomes more and more obvious with
+increasing strain, which is in agreement with the
+slippage mechanism proposed by Finbow et al. (1997).
+When the overall rupture eventually happens, the
+nanowire breaks completely along the slippage plane,
+and symmetric stretching makes slippage in the
+middle region of
+the size
+(8a 9 8a 9 24a), (corresponding to Video S2), slip-
+page planes appear
+in the process of nanowire
+deformation (see h3-Ai, Fig. 2b). However, the sym-
+metric stretching has slightly damaged the slippage
+planes. After further stretching, a broken neck appears
+and a fracture happens at one end of the nanowire (see
+h6-Bi, Fig. 2b). When the size continues to increase to
+(12a 9 12a 9 36a) (see Fig. 2c and Supplementary
+Video S3), slippage planes are blocked at two ends of
+the nanowire by symmetric stretch. In comparison
+with Fig. 2b,
+the nanowire maintains an ordered
+crystalline structure at the beginning of the plastic
+deformation (see h3-Ai, Fig. 2c). With strain increas-
+ing, local amorphous appears around the two broken
+necks (see the state h6-Bi, Fig. 2c). The appearances
+of broken positions are mainly related with size,
+tensile rate, and temperature (Wang et al. 2011a, b, c,
+2012). While for the broken necks at two ends in this
+study, size effect has dominated the fracture behavior
+(Ikeda et al. 1999; Koh and Lee 2006). In the view of
+crystalline, the effect of size on the order degree of
+crystalline structure could be observed from a com-
+parison of their radial distribution functions (RDF). As
+
+the nanowire. For
+
+J Nanopart Res (2014) 16:2752
+
+Page 5 of 12
+
+2752
+
+Fig. 2 The deformation
+behavior of the nanowire
+and the corresponding radial
+distribution function (RDF)
+at the constant strain rate.
+a The deformation behavior
+at size (4a 9 4a 9 12a).
+b The deformation behavior
+at size (8a 9 8a 9 24a).
+c The deformation behavior
+at size (12a 9 12a 9 36a);
+(h1i–h7i are the selected
+deformation characters;
+h3-Ai and h6-Bi are the
+relevant ampliﬁed
+characters). RDF d at size
+(4a 9 4a 9 12a); e at size
+(8a 9 8a 9 24a) and f at
+size (12a 9 12a 9 36a),
+respectively. (h1i, h2i, and
+h3i replace the beginning of
+stretch, the critical point
+between elastic and plastic
+deformation, and the broken
+point, respectively.)
+
+shown in Fig. 2d, the RDF peaks of the nanowire with
+small size (4a 9 4a 9 12a) are rough in the nearest
+neighbor distance of RDF, attributing to acute atomic
+movement induced by surface atom effect. With the
+size increasing, the RDF peaks in Fig. 2e and f become
+sharp and smooth in the near neighbor distance, and
+some small peaks appear in the further neighbor
+distance, indicating the crystalline structure of the
+nanowire has maintained very well. From Fig. 2d–f,
+the h1i curves are sharp, indicating the nanowire
+retains perfect crystalline structures at the beginning
+
+of deformation. Later, peak heights in the h2i curves
+decrease obviously in the near neighbor distance,
+which can be attributed to the appearance of disor-
+dered crystalline structure in the deformation of the
+nanowire.
+
+In order to observe inﬂuences of strain rate and
+absolute rate on nanowire fracture under size effect,
+we have studied the representative deformation
+behaviors of the [100] single-crystal gold nanowires
+at the absolute rate of 97.92 m s-1. As shown in
+Fig. 3a (see Supplementary Video S4) with nanowire
+
+123
+
+2752 Page 6 of 12
+
+J Nanopart Res (2014) 16:2752
+
+rate
+
+absolute
+
+(4a 9 4a 9 12a),
+
+the
+of
+size
+97.92 m s-1 corresponds
+to the strain rate of
+2.00 % ps-1. An expected slippage allowing for
+reconstruction along (111) plane was not observed
+during the whole deformation. After elastic deforma-
+tion at the state h2i, Fig. 3a, the nanowire exhibits a
+disordered cluster conﬁguration through an irrevers-
+ible structural rearrangement at the state h3i, Fig. 3a.
+An obvious amorphous structure can be seen at h3-Ai,
+Fig. 3a. Upon further stretching, it is unable to attain a
+stable state because of the reconstructed amorphous
+structure. With tensile strain increasing, a cluster band
+
+absolute
+
+the nanowire exhibits
+
+(see h6-Bi, Fig. 3a) appears around the broken neck at
+the state h6i, Fig. 3a, then the overall fracture happens
+in the middle of the gold nanowire. In the plastic
+deformation,
+superplastic
+behavior with amorphous structure. It can be con-
+cluded that the atomic thermal motion induced by
+increasing strain rate can facilitate the ductility of
+nanowire materials. When the nanowire size increases
+(12a 9 12a 9 36a),
+the
+to
+of
+97.92 m s-1 corresponds
+to the strain rate of
+0.667 % ps-1. As shown in Fig. 3b (see Supplemen-
+tary Video S5), the slippage dominates the whole
+deformation of the nanowire. With strain increasing,
+local disordered structure appears at one end of the
+nanowire (see the state h3-Ai, Fig. 3b). With sym-
+metric stretch, the broken neck appears in the nano-
+wire (12a 9 12a 9 36a) with some disordered atoms
+(see the state h6-Bi, Fig. 3b). Comparing with Fig. 2c,
+the main difference is the appearance of one broken
+neck in Fig. 3b, which can be attributed to the weak
+mechanical shock induced by the decreasing of strain
+rate.
+
+rate
+
+The above deformation behaviors have demonstrated
+that the increasing of strain rate could facilitate the
+ductility of small-sized nanowire. Here, the maximum
+average potential energy per atom is used to evaluate the
+degree of lattice order in the tensile deformation process
+of the nanowire. As shown in Fig. 4, the potential energy
+at two tensile rates decreases with size increasing. At the
+constant absolute rate of 97.92 m s-1, the decreasing
+trend of the potential energy is in accord with a function
+of E1 (eV) = -1.901 ? 0.190 9 exp (-W/4.051), and
+at the constant strain rate of 1.00 % ps-1, the potential
+
+Fig. 3 The deformation behavior of the nanowire at
+the
+constant absolute rate. a The size (4a 9 4a 9 12a). b The size
+(12a 9 12a 9 36a). (h1i–h7i are the selected deformation
+characters; h3-Ai and h6-Bi are the relevant ampliﬁed charac-
+ters. The constant absolute rate is 97.92 m s-1)
+
+Fig. 4 The maximum average potential energy per atom of the
+[100] single-crystal gold nanowire plotted against the width at
+two tensile rates
+
+123
+
+J Nanopart Res (2014) 16:2752
+
+Page 7 of 12
+
+2752
+
+energy is in accord with a function of E2 (eV) =
+-1.900 ? 0.167 9 exp (-W/4.252), in which, E is the
+maximum average potential energy per atom and W is
+the width of the nanowire. The decreasing potential
+energy indicates that the nanowire size does have effect
+on the crystalline in the nanowire deformation process
+which is from surface atoms for small-sized nanowire
+and the bond broken induced by stretch. Different from
+block atoms, surface atoms belong to imperfect atoms
+with higher potential energies. During the tensile
+deformation, the atomic bond breaking is a direct
+consequence of atomic vibration overcoming the inter-
+atomic cohesive energy, which in turn causes the
+disordered crystalline structure. Then the breaking of
+atomic bond results in the potential energy increasing.
+By contrast, the potential energy E1 is higher than E2 at
+nanowire width from 3a to 8a. If the width is longer than
+8a, little deviation between E1 and E2 would appear. For
+the nanowire with the same aspect ratio, because surface
+atoms are typical
+imperfect atoms that have high
+potential energies, the size decreasing always brings
+about the increasing of potential energy. In addition,
+because mechanical shock with high strain rate could
+easily induce bond breaking, the increasing of strain rate
+usually results in potential energy increasing.
+
+size
+
+increases
+
+From the above results,
+
+the single-crystal gold
+nanowires present various deformation behaviors. At
+the constant strain rates of 1.00 % ps-1, the nanowire
+maintains disordered crystalline structure at size
+(4a 9 4a 9 12a). When the
+to
+(12a 9 12a 9 36a), slippage occurs along the (111)
+planes, and symmetric tension blocks the slippage
+movement. Then two broken necks appear at two ends
+of the nanowire. In other words, the broken position
+has been transferred from the middle region to the end
+of the nanowire under size effect. At the constant
+absolute rate of 97.92 m s-1, the nanowire with size
+(4a 9 4a 9 12a) exhibits a superplastic character
+with amorphous structure. The fracture appears in the
+middle region of the nanowire. While when the size
+increases to (12a 9 12a 9 36a), only one broken
+neck appears at one end of the nanowire.
+
+Effect of size on the fracture under different tensile
+rates
+
+The ﬁnal broken positions of [100] single-crystal
+gold nanowires occur at
+the central part of the
+small-sized nanowires. While with size increasing,
+
+to break at
+
+the nanowires are apt
+the two ends,
+which could also be regulated by tensile rate. In
+microscopic viewpoint, different sizes could induce
+different atomic ﬂuctuation ways, which are related
+with deformation and fracture mechanisms of nano-
+wires. Tensile shock induced by symmetric stretch
+could affect
+the atomic movement, which could
+induce different ways of tensile wave propagation.
+Holian and Straub (1979), Holian (1988), Kadau
+et al. (2002), and Bringa et al. (2004) have studied
+the wave propagation in solid materials and con-
+cluded that microscopic mechanism of wave prop-
+agation is inherently complex in solid materials
+because the plastic ﬂow is governed by the creation
+and motion of disordered crystalline structures in the
+deformation of nanoscale material. For the wave
+propagation, our previous work (Liu et al. 2009)
+have compared the statistical results of the most
+breaking position of copper nanowires from MD
+simulations with the calculated results from shock
+wave propagation theory, which indicated that the
+calculated trend was in agreement with the statistical
+one when the copper nanowire length was larger
+than 4.7 nm. The researching results also indicated
+the explanations for
+the wave propagation were
+feasible, though the propagation was indeed com-
+plex owing to nanoscale effects.
+
+Here, statistical histograms of the ﬁnal broken
+positions are given to illustrate the relationships
+between macro-breaking position distribution and
+deformation mechanism induced by atomic movement
+under the effects of size and tensile rate. The statistical
+histograms are ﬁtted by Gaussian function, and the
+ﬁtting peaks can replace the MPBP (Wang et al.
+2011a, b, c, 2012). From Fig. 5a, it can be seen the
+inﬂuence of size on the MPBP of the [100] single-
+crystal gold nanowire at the strain rate of 1.00 % ps-1.
+The MPBP transfers from the middle to the two ends
+with the nanowire size increasing, which are in
+agreement with the deformation mechanisms at
+different sizes. For small-sized nanowire, atomic
+ﬂuctuation is in a non-equilibrium state owing to the
+surface atom effect. With symmetric stretch,
+the
+tensile wave propagates from two ends to the middle
+part, and the wave superposition induces the increas-
+ing of atomic potential energy, as a result,
+the
+nanowire breaks in the middle of the nanowire. With
+the size increasing, slippage along (111) planes
+dominates the stretching deformation, and the ordered
+
+123
+
+J Nanopart Res (2014) 16:2752
+
+2752 Page 8 of 12
+
+Fig. 5 The broken position
+distributions of the [100]
+single-crystal gold
+nanowires under size effect.
+a The broken position
+distributions of nanowires at
+the constant strain rate of
+1.00 % ps-1. b The broken
+position distributions of
+nanowires at the constant
+absolute rate of
+97.92 m s-1. (The nanowire
+size is in Table 1)
+
+crystalline structure induced by slippage indicates that
+the atomic ﬂuctuation is in an equilibrium state. When
+uniaxial symmetric tension is applied at two ends of
+the nanowire, the tensile wave overlaps in the middle
+of the nanowire. Energy concentration induced by the
+wave superposition leads to the neck breaking in
+middle area of the nanowire, and the fracture of the
+nanowire happens in the middle region. For the large-
+sized nanowire (12a 9 12a 9 36a), the strain rate of
+1.00 % ps-1 corresponds to the absolute rate of
+146.9 m s-1. The broken position distributions at
+two ends are consistent with the deformation mech-
+anism that local amorphous induced by high absolute
+rate has dominated the broken points at two ends of the
+nanowire. With strong mechanical tension of high
+absolute rate, symmetric stretch brings a large stress
+gradient at two ends, inducing the difﬁculty of the
+tensile wave propagation from two ends to the middle.
+Therefore, the broken necks appear at two ends of the
+nanowire, and the corresponding MPBPs also distrib-
+ute at two ends.
+
+123
+
+size
+
+is
+
+bigger
+
+With statistical analysis of the broken position
+distribution at the strain rate of 1.00 % ps-1, the
+inﬂuence of absolute rate on the fracture of the
+nanowire is studied, and the constant absolute rate is
+set at 97.92 m s-1 for all the sizes. As shown in
+the
+Table 1, when
+than
+(8a 9 8a 9 24a),
+the corresponding strain rate is
+lower than the strain rate of 1.00 % ps-1; similarly, the
+strain rate becomes higher when the size is smaller
+than (8a 9 8a 9 24a). For the broken position distri-
+bution, the symmetric property in Fig. 5b is almost the
+same as that at the strain rate of 1.00 % ps-1 in Fig. 5a.
+The corresponding MPBP appears in the middle
+region for small-sized nanowire. When the size is
+larger than (8a 9 8a 9 24a), the broken positions at
+two ends are relatively concentrated comparing with
+the distribution in Fig. 5a, which corresponds to the
+deformation with the decreasing of the corresponding
+strain rate. The size of nanowire exhibits signiﬁcant
+effect on the fracture properties. When symmetric
+stretch is applied for the nanowire with small size,
+
+J Nanopart Res (2014) 16:2752
+
+Page 9 of 12
+
+2752
+
+atomic movement
+is in the non-equilibrium state
+owing to surface atomic effect. Disordered crystalline
+structure induced by surface effect results in the
+MPBP appearing in the middle part of the nanowire.
+For
+the middle-sized nanowire under symmetric
+tension, the MPBP is still in the middle region because
+of the appearance of slippage plane, and for large-
+sized nanowire, the MPBPs at two ends are mainly
+from atomic movement dominated by bulk atoms,
+which corresponds to the deformation mechanism that
+local amorphous is induced by the blocked slippage
+planes.
+
+From the viewpoint of the wave propagation,
+symmetric actions at different rates have resulted in
+different mechanical shocks, which could induce
+different ways of tensile wave propagation. In the
+tensile deformation of
+the nanowire, mechanical
+tension can disrupt the lattice order, inducing the
+concentrated and dispersed energy in the wave prop-
+agation. The atomic bonds with high energy will break
+when the activated atoms have enough energy to
+overcome the atomic cohesive energy. For small-sized
+nanowire, the lattice order has been destroyed after
+relaxation, a large stress gradient induced by non-
+equilibrium stretch results in the difﬁculty of the
+tensile wave propagation. Because the atomic energy
+in the middle region is enhanced by the wave
+superposition, the fracture is apt to appear in the
+middle of the nanowire. The MPBP and MPBPs at
+macro-broken position distributions show that the size
+still dominates atomic movement of nanowires, and
+the tensile shocks with different rates can only affect
+the processes of the wave propagation. For middle-
+sized nanowire, slippage plane retains the relative
+order lattice, and the deformation stays in the quasi-
+equilibrium state. Symmetric action brings about the
+tensile wave superposition in the middle of the
+nanowire, and the concentrated energy results in
+MPBP in the middle area. For large-sized nanowire,
+bulk atoms dominate the atomic movement style.
+Symmetric tension disturbs the propagation of the
+tensile wave from the two ends to the middle. The
+concentrated energy induced by the wave superposi-
+tion makes local amorphous at
+two ends of the
+nanowire. Generally, different styles of tensile wave
+propagation for each size will result
+in different
+macro-broken position distributions, which can be
+interpreted by the deformation mechanism of
+nanowire.
+
+Effect of size on mechanical property
+under different tensile rates
+
+The size effect on the atomic movement, which could
+be affected by symmetric stretch with different tensile
+rates, gives deep insight into mechanical fracture and
+operation of the metallic nanowire. If we could predict
+the deformation behavior with the relevant mechanical
+property,
+the fracture of the nanowire could be
+controlled and strengthened at the broken position.
+The mechanical properties of metallic materials are
+usually characterized by using stress–strain relation-
+ships,
+the ﬁrst yield stress, strain, and Young’s
+modulus, which may be helpful for the operation of
+nanoscale device. As shown in Fig. 6a, the typical
+stress–strain responses under size effect are given for
+the [100] single-crystal gold nanowire subjected to
+uniaxial tension with the strain rate 1.00 % ps-1.
+Stress increases linearly with the strain increasing
+before the ﬁrst yield point (the critical point between
+elastic and plastic deformation), which is consistent
+with elastic law (That is r1 = Ye1, r1, and e1 are the
+ﬁrst yield strain and stress, respectively. Y is Young’s
+modulus). The strain (e) is deﬁned as e = (l - l0)/l0,
+where l is the current stretch length and l0 is the length
+just after relaxation. The stress (r) in the tensile
+direction is calculated by the Virial scheme (Wu
+2006). When the stress decreases abruptly after the
+ﬁrst yield point, the nanowire undergoes an irrevers-
+ible deformation indicating the beginning of plastic
+deformation. Subsequently, the yield cycle repeats
+continuously with a decreasing trend, and the yield
+cycle is over when the nanowire has no ability to
+maintain its structure and ﬁnally breaks. During the
+whole yielding cycle, the periodicity vibrations of the
+stress–strain responses appear at all
+the nanowire
+sizes. The stress–strain curve is relatively smooth for
+large size; while the stress at small size is scattered and
+vibrated acutely with large amplitude. Therefore, it
+can be seen that the crystal lattice vibrates acutely at
+the equilibrium position under symmetric tension with
+the same strain rate, and the atoms with large atomic
+entropy could not be in a low energy state, so the stress
+for small-sized nanowire tends to ﬂuctuate with large
+amplitude.
+
+To observe size effect on the ﬁrst yield point of the
+nanowire, the ﬁrst yield strain, the ﬁrst yield stress and
+Young’s modulus against the nanowire width, were
+studied, respectively (Fig. 6b–d). The tensile rates
+
+123
+
+2752 Page 10 of 12
+
+J Nanopart Res (2014) 16:2752
+
+Fig. 6 The mechanical behaviors of the [100] single-crystal
+gold nanowires. a The representative stress–strain relationship
+of the nanowire at the strain rate of 1.00 % ps-1. b The ﬁrst yield
+strain of the nanowire plotted against the width at two tensile
+
+rates. c The ﬁrst yield stress plotted against the width at two
+tensile rates. d Young’s modulus plotted against the width at two
+tensile rates. (The constant absolute rate is 97.92 m s-1 and the
+constant strain rate is 1.00 % ps-1)
+
+applied on nanowires are set as the strain rate of
+1.0 % ps-1 and the absolute rate of 97.92 m s-1, and
+the average statistical result is from 300 samples for
+each condition. For the [100] single-crystal gold
+nanowire with aspect ratio of (1:3), the width of
+5a (‘‘a’’ means lattice constant, 0.408 nm for gold) is
+the critical point for the mechanical property of the
+nanowire. Less than the width of 5a, the ﬁrst yield
+strain in Fig. 6b is about 0.05, and the relatively small
+strain indicates the difﬁculty of retaining the elastic
+deformation. When the width is larger than 5a, the ﬁrst
+yield strain ﬂuctuates around 0.09. With the width
+increasing, the ﬁrst yield strain is basically stable for
+the constant strain rate of 1.00 % ps-1. However, the
+ﬁrst yield strain shows a decreasing tend at
+the
+constant absolute rate of 97.92 m s-1, because of the
+corresponding strain rate decreasing with the increas-
+ing width of the nanowire (see Table 1). Selecting a
+proper strain rate for simulations is important for the
+quasi-equilibrium stretch research, which could avoid
+the tensile rate effects as much as possible. The width
+of 5a is also the critical point in Fig. 6c. When the
+nanowire width is less than 5a, the stress with a big
+
+error decreases abruptly. When the width is larger than
+5a, the ﬁrst yield stress is not sensitive to the constant
+absolute rate. However, the stress increases with the
+width increasing at the strain rate 1.00 % ps-1. The
+broken neck moves from the middle to the two ends of
+the nanowire when the size increases. The blocked
+slippage planes have improved the yield stress.
+Young’s modulus (Y) is deﬁned by Sun (Sun 2007)
+as the stress of a material divided by its strain in the
+elastic deformation region, which may be used to
+evaluate the mechanical strength of the nanowires. In
+Fig. 6d, Young’s modulus exhibited an obvious size
+dependant character. When the nanowire width is less
+than 5a, Young’s modulus is about 170 Gpa with big
+error. When the width is larger than 5a, Young’s
+modulus ﬂuctuates around 70 GPa. From above
+investigations, it can be seen that Young’s modulus
+is insensitive to the constant absolute rate and the
+strain rate. Therefore, it can be concluded that size
+effect dominates the mechanical property in the quasi-
+equilibrium deformation of nanowire.
+
+The above mechanical properties correspond to
+the deformation and fracture of nanowires under
+
+123
+
+J Nanopart Res (2014) 16:2752
+
+Page 11 of 12
+
+2752
+
+the stretch of
+
+the net
+
+loading,
+
+two ends,
+
+the material. This
+
+stretch leads
+
+the center of wire,
+
+size effect. The fracture belongs to the damage of
+nanowire, which can be divided into two stages: fast
+and slow. For
+the middle-sized
+nanowire,
+tensile strengths of each cross
+sections of the nanowire were initially identical.
+After beginning symmetrical
+the tensile
+waves start to propagate from both ends and meet at
+the center of the nanowire. Due to superposition of
+two waves, the central cross section is loaded by
+twice larger stress, which causes signiﬁcant
+local
+stretch of
+to
+rearrangement of surface and bulk atoms and the
+appearance of broken neck along the slippage plane,
+which decreases the cross-sectional area and net
+tensile strength at
+so the
+nanowire breaks in the middle. This moment can
+be considered as the beginning of the slow stage
+with quasi-static stretch of nanowire. For the stretch
+of the large-sized nanowire, bulk atoms dominate
+the atomic movement
+style. Symmetric tension
+disturbs the propagation of the tensile wave, which
+has been blocked at
+inducing local
+disordered crystalline structures. The broken neck
+causes both of
+the cross-sectional area and net
+tensile strength decreasing. For the fast stage of the
+damage process,
+surface atom effect plays an
+important role in the deformation of the small-sized
+nanowire. Surface atoms are subject to the inward
+force, which cannot be balanced by other atoms
+inside. After relaxation,
+the great surface tension
+force leads to atom rearrangement in the nanowire.
+Indeed,
+this moment could be considered as the
+beginning of the fast stage. During the fast damage
+stage, symmetric tension could easily induce some
+disordered crystalline structure,
+leading to the
+increasing of mechanical strength, which can be
+attributed to surface atoms and the broken bond
+atoms belonging to under-coordinated atoms. The
+result is consistent with a bond-order-length-strength
+correlation mechanism proposed by Sun (2007) that
+atomic coordination imperfection could cause the
+remaining atomic bonds to contract spontaneously.
+Pauling (1947)
+(1927) have
+reported that the atomic coordination number reduc-
+tion could cause shrinkage of atomic size, or the
+contraction of the remaining bonds,
+inducing an
+increase in strength of atom bonds.
+
+and Goldschmidt
+
+Conclusion
+
+In summary, the deformation, fracture, and mechan-
+ical properties of nanowires were studied by MD
+simulations. It was observed that (i) with symmetric
+uniaxial tension, size effect has dominated the defor-
+mation and fracture mechanism of the nanowire. The
+deformations mainly appear as disordered crystalline
+structures, slippage, and local amorphization for
+small, middle, and large-sized nanowires, respec-
+tively; (ii) the statistical broken position distributions
+demonstrated that atomic movement induced by size
+effect has dominated the fracture of nanowire. The
+quasi-static tensile deformations could be affected by
+the tensile action, which was insensitive to the styles
+of tensile rates; and (iii) the mechanical strength of the
+nanowire decreased with the size increasing, which
+could be attributed to the damage of nanowire.
+
+Acknowledgments This project was supported by the National
+Natural Science Foundation of China (Grant Nos. 51406074 and
+21273113), China Postdoctoral Science Foundation Funded
+Project (Grant No. 2012M521290), Special Postdoctoral Science
+Foundation funded project of Jiangxi Province, Scientiﬁc Research
+Fund of Jiangxi Provincial Education Department (Grant No.
+GJJ14201), Foundation for Innovative Research Groups of the
+National Natural Science Foundation of China (Grant No.
+21121091), and National Key Technology R&D Program of
+China (Grant No. 2012BAF03B05).
+
+References
+
+Agrait N, Rubio G, Vieira S (1995) Plastic deformation of
+nanometer-scale gold connective necks. Phys Rev Lett
+74:3995–3998
+
+Alexandrov AS, Kabanov VV (2005) Magnetic quantum
+
+oscillations in nanowires. Phys Rev Lett 95:076601
+
+Allen MP, Tildesley DJ (1997) Computer simulation of liquids.
+
+Clarendon, New York
+
+Bringa EM, Cazamias JU, Erhart P, Stolken J, Tanushev N,
+Wirth BD, Rudd RE, Caturla MJ (2004) Atomistic shock
+Hugoniot simulation of single-crystal copper. J Appl Phys
+96:3793–3799
+
+Diao JK, Gall K, Dunn ML (2003) Surface-stress-induced phase
+transformation in metal nanowires. Nat Mater 2:656–660
+Finbow GM, LyndenBell RM, McDonald IR (1997) Atomistic
+simulation of the stretching of nanoscale metal wires. Mol
+Phys 92:705–714
+
+Goldschmidt VM (1927) Crystal structure and chemical corre-
+
+lation. Ber Deut Chem Ges 60:1263–1296
+
+123
+
+2752 Page 12 of 12
+
+J Nanopart Res (2014) 16:2752
+
+Hasmy A, Medina E (2002) Thickness induced structural tran-
+sition in suspended fcc metal nanoﬁlms. Phys Rev Lett
+88:096103
+
+Hemker KJ (2004) Understanding how nanocrystalline metals
+
+deform. Science 304:221–223
+
+metallic constrictions of variable width. Phys Rev Lett
+69:140–143
+
+Muller CJ, Vanruitenbeek JM, Dejongh LJ (1992b) Experi-
+mental observation of the transition from weak link to
+tunnel junction. Physica C 191:485–504
+
+Holian BL (1988) Modeling shock-wave deformation via
+
+Nos´e S (1984a) A molecular-dynamics method for simulations
+
+molecular-dynamics. Phys Rev A 37:2562–2568
+
+in the canonical ensemble. Mol Phys 52:255–268
+
+Holian BL, Straub GK (1979) Molecular dynamics of shock
+waves in 3-Dimensional solids transition from nonsteady to
+steady waves in perfect crystals and implications for the
+rankine-hugoniot conditions. Phys Rev Lett 43:1598–1600
+Hoover WG (1985) Canonical dynamics-equilibrium phase-
+
+Nos´e S (1984b) A uniﬁed formulation of the constant temper-
+J Chem Phys
+
+ature molecular-dynamics methods.
+81:511–519
+
+Park HS, Zimmerman JA (2005) Modeling inelasticity and
+
+failure in gold nanowires. Phys Rev B 72:054106
+
+space distributions. Phys Rev A 31:1695–1697
+
+Pauling L (1947) Atomic radii and interatomic distances in
+
+Husain A, Hone J, Postma HWC, Huang XMH, Drake T, Barbic
+M, Scherer A, Roukes ML (2003) Nanowire-based very-
+high-frequency electromechanical resonator. Appl Phys
+Lett 83:1240–1242
+
+Ikeda H, Qi Y, Cagin T, Samwer K, Johnson WL, Goddard WA
+(1999) Strain rate induced amorphization in metallic
+nanowires. Phys Rev Lett 82:2900–2903
+
+metals. J Am Chem Soc 69:542–553
+
+Rapaport DC (2004) The art of molecular dynamics simulation,
+
+2nd edn. Cambridge Univerty Press, Cambridge
+
+Rodrigues V, Fuhrer T, Ugarte D (2000) Signature of atomic
+structure in the quantum conductance of gold nanowires.
+Phys Rev Lett 85:4124–4127
+
+Sun C (2007) Size dependence of nanostructures: Impact of
+
+Johnson RA (1989) Alloy models with the embedded-atom
+
+bond order deﬁciency. Prog Solid State Chem 35:1–159
+
+method. Phys Rev B 39:12554–12559
+
+Kadau K, Germann TC, Lomdahl PS, Holian BL (2002)
+Microscopic view of structural phase transitions induced
+by shock waves. Science 296:1681–1684
+
+Koh SJA, Lee HP (2006) Molecular dynamics simulation of size
+and strain rate dependent mechanical response of FCC
+metallic nanowires. Nanotechnology 17:3451–3467
+
+Landman U, Luedtke WD, Salisbury BE, Whetten RL (1996)
+Reversible manipulations of room temperature mechanical
+and quantum transport properties in nanowire junctions.
+Phys Rev Lett 77:1362–1365
+
+Legoas SB, Galvao DS, Rodrigues V, Ugarte D (2002) Origin of
+anomalously long interatomic distances in suspended gold
+chains. Phys Rev Lett 88:076105
+
+Lieber CM (2003) Nanoscale science and technology: building
+
+a big future from small things. MRS Bull 28:486–491
+
+Liu Y, Zhao J (2011) The size dependence of the mechanical
+properties and breaking behavior of metallic nanowires: A
+statistical description. Comp Mater Sci 50:1418
+
+Liu Y, Zhao J, Wang F (2009) Inﬂuence of length on shock-
+induced breaking behavior of copper nanowires. Phys Rev
+B 80:115417
+
+Melosh NA, Boukai A, Diana F, Gerardot B, Badolato A, Petroff
+PM, Heath JR (2003) Ultrahigh-density nanowire lattices
+and circuits. Science 300:112–115
+
+Miao L, Bhethanabotla VR, Joseph B (2005) Melting of Pd
+clusters and nanowires: a comparison study using molec-
+ular dynamics simulation. Phys Rev B 72:134109
+
+Muller CJ, Vanruitenbeek JM, Dejongh LJ (1992a) Conduc-
+tance and supercurrent discontinuities in atomic-scale
+
+Wang F, Gao Y, Zhu T, Zhao J (2011a) Shock-induced breaking
+of the nanowire with the dependence of crystallographic
+orientation and strain rate. Nanoscale Res Lett 6:291
+
+Wang F, Gao Y, Zhu T, Zhao J (2011b) Shock-induced breaking
+in the gold nanowire with the inﬂuence of defects and strain
+rates. Nanoscale 3:1624–1631
+
+Wang F, Chen T, Zhu T, Gao Y, Zhao J (2011c) Uniaxial ten-
+sion-induced breaking in the gold nanowire with the
+inﬂuence of defects and temperatures. J Appl Phys
+110:084307
+
+Wang F, Sun W, Wang H, Zhao J, Kiguchi M, Sun C (2012)
+Investigation on the effect of atomic defects on the
+breaking behaviors of gold nanowires. J Nanopart Res
+14:1082
+
+Wang F, Dai Y, Zhao J, Li Q (2014) Uniaxial tension-induced
+fracture in gold nanowires with the dependence on size and
+atomic vacancies. Phys Chem Chem Phys 16:24716–24726
+Wu HA (2006) Molecular dynamics study of the mechanics of
+metal nanowires at ﬁnite temperature. Eur J Mech a-Solids
+25:370–377
+
+Wu B, Heidelberg A, Boland JJ (2005) Mechanical properties of
+
+ultrahigh strength gold nanowires. Nat Mater 4:525–529
+
+Zhao J, Murakoshi K, Yin X, Kiguchi M, Guo Y, Wang N, Liang
+S, Liu H (2008a) Dynamic characterization of the post-
+breaking behavior of a nanowire. J Phys Chem C
+112:20088–20094
+
+Zhao J, Yin X, Liang S, Liu Y, Wang D, Deng S, Hou J (2008b)
+Ultra-large scale molecular dynamics simulation for nano-
+engineering. Chem Res Chin Univ 24:367–370
+
+123
+
+
