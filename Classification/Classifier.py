@@ -9,7 +9,8 @@ __author__ = 'Sean Reedy'
 
 from nltk.classify import SklearnClassifier
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.pipeline import Pipeline
+# from sklearn.pipeline import Pipeline
+
 
 class Classifier:
 
@@ -87,3 +88,10 @@ def max_prob(probs):
         if P > maxP:
             label = C
     return label
+
+
+def main():
+    pass
+
+if __name__ == '__main__':
+    main()
