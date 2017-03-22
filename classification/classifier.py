@@ -45,18 +45,29 @@ class Classifier:
         self.classifier.train([(d.get_features(), d.get_label() ) for d in train_set])
 
     def test(self, test_set):
+        """Using a new set of documents, test the accuracy of the classifier"""
         tested = 0
         correct = 0
-        collisions = 0  # number of times a doc in testing set occurs in corpus (bad)
+        collisions = 0  # number of times a doc in testing set occurs in corpus. These docs are ignored.
+        errors = []
+        print ('Testing %d documents' % (len(test_set)))
         for d in test_set:
             if d in self.corpus:
                 collisions += 1
-            if d.get_label == self.classify(d):
-                correct += 1
+            else:
+                prediction = self.classify(d)
+                actual = d.get_label()
+                if prediction == actual:
+                    correct += 1
+                else:
+                    errors.append((prediction, actual)) # add (prediction, actual) to list of errors
             tested += 1
-
-        print 'Tested=%d, correct=%d, accuracy=%f, collisions=%d' % (tested, correct, correct/tested, collisions)
-
+        accuracy = correct/tested
+        print 'Tested=%d, correct=%d, accuracy=%f, collisions=%d' % (tested, correct, accuracy, collisions)
+        print 'Errors:'
+        for p, a in errors:
+            print('Predicted = %s, Actual = %s ' % (p, a))
+        return accuracy
 
     def train_and_test(self, dev_set, split=.5):
         """Splits dev set into training and testing sets then trains/tests
