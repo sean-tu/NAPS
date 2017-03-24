@@ -31,6 +31,8 @@ class FeatureExtractor:
         >>> stem_words({'walk': 3, 'walking': 1, 'walked': 2})
         {'walk': 6}
         """
+        # TODO Associate tokens with stemmed features
+        # TODO investigate other stemming methods
         stemmed = {}
         for f, v in self.features.iteritems():
             s = self.stemmer.stem(f)
@@ -45,7 +47,7 @@ class FeatureExtractor:
         ordered = OrderedDict(sorted(d.items(), key=lambda t: t[1], reverse=True))
         return ordered
 
-    def filter_features(self, min_freq=2):
+    def filter_features(self, min_freq=1):
         features = {}
         for f, v in self.features.iteritems():
             if v >= min_freq:
@@ -61,7 +63,7 @@ class FeatureExtractor:
 
     def __str__(self):
         separator = '%s\n' % ('#'*12)
-        result = separator + 'Features (%d):' % len(self.features) + '\n'
+        result = separator + 'Features (%d):' % len(self.features) + '\n' # TODO fix length
         features = self.sort_dictionary(self.features)
         for f, v in features.iteritems():
             result += '%s - %d' % (f.encode('utf-8'), v) + '\n'

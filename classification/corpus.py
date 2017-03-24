@@ -9,7 +9,7 @@ import pickle
 
 
 class Document:
-    def __init__(self, raw_text=None, class_label=None):
+    def __init__(self, raw_text=None, class_label='uncategorized'):
         self.raw_text = raw_text
         self.tokens = None
         self.features = None

@@ -1,5 +1,5 @@
 """Driver for the classification package."""
-
+from classifier import Classifier
 from tokenizer import Tokenizer
 from feature_extractor import FeatureExtractor
 from corpus import Corpus, Document
@@ -7,19 +7,29 @@ from corpus import Corpus, Document
 
 def main():
 
-    # Tokenizer
-    path = 'paper1.txt'
-    doc1 = Document(path)
+    # Tokenize
+    path = 'ex.txt'
     processor = Tokenizer(path)
     processor.filter_tokens()
     tokens = processor.get_tokens()
     print tokens
 
-    # Feature Extractor
+    # Extract features
     fe = FeatureExtractor(tokens)
     fe.stem_words()
     fe.filter_features()
-    print fe
+    features = fe.get_features()
+
+    # Create document
+    doc1 = Document()
+    doc1.set_tokens(tokens)
+    doc1.set_features(features)
+
+    # Classify 
+    classifier = Classifier()
+
+    #Need to train classifier before classifying instances.
+
 
 
 if __name__ == '__main__':

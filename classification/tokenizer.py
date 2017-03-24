@@ -23,18 +23,21 @@ class Tokenizer:
         self.MIN_WORD_LENGTH = 2
 
         self.load_input(path)
-        self.filter_tokens()
         self.tokenize()
+        self.filter_tokens()
+
+        # TODO exceptions for failed file loading cases
 
     def load_input(self, path):
         """ Read file to string """
-        raw = codecs.open(path, 'r', 'utf-8').read()
+        f = codecs.open(path, 'r', 'utf-8')
+        raw = f.read()
         self.raw_text = raw
 
     def tokenize(self):
         """Convert string to a list of tokens, i.e. individual words """
         raw_tokens = word_tokenize(self.raw_text)
-        return raw_tokens
+        self.tokens = raw_tokens
 
     def filter_tokens(self):
         """Remove non-words, short words (<minLength), and stopwords (common words that don't give information"""
