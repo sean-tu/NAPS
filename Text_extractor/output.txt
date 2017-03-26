@@ -1,0 +1,552 @@
+Journal  of  Biotechnology  211  (2015)  56–65
+
+Contents  lists  available  at  ScienceDirect
+
+Journal   of   Biotechnology
+
+j  o u r n a  l  h o  m e   p a  g e :  w w w . e l s e v i e r . c o m / l o c a t e / j b i o t e c
+
+Systematic   analysis   of   CRISPR–Cas9   mismatch   tolerance   reveals   low
+levels   of   off-target   activity
+
+Emily   M.   Anderson,   Amanda   Haupt,   John   A.   Schiel,   Eldon   Chou,   Hidevaldo   B.   Machado,
+ˇZaklina   Strezoska,   Steve   Lenger,   Shawn   McClelland,   Amanda   Birmingham,
+Annaleen   Vermeulen,   Anja   van   Brabant   Smith∗
+
+Dharmacon,  Part  of  GE  Healthcare,  Lafayette,  CO  80026,  USA
+
+a
+
+ 
+
+r
+
+ 
+
+t
+
+ 
+
+i
+
+ 
+
+c
+
+ 
+
+l
+
+ 
+
+e
+
+ 
+
+i
+
+ 
+
+n
+
+ 
+
+f
+
+ 
+
+o
+
+a
+
+ 
+
+b
+
+ 
+
+s
+
+ 
+
+t
+
+ 
+
+r
+
+ 
+
+a
+
+ 
+
+c
+
+ 
+
+t
+
+Article  history:
+Received  24  April  2015
+Received  in  revised  form  26  May   2015
+Accepted  23  June  2015
+Available  online  17  July  2015
+
+Keywords:
+CRISPR-Cas9
+Speciﬁcity
+Gene  editing
+Genome  engineering
+Functional  assay
+crRNA
+
+the   bacterial   clustered  
+
+regularly  
+
+that 
+
+interspaced   short   palindromic  
+
+The   discovery  
+repeats
+(CRISPR)–CRISPR-associated   protein   9  (Cas9)   acquired   immune   system   can   be   utilized   to  create   double-
+strand   breaks   (DSBs)   in   eukaryotic   genomes   has   resulted   in   the   ability   to   create   genomic   changes   more
+easily   than   with   other   genome   engineering   techniques.   While   there   is   signiﬁcant   potential   for   the
+CRISPR–Cas9   system   to  advance   basic   and   applied   research,   several   unknowns   remain,   including   the
+speciﬁcity   of  the  RNA-directed   DNA   cleavage   by   the  small   targeting   RNA,   the   CRISPR   RNA   (crRNA).   Here
+we   describe   a  novel   synthetic   RNA   approach   that   allows   for   high-throughput   gene   editing   experiments.
+This   was   used   with   a   functional   assay   for   protein   disruption   to   perform   high-throughput   analysis   of
+crRNA   activity   and   speciﬁcity.   We   performed   a  comprehensive   test   of  target   cleavage   using   crRNAs   that
+contain   one   and   two   nucleotide   mismatches   to  the   DNA   target   in   the   20mer   targeting   region   of   the   crRNA,
+allowing   for   the   evaluation   of   hundreds   of  potential   mismatched   target   sites   without   the   requirement   for
+the  off-target   sequences   and   their   adjacent   PAMs   to  be  present   in   the   genome.   Our   results   demonstrate
+that   while   many   crRNAs   are  functional,   less   than   5%   of   crRNAs   with   two   mismatches   to   their   target   are
+effective   in   gene   editing;   this   suggests   an   overall   high   level   of   functionality   but   low   level   of   off-targeting.
+©   2015   The   Authors.   Published   by   Elsevier   B.V.  This   is   an   open   access   article   under   the   CC   BY-NC-ND
+license  (http://creativecommons.org/licenses/by-nc-nd/4.0/).
+
+1.  Introduction
+
+The  CRISPR–Cas9  system  is  a  highly  effective  and  simple  tech-
+nique  for  modifying  the  genome  of  higher  eukaryotes,  particularly
+mammalian  cells  that  have  not  been  readily  amenable  to  gene
+editing.  In  the  short  period  since  the  initial  discovery  of  efﬁ-
+cacy  in  mammalian  cells  (Cong  et  al.,  2013;  Mali  et  al.,  2013;
+Jinek  et  al.,  2013;  Cho  et  al.,  2013),  there  have  been  numerous
+studies  that  demonstrate  the  utility  of  the  CRISPR–Cas9  system
+
+Abbreviations:  CRISPR,  clustered  regularly  interspaced  palindromic  repeats;
+Cas9,  CRISPR  associated  protein  9;  crRNA,  CRISPR  RNA;  tracrRNA,  trans-activating
+CRISPR  RNA;  PAM,  protospacer  adjacent  motif;  sgRNA,  single  guide  RNA;  NGS,  next
+generation  sequencing;  PSC,  pluripotent  stem  cells;  ACE,  monoacetate  orthoester;
+siRNA,  small  interfering  RNA;  T7E1,  T7  endonuclease  I;  PCR,  polymerase  chain  reac-
+tion;  GFP,  green  ﬂuorescent  protein;  EGFP,  enhanced  green  ﬂuorescent  protein;
+Ubi-GFP,  ubiquitin-conjugated  green  ﬂuorescent  protein;  DNA,  deoxyribonucleic
+acid;  RNA,  ribonucleic  acid;  GUIDESeq,  genome-wide  unbiased  identiﬁcations  of
+DSBs  evaluated  by  sequencing;  DSB,  double-strand  break.
+∗ Corresponding  author.
+E-mail  address:  anja.smith@ge.com  (A.v.B.  Smith).
+
+for  genome  engineering,  from  performing  whole-genome-scale
+knockout  screens  elucidating  gene  function  in  cell  culture  (Shalem
+et  al.,  2014;  Wang  et  al.,  2014),  to  creating  multiple  mutations  mod-
+eling  tumors  in  the  livers  and  lungs  of  adult  mice  (Xue  et  al.,  2014;
+Platt  et  al.,  2014)  and  creating  mutations  in  the  brains  of  adult  mice
+(Swiech  et  al.,  2015).  This  CRISPR  system  requires  the  Cas9  nucle-
+ase  along  with  two   short  RNA  molecules,  the  guiding  CRISPR  RNA
+(crRNA)  and  the  trans-activating  crRNA  (tracrRNA),  that  hybridize
+to  each  other  and  direct  Cas9  to  the  target  location  for  cleavage
+based  on  sequence  complementarity  to  the  crRNA  as  well  as  prox-
+imity  of  the  DNA  target  to  a  protospacer  adjacent  motif  (PAM).  In
+2012,  Jinek  et  al.  (2012)  demonstrated  that  the  two  small  RNAs,
+crRNA  and  tracrRNA,  can  be  combined  into  a  single  guide  RNA
+(sgRNA)  that  can  be  expressed  in  mammalian  cells.  While  the  effec-
+tiveness  and  universality  of  CRISPR–Cas9  for  genome  engineering
+in  mammalian  systems  has  been  clearly  demonstrated,  the  activity
+and  speciﬁcity  of  a  particular  crRNA  or  chimeric  sgRNA  is  less  clear.
+The  ability  of  any  given  crRNA  to  efﬁciently  create  a  DSB  in  the
+target  DNA  can  vary  based  on  the  guide  RNA  (gRNA;  either  crRNA
+or  sgRNA)  sequence  and  position  in  the  targeted  gene  (Shalem
+et  al.,  2014;  Wang  et  al.,  2014;  Koike-Yusa  et  al.,  2014).  A  recent
+
+http://dx.doi.org/10.1016/j.jbiotec.2015.06.427
+0168-1656/©  2015  The  Authors.  Published  by  Elsevier  B.V.  This  is  an  open  access  article  under  the  CC  BY-NC-ND  license  (http://creativecommons.org/licenses/by-nc-nd/4.
+0/).
+
+E.M.  Anderson  et  al.  /  Journal  of  Biotechnology  211  (2015)  56–65 
+
+57
+
+study  has  identiﬁed  sgRNA  design  rules  that  predict  functional
+sgRNAs  (Doench  et  al.,  2014).  Likewise,  several  publications  have
+demonstrated  variable  levels  of  off-target  cleavage  for  speciﬁc
+sgRNAs  (Cong  et  al.,  2013;  Cho  et  al.,  2014;  Fu  et  al.,  2013;  Lin
+et  al.,  2014;  Pattanayak  et  al.,  2013;  Hsu  et  al.,  2013).  For  exam-
+ple,  Fu  et  al.  (2013)  examined  the  activity  of  sgRNAs  that  contained
+single,  double,  and  multiple  mismatches  with  the  target  DNA.
+Their  results  demonstrated  that,  in  general,  single  mismatches  are
+well-tolerated  at  the  5(cid:3) end  of  the  sgRNA,  adjacent  double  mis-
+matches  can  still  result  in  cleavage  for  some  sequences,  and  three
+or  more  adjacent  mismatches  at  the  5(cid:3) end  of  the  sgRNA  elim-
+inate  activity.  When  testing  potential  off-target  sites  that  were
+predicted  bioinformatically,  CRISPR–Cas9-dependent  cleavage  was
+only  detected  at  a  small  subset  of  these  endogenous  potential
+off-target  sites.  In  addition,  off-targeting  was  demonstrated  using
+sequences  containing  up  to  ﬁve  nonadjacent  mismatches  to  their
+target,  suggesting  that  sequences  with  more  mismatches  to  a
+potential  off-target  do  not  necessarily  yield  reduced  off-targeting.
+Off-target  sites  including  DNA  or  RNA  bulges  at  certain  positions
+relative  to  the  sgRNA  strand  have  also  been  shown  to  be  cleaved
+by  CRISPR–Cas9  (Lin  et  al.,  2014).  These  results  show  context  and
+sequence  dependencies  including  a  correlation  with  GC  content.
+In  contrast,  whole-genome  next-generation  sequencing  (NGS)  of
+human  pluripotent  stem  cell  (PSC)  clones  or  induced  PSC  clones
+targeted  with  CRISPR–Cas9  showed  very  few  to  no  off-target  muta-
+tions  that  could  be  attributed  to  CRISPR–Cas9  (Smith  et  al.,  2014;
+Veres  et  al.,  2014).  In  these  studies,  clonal  artifacts  derived  from
+isolating  CRISPR–Cas9-edited  cells  appeared  to  be  a  larger  con-
+cern,  suggesting  that  off-targeting  is  not  a  signiﬁcant  issue  for
+using  CRISPR–Cas9  in  human  PSCs.  The  rules  governing  which  mis-
+matches  between  the  crRNA  and  target  DNA  are  tolerated  and
+therefore  result  in  off-target  effects  remain  unclear.
+
+In  consideration  of  the  variety  of  reports  outlined  above,  we
+performed  a  comprehensive  evaluation  of  off-target  potential  of
+crRNAs  containing  mismatches  with  the  target  DNA.  While  Fu
+et  al.  evaluated  transversion  mutations  at  all  possible  single  mis-
+matches  throughout  19  of  the  20  nucleotides,  their  evaluation  of
+double  mismatches  was  limited  to  adjacent  mismatches  and  a  sub-
+set  of  variably  spaced  ones.  Likewise,  Hsu  et  al.  evaluated  varying
+combinations  of  mismatches,  both  interspersed  and  concatenated,
+but  they  did  not  assess  all  possible  mismatch  combinations,  likely
+due  to  the  technical  infeasibility  of  generating  and  assaying  large
+numbers  of  sgRNA  designs.  Here,  we  exploit  a  functional  assay
+paired  with  synthetic  crRNAs  to  assess  the  effects  of  mismatches
+in  a  high-throughput  manner,  including  a  comprehensive  analysis
+of  all  possible  crRNA  positions  containing  two  mismatches.  This
+approach  allows  for  a  systematic  and  thorough  investigation  of
+positional  preferences  in  off-targeting,  since  a  very  large  number
+of  combinations  can  be  tested  without  prior  knowledge  of  whether
+the  off-target  sites  occur  endogenously  in  the  genome  alongside  a
+PAM.  In  a  genomewide  study  design,  for  instance  utilizing  NGS,  a
+much  larger  set  of  crRNAs  would  have  to  be  assayed  to  represent
+every  position  in  the  crRNA  targeting  sequences  with  the  assurance
+that  all  or  a  large  number  of  the  potential  off-target  sequences  were
+represented  in  silico.
+
+2.  Materials  and  methods
+
+2.1.  Generating  a  stable  cell  line  expressing  Cas9
+
+2.1.1.  Cas9  lentiviral  particle  production
+
+A  lentiviral  vector  containing  a  human  codon-optimized  Strepto-
+coccus  pyogenes  Cas9  gene  under  control  of  the  hCMV  promoter  and
+a  puromycin  resistance  gene  was  packaged  into  lentiviral  particles
+
+using  the  Trans-Lentiviral  Packaging  Kit  (Dharmacon,  #TLP5919)
+(Kappes  and  Wu,   2001;  Kappes  et  al.,  2003).
+
+2.1.2.  Creation  of  Cas9  stable  cell  lines
+
+Recombinant  U2OS  cells  that  stably  express  a  mutant  human
+ubiquitin  fused  to  EGFP  (Thermo  Scientiﬁc  BioImage  Proteasome
+Redistribution  Assay,  #R0402102)  were  seeded  at  100,000  cells
+per  well  in  a  24-well  plate  (Costar,  #3524).  The  following  day,
+␮L  of  Cas9  lentiviral  particles  (rough
+cells  were  transduced  with  3 
+×
+  106 viral  particles  per  mL).  The  cells
+estimate  of  viral  titer:  1 
+were  expanded  into  a  6-well  plate  (Thermo  Scientiﬁc,  #140675)
+72  h  post-transduction.  After  a  48-hour  recovery  and  expansion
+␮g/mL  of  puromycin  (Invivo-
+period,  the  cells  were  exposed  to  2 
+gen,  #ant-pr-5).  Cells  that  survived  the  selection  were  harvested
+and  utilized  in  the  following  experiments  and  are  referred  to  as
+Ubi-GFP  U2OS–Cas9.
+
+2.2.  Design  of  crRNA  and  tracrRNA
+
+Full-length  crRNAs  were  designed  by  appending  the  S.  pyogenes
+crRNA  repeat  sequence,  5(cid:3) GUUUUAGAGCUAUGCUGUUUUG  3(cid:3),  to
+each  target  sequence.
+
+crRNAs  were  designed  to  target  VCP,  PPIB,  MYBB1,  DNMT3B,
+CDKNIA,  VEGFA  and  EMX1  (Supplementary  Table  1).  VEGFA  and
+EMX1  crRNA  sequences  were  obtained  from  Fu  et  al.  (2013).  For
+saturation  studies,  266  crRNAs  to  most  positions  across  the  VCP
+were  designed  (Supplementary  Table  2).
+For  speciﬁcity  studies,  two   functional  target  sequences  were
+selected  (VCP  2:  5(cid:3) UCAUCAACAAUUAACCGAUU  3(cid:3) and  PSMD7  1:
+5(cid:3) AGCGGGGUGUGUCGCGAUGC  3(cid:3)).  For  each  one,  a  set  of  alternate
+sequences  with  disruptive  2-base  mismatches  across  the  ﬁrst  20
+targeting  nucleotides  was  designed  by  replacement  of  each  base
+with  its  Watson–Crick  partner  (A–U,  U–A,  G–C,  and  C–G)  at  two
+separate  positions  in  all  possible  combinations  of  positions.  This
+resulted  in  190  2-base  mismatch  sequences  for  each  of  the  two
+crRNAs  (Supplementary  Table  3).
+(5(cid:3)
+a 
+AACAGCAUAGCAAGUUAAAAUAAGGCUAGUCCGUUAUCAACU-
+UGAAAAAGUGGCACCGAGUCGGUGCUUUUUUU  3(cid:3))  based  on  the
+published  S.  pyogenes  tracrRNA  sequence  (Jinek  et  al.,  2012).
+
+74-nucleotide 
+
+RNA 
+
+The 
+
+tracrRNA 
+
+is 
+
+2.3.  Synthesis  of  crRNA  and  tracrRNA
+
+All  crRNAs  and  tracrRNA  were  chemically  synthesized  on
+solid-phase  support  using  5(cid:3)-silyl-2(cid:3)-orthoester  (ACE)  chemistry
+(Scaringe,  2001;  Wincott  et  al.,  1995).  crRNAs  were  deprotected,
+desalted,  and  used  without  further  puriﬁcation.  The  tracrRNA  was
+additionally  HPLC-puriﬁed.
+
+2.4.  Transfections
+
+HEK293T,  Ubi-GFP  U2OS–Cas9,  U2OS  and  ESD3  cells  were
+seeded  in  a  96-well  plate  in  a  density  appropriate  for  each  spe-
+ciﬁc  assay.  The  following  day  crRNA  and  tracrRNA  were  individually
+resuspended  in  10  mM  Tris–HCl  (pH7.5),  100  mM  NaC,  and  1  mM
+␮M  crRNA  and  tracrRNA  were  added  together  and  the
+EDTA.  100 
+␮M  using  sterile  1X  siRNA  Buffer
+RNA  was   further  diluted  to  5 
+(Dharmacon,  B-002000-UB-100).  A  ﬁnal  concentration  of  50  nM
+crRNA:tracrRNA  (50  nM  of  each  crRNA  and  tracrRNA)  was  used
+for  transfection.  The  cells  were  transfected  with  DharmaFECT  Duo
+Transfection  Reagent  (Dharmacon,  #  T-2010-03)  using  100  ng  of
+Cas9  plasmid  (for  co-transfections)  and  50  nM  crRNA:tracrRNA
+complex.
+
+58 
+
+E.M.  Anderson  et  al.  /  Journal  of  Biotechnology  211  (2015)  56–65
+
+2.5.  Genomic  DNA  isolation  and  mismatch-detection  assay
+
+3.  Results
+
+Genomic  DNA  was  isolated  72  h  post-transfection  by  direct  lysis
+of  the  cells  in  Phusion  HF  buffer  (Thermo  Scientiﬁc,  #F-518L),  pro-
+teinase  K  and  RNase  A  for  1  h  at  56 ◦C  followed  by  heat  inactivation
+at  96 ◦C  for  5  min.  PCR  was   performed  with  primers  ﬂanking  the
+cleavage  sites  (Supplementary  Table  4).  500  ng  of  PCR  products  was
+treated  with  T7  endonuclease  I  (T7EI;  NEB,  #M0302L)  for  25  min   at
+37 ◦C  and  the  samples  were  separated  on  a  2%  agarose  gel.  Percent
+editing  in  each  sample  was  calculated  using  ImageJ.
+
+2.6.  Sanger  sequencing
+
+Blunt-end  PCR  products  generated  for  the  mismatch-detection
+assay  were  cloned  into  pCR-Blunt  using  the  Zero  Blunt  PCR  Cloning
+Kit  according  to  the  manufacturer’s  protocol  (Life  Technologies,
+#K2700-20).  Transformed  colonies  were  picked  into  96-well  plates
+and  grown  overnight  in  NZYM  PLUS  broth  (Teknova,  #N1220)
+and  8%  glycerol.  Frozen  96-well  plates  were  sent  to  Oblique  Bio,
+Inc.  (Huntsville,  AL)  for  mini-prep  and  Sanger  sequencing.  Chro-
+matograms  were  analyzed  with  Geneious  Version  6.1.8,  created  by
+Biomatters  (www.geneious.com).
+
+2.7.  Functional  screening  of  gene  editing
+
+2.7.1.  Proteasome  assay
+
+Ubi-GFP  U2OS–Cas9  cells  were  plated  at  3500  cells  per  well  in
+Costar  Black  96-well  tissue  culture  treated  plates  (Costar,  #3916)
+in  DMEM  high  glucose  supplemented  with  10%  fetal  bovine  serum.
+Cells  were  incubated  at  37 ◦C,  5%  CO2 for  24  h  before  transfection.
+␮L/well  Dharma-
+Cells  were  transfected  in  triplicate  using  0.08 
+FECT  #3  (Dharmacon,  T-2003-01)  diluted  in  reduced  serum  media
+(HyClone,  SH30564.01).  Cells  were  returned  to  the  37 ◦C,  5%  CO2
+incubator  for  72  h  prior  to  analysis.
+
+2.7.2.  ArrayScan  detection
+
+Cells  were  washed  with  1X  DPBS  and  treated  with  4%
+paraformaldehyde  for  30  min.  Cells  were  then  washed  two   times
+with  1X  DPBS  and  Hoechst  stained  for  5  min.  Plates  were  analyzed
+on  the  Cellomics  ArrayScan  VTI  HCS  Reader  (Thermo  Scientiﬁc)
+×
+at  5 
+  magniﬁcation,  using  a  target  activation  method  in  the  Cel-
+lomicsScan  Software  (Thermo  Scientiﬁc),  where  GFP-positive  cells
+are  identiﬁed  as  selected  cells.  A  total  of  nine  ﬁelds  of  view  at  5×
+were  imaged  per  well.  Total  number  of  cells  and  percent  selected
+cells  were  reported  and  used  for  analysis.  Individual  images  were
+analyzed  for  artifacts  that  could  be  erroneously  calculated  as  GFP-
+positive  cells  by  the  analysis  software;  any  wells  containing  these
+artifacts  were  discarded  from  the  data  set.
+
+2.7.3.  Data  analysis
+
+for 
+
+the  positive  control 
+
+Percent  selected  (GFP  positive)  cells  per  well  for  each  bio-
+logical  triplicate  were  normalized  to  average  of  percent  selected
+cells 
+(perfect  match  sequence)  on
+each  plate.  Average  normalized  percent  GFP  positive  cells  and
+standard  deviation 
+is  reported.
+for  each  biological  triplicate 
+×
+−
+Robust  z-score  (x 
+  1.4826  where
+  median(sample)/MAD(sample) 
+x  =  sample  value  and  MAD   is  the  median  absolute  deviation  of  the
+non-control  samples)  was  also  calculated.  Any  2-base-mismatched
+crRNA  to  the  targets  VCP  2  or  PSMD7  1  with  a  robust  z-score  of
+>100  was  selected  as  a  hit;  this  score  threshold  was   chosen  as  it
+identiﬁes  all  positive  controls  and  no  negative  controls.
+
+3.1.  Efﬁcient  gene  editing  using  Cas9  and  synthetic  crRNA  and
+tracrRNA
+
+Most  published  studies  using  CRISPR–Cas9  for  gene  editing  have
+used  a  sgRNA  cloned  into  and  expressed  from  a  plasmid  to  direct
+target  cleavage.  A  wide  range  of  gene  editing  efﬁciencies  have  been
+reported  (<1–>50%),  depending  on  the  sgRNA  and  the  target.  While
+the  use  of  a  sgRNA  is  convenient  for  expression  from  a  plasmid,  this
+approach  requires  cloning  and  sequence  veriﬁcation  of  every  con-
+struct;  this  approach  is  not  amenable  to  high-throughput  screening
+of  crRNA  sequences.  We   referred  back  to  the  original  bacterial
+Type  II  CRISPR  system  and  used  a  two-RNA  approach,  combining
+expression  of  the  Cas9  protein  with  delivery  of  two   synthetic  RNA
+molecules  endogenous  to  the  bacterial  CRISPR–Cas9  system:  the
+processed  (or  mature)  42-mer  crRNA  and  the  74-mer  tracrRNA
+(nucleotides  15–89  of  the  primary  transcript,  derived  from  Sup-
+plementary  Table  1  of  Jinek  et  al.  (2012))  (Fig.  1A).  We   synthesized
+these  two  RNA  molecules  using  2(cid:3)ACE  RNA  chemistry,  resulting  in
+high  yield  and  purity  of  full-length  RNA.
+
+We  tested  the  efﬁciency  of  genome  editing  using  synthetic
+crRNA  and  tracrRNA  molecules  on  several  gene  targets,  including
+those  that  have  been  published  using  sgRNAs.  A  mismatch-
+detection  assay  (for  example,  SURVEYOR  or  T7EI;  Fig.  1B–E)  is
+typically  used  for  the  detection  and  quantiﬁcation  of  insertions
+and  deletions  (indel)  mutations  created  by  the  CRISPR–Cas9  sys-
+tem  (Vouillot  et  al.,  2015).  As  shown  in  Fig.  1B,  co-transfection  of  a
+plasmid  expressing  Cas9  in  combination  with  synthetic  crRNA  and
+tracrRNA  results  in  indels  at  the  targeted  site.  The  dual  synthetic
+RNA  approach  is  also  effective  in  multiple  cell  lines  (Supplemen-
+tary  Fig.  1A,B).  To  evaluate  the  off-target  proﬁle  of  Cas9  targeting
+using  synthetic  crRNAs  and  tracrRNA,  we   designed  and  synthesized
+crRNA  molecules  to  three  sequences  in  the  human  genome  (two
+sites  in  VEGFA  and  one  site  in  EMX1)  that  have  previously  been
+shown  by  a  mismatch-detection  assay  to  result  not  only  in  effec-
+tive  target  cleavage  but  also  in  off-target  editing  at  other  sites  in
+the  genome  (Fu  et  al.,  2013).  We   detected  off-target  editing  at  the
+same  locations  reported  for  sgRNAs  (Fig.  1C–E,  Supplementary  Fig,
+2),  and  the  efﬁciency  of  these  events  was  consistent  with  efﬁcien-
+cies  reported  for  sgRNAs  (Mali  et  al.,  2013),  as  detected  by  the  T7EI
+mismatch-detection  assay.  These  data  demonstrate  that  the  use  of
+synthetic  crRNA  and  tracrRNA  molecules  results  in  a  similar  pat-
+tern  of  on-  and  off-targeting  in  mammalian  cells  when  compared
+to  expressed  sgRNAs.
+
+3.2.  Evaluation  of  a  functional  reporter  assay  to  assess  gene
+editing  in  a  high-throughput  manner
+
+Because  the  sequence  of  the  tracrRNA  is  constant  regardless
+of  the  crRNA  sequence,  hundreds  or  even  thousands  of  different
+crRNA  targeting  sequences  can  be  evaluated  in  a  high-throughput
+manner  simply  by  synthesizing  the  42-mer  crRNA  sequence  and
+co-transfecting  it  with  tracrRNA.  We   applied  this  approach  to
+design  a  high-throughput  assay  which  evaluates  CRISPR–Cas9-
+mediated  on-  and  off-targeting  in  mammalian  cells.  Although
+mismatch-detection  assays  (Fig.  1B–E)  are  fairly  straight-forward,
+they  are  time-consuming,  require  identiﬁcation  and  validation  of
+PCR  primers  for  each  target  site,  and  are  not  suitable  for  high-
+throughput  screening  of  crRNAs.  We   therefore  validated  a  reporter
+cell  line  stably  expressing  EGFP  fused  to  a  non-cleavable  mutant
+ubiquitin  moiety  as  a  functional  readout  of  CRISPR–Cas9  gene  edit-
+ing  (Dantuma  et  al.,  2000).  These  Ubi-GFP  U2OS  cells  constitutively
+degrade  the  EGFP  fusion  through  the  proteasome  pathway,  result-
+ing  in  little  to  no  GFP  ﬂuorescence.  However,  if  the  proteasome
+complex  or  pathway  is  compromised  or  disrupted,  the  EGFP  fusion
+
+E.M.  Anderson  et  al.  /  Journal  of  Biotechnology  211  (2015)  56–65 
+
+59
+
+Fig.  1.  CRISPR–Cas9-mediated  gene  editing  using  synthetic  crRNAs  and  tracrRNA.  (A)  Diagram  showing  genome  engineering  using  the  CRISPR–Cas9  system  consisting  of  the
+synthetic  crRNA  and  tracrRNA.  (B)  Co-transfection  of  a  plasmid  expressing  a  humanized  Cas9  and  synthetic  crRNA  and  synthetic  tracrRNA  results  in  targeted  DNA  cleavage
+in   HEK293T  cells.  Cells  were  transfected  with  Cas9  plasmid,  synthetic  crRNA,  and  synthetic  tracrRNA,  and  compared  to  untransfected  cells  (UT)  using  the  T7  endonuclease
+I   (T7EI)  assay.  The  percent  editing  after  72  h  is  indicated  at  the  bottom  of  each  lane.  (C–E)  Transfections  were  performed  as  in  (B)  and  off-target  gene  editing  with  synthetic
+crRNA   and  tracrRNA  was  determined  for  VEGFA  (C–D)  and  EMX1  (E)  as  previously  validated  with  sgRNA  (Fu  et  al.,  2013).  Red  asterisks  indicate  non-speciﬁc  bands  that  are
+present   in  untransfected  samples  and  were  not  included  in  the  indel  quantiﬁcation  (For  interpretation  of  the  references  to  color  in  this  ﬁgure  legend,  the  reader  is  referred
+to   the  web  version  of  this  article.).
+
+is  no  longer  constitutively  degraded  and  cells  begin  to  accumulate
+Ubi-GFP.
+
+We  additionally  stably 
+
+integrated  the  Cas9  gene 
+
+into  this
+reporter  cell  line  and  performed  CRISPR–Cas9  gene  editing  by
+transfecting  synthetic  crRNAs  and  tracrRNA  targeting  known  com-
+ponents  of  the  proteasome  that  we  had  previously  validated  using
+siRNAs  (data  not  shown).  As  seen  in  Fig.  2A,  crRNAs  targeting
+VCP  and  PSMD7  resulted  in  detectable  levels  of  EGFP,  indicating
+that  proteasome  function  had  been  disrupted  in  these  cells,  while
+there  was  no  increase  in  EGFP  ﬂuorescence  in  untreated  cells.
+
+The  transfections  were  performed  at  a  saturating  concentration
+of  50  nM  crRNA  and  tracrRNA  to  ensure  maximal  editing  activ-
+ity.  The  sensitivity  of  this  reporter  assay  is  high  due  to  the  very
+low  levels  of  background  in  untreated  cells  (0–5  cells,  where  in  an
+average  well  approximately  7700  cells  are  analyzed;  0.06%);  we
+can  therefore  conﬁdently  detect  positive  functional  activity  with
+statistical  signiﬁcance  down  to  10%  or  less  activity  of  the  perfectly-
+matched  crRNA.  For  instance,  for  a  perfectly-matched  target,  1500
+cells  are  functionally  disrupted  in  proteasome  activity  and  there-
+fore  are  EGFP-positive  (22%).  While  6  cells  can  theoretically  be
+
+60 
+
+E.M.  Anderson  et  al.  /  Journal  of  Biotechnology  211  (2015)  56–65
+
+Fig.  2.  Gene  editing  in  Ubi-GFP  U2OS–Cas9  cells.  (A)  Ubi-GFP  U2OS–Cas9  cells  were  transfected  with  synthetic  crRNAs  and  tracrRNA  targeting  two   genes  involved  in
+proteasome  function,  VCP  and  PSMD7  (using  the  VCP  2  crRNA  or  the  PSMD7  1  crRNA),  or  were  left  untreated.  GFP  phenotype  was  assessed  by  high-content  imaging  72  h  post-
+±
+transfection,  and  representative  images  are  shown.  The  percent  GFP-positive  cells  was   quantiﬁed  by  calculating  average  values  from  biological  triplicates:  VCP  =  10.3 
+  1.2%,
+±
+  0.0%.  (B)  Assessment  of  gene  editing  using  the  T7EI  mismatch-detection  assay  in  untreated  (−)  or  cells  treated  with  the  indicated
+PSMD7  =  10.6 
+crRNA   and  tracrRNA  (+).  The  percent  gene  editing  for  treated  samples  is  indicated  below  each  lane.  (C)  Summary  of  results  from  sequencing  individually  cloned  PCR  products
+from   untreated  (UT)  or  cells  treated  with  the  indicated  crRNA  and  tracrRNA.
+
+±
+  0.5%,  Untreated  =  0.0 
+
+detected  above  background  (0.08%),  we  conservatively  picked  a  sta-
+tistical  threshold  for  signiﬁcance  corresponding  to  approximately
+150  cells  per  well  (∼2%),  resulting  from  a  Robust  z-score  calcula-
+tion,  as  described  in  Section  2.  We   also  evaluated  treated  cells  for
+the  presence  of  indels  using  the  T7EI  assay  (Fig.  2B).  We   consis-
+
+tently  observed  that  the  indel  mutation  percentages  seen  using  a
+mismatch-detection  assay  are  higher  in  the  Ubi-GFP  U2OS–Cas9
+cell  line  than  those  seen  in  co-transfection  experiments  (Supple-
+mentary  Fig.  1A  compared  to  Fig.  2B);  possible  explanations  for  this
+discrepancy  include  transfection  efﬁciency  of  the  Cas9-expressing
+
+
