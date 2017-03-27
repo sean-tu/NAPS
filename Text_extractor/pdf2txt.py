@@ -9,7 +9,7 @@ from pdfminer.pdfdocument import PDFDocument
 from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfdevice import PDFDevice, TagExtractor
-from pdfminer.pdfpage import PDFPage
+from pdfpage_mod import PDFPage
 from pdfminer.converter import XMLConverter, HTMLConverter, TextConverter
 from pdfminer.cmapdb import CMapDB
 from pdfminer.layout import LAParams
@@ -58,7 +58,7 @@ def main(argv):
     PDFDevice.debug = debug
     #
     rsrcmgr = PDFResourceManager(caching=caching)
-
+    
     if outfile:
         outfp = file(outfile, 'w')
     else:
@@ -66,8 +66,13 @@ def main(argv):
     device = TextConverter(rsrcmgr, outfp, codec=codec, laparams=laparams,
                                imagewriter=imagewriter)
     for fname in args:
-        fp = file(fname, 'rb')
+
         interpreter = PDFPageInterpreter(rsrcmgr, device)
+        fp = file(fname, 'rb')
+        print('The number of pages in the file = '+ str(PDFPage.get_num(fp, pagenos,
+                                      maxpages=maxpages, password=password,
+                                      caching=caching, check_extractable=True)))
+
         for page in PDFPage.get_pages(fp, pagenos,
                                       maxpages=maxpages, password=password,
                                       caching=caching, check_extractable=True):
