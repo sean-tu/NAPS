@@ -14,6 +14,8 @@ from pdfminer.converter import XMLConverter, HTMLConverter, TextConverter
 from pdfminer.cmapdb import CMapDB
 from pdfminer.layout import LAParams
 from pdfminer.image import ImageWriter
+from Paper import Paper
+from Metadata import Metadata
 
 # main
 def main(argv):
@@ -58,27 +60,55 @@ def main(argv):
     PDFDevice.debug = debug
     #
     rsrcmgr = PDFResourceManager(caching=caching)
-    
+    current_page = 0
+
+    doi_out_file = file('doi.txt','w')
     if outfile:
         outfp = file(outfile, 'w')
     else:
         outfp = sys.stdout
+
+    """device class for the general extraction and the extraction of the doi
+    """
     device = TextConverter(rsrcmgr, outfp, codec=codec, laparams=laparams,
                                imagewriter=imagewriter)
-    for fname in args:
+    doi_out = TextConverter(rsrcmgr, doi_out_file, codec=codec, laparams=laparams,
+                               imagewriter=imagewriter)
 
+    paper = Paper()
+    search_eng = Metadata()
+    temp_author = None
+
+    for fname in args:
         interpreter = PDFPageInterpreter(rsrcmgr, device)
+        interpreter_doi = PDFPageInterpreter(rsrcmgr, doi_out)
+
         fp = file(fname, 'rb')
-        print('The number of pages in the file = '+ str(PDFPage.get_num(fp, pagenos,
+        paper.set_pages(PDFPage.get_num(fp, pagenos,
                                       maxpages=maxpages, password=password,
-                                      caching=caching, check_extractable=True)))
+                                      caching=caching, check_extractable=True))
 
         for page in PDFPage.get_pages(fp, pagenos,
                                       maxpages=maxpages, password=password,
                                       caching=caching, check_extractable=True):
             page.rotate = (page.rotate+rotation) % 360
+
+            """ So here the extraction of metadata takes place
+                if the page == 0, which is the first one, it tries to extract everything
+                However, since pdf's are formatted differently, and the first page is not sufficient,
+                we need to restart the counter to 0, and get the next page to do the same procedure.
+                Still needs work.
+                """
+            if current_page == 0:
+                interpreter_doi.process_page(page)
+                current_page+=1
+                doi_out_file.close()
+                search_eng.find_author('doi.txt')
+                paper.set_author(search_eng.author)
             interpreter.process_page(page)
         fp.close()
+
+    paper.printinfo()
     device.close()
     outfp.close()
     return
