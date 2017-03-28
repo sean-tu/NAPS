@@ -18,6 +18,9 @@ class Paper:
 	def set_title(self, title):
 		self.title = name
 
+	def set_doi(self, doi):
+                self.doi = doi
+
 	def set_text(self, fpt):
 		self.text = fpt
 

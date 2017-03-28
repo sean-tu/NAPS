@@ -10,6 +10,7 @@ class Metadata:
 	def __init__(self):
 		self.found_author = 0
 		self.found_title = 0
+		self.found_doi = 0
 		self.author = []
 
 	def find_author(self, fpt):
