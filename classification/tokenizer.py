@@ -13,16 +13,18 @@ __author__ = 'Sean Reedy'
 class Tokenizer:
     """Collects unigrams for bag of words style classification and filters out irrelevant tokens."""
 
-    def __init__(self, path):
+    def __init__(self, path=None, text=None):
         """Load raw text input, convert to tokens, and filter out unnecessary tokens."""
 
-        self.raw_text = None
+        self.raw_text = text
         self.tokens = None
 
         self.stopwords = stopwords.words('english') # TODO Update with low-information words
         self.MIN_WORD_LENGTH = 2
 
-        self.load_input(path)
+        if path is not None:
+            self.load_input(path)
+
         self.tokenize()
         self.filter_tokens()
 
@@ -41,6 +43,7 @@ class Tokenizer:
 
     def filter_tokens(self):
         """Remove non-words, short words (<minLength), and stopwords (common words that don't give information"""
+        # TODO hyphenated words
         filtered = [w.lower() for w in self.tokens
                     if len(w) > self.MIN_WORD_LENGTH
                     and w.isalpha()

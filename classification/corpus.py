@@ -9,11 +9,12 @@ import pickle
 
 
 class Document:
-    def __init__(self, raw_text=None, class_label='uncategorized'):
-        self.raw_text = raw_text
-        self.tokens = None
-        self.features = None
-        self.class_label = class_label
+    def __init__(self, path=None, raw_text=None, class_label='uncategorized'):
+        self.path = path                # path to text file
+        self.raw_text = raw_text        # string of text from text file
+        self.tokens = None              # list of tokens from text
+        self.features = None            # set of features (token, frequency)
+        self.class_label = class_label  # name of assigned category
 
     # Getters/setters
     def set_tokens(self, tokens):
@@ -32,12 +33,13 @@ class Document:
     # NOTE: that might get confusing. When OO and classification/ML lingo collide!
     def set_label(self, label):
         self.class_label = label
+        # TODO change class if containing class.class_label != class_label
 
 
 class Corpus:
-    """Contains the documents known to the classifier
+    """Contains the documents known to the classifier. 
 
-    Documents are organized by class. The Classifier uses the documents' features to calculate class probabilities
+    Documents are organized by class. The Classifier uses the documents' features to calculate class probabilities.
     """
 
     def __init__(self):
@@ -45,12 +47,10 @@ class Corpus:
         self.classes = []
 
     def add_document(self, document, label='uncategorized'):
-        """Add a document to the corpus
-
-        Args:
-            document (Document): document to be added
-            label (str): the class_label, and hence name of Class which document is assigned
-        """
+        """Add a document to the corpus with the given class label.
+        
+        If not specified, document will be given 'uncategorized' label. 
+        If corpus does not contain class with that label, create one."""
         c = self.get_class(label)
         if not c:
             c = self.Class(label)
@@ -58,8 +58,9 @@ class Corpus:
         c.add_document(document)
 
     def get_class(self, label):
+        """Returns Class object with specified class label"""
         for c in self.classes:
-            if c.get_label() == label:
+            if c.get_class_label() == label:
                 return c
         return None
 
@@ -80,6 +81,7 @@ class Corpus:
             pickle.dump(self, output, pickle.HIGHEST_PROTOCOL)
 
     def add_class(self, label):
+        """Adds class with given label to corpus if it does not already exist."""
         class_labels = self.get_class_labels()
         if label not in class_labels:
             new_class = self.Class(label)
@@ -92,9 +94,8 @@ class Corpus:
         return class_names
 
     class Class:
-        """Class of documents (ex: 'Biology') to which a document can be classified.
-
-        TODO Will be extended to subclasses later. """
+        """Class of documents (ex: 'Biology') to which a document can be classified."""
+        # TODO implement subclasses
         def __init__(self, label):
             self.class_label = label
             self.documents = []
@@ -122,9 +123,9 @@ class Corpus:
 def combine_features(set1, set2):
     """Combines the {feature: value} pairs of two dictionaries
 
-    >>> combine_features({'a':1, 'b':1, 'c':1}, {'a':5, 'b':1, 'd':1})
-    {'a':6, 'b':2, 'c':1, 'd':1}
-
+    >>> combine_features({'a':1, 'b':1, 'c':1}, {'a':5, 'b':1, 'd':1}) == {'a':6, 'b':2, 'c':1, 'd':1}
+    True
+    
     Result is accumulated in set1 (first parameter), set2 is unchanged
     """
     for f,v in set2.iteritems():
@@ -133,3 +134,11 @@ def combine_features(set1, set2):
         else:
             set1[f] = v
     return set1
+
+
+def main():
+    pass
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()

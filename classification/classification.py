@@ -25,8 +25,8 @@ def main():
     doc1.set_tokens(tokens)
     doc1.set_features(features)
 
-    # Classify 
-    classifier = Classifier()
+    # Classify
+
 
     #Need to train classifier before classifying instances.
 
