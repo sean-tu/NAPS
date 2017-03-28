@@ -18,6 +18,9 @@ class Paper:
 	def set_title(self, title):
 		self.title = name
 
+	def set_year (self, year):
+                self.year = year
+
 	def set_doi(self, doi):
                 self.doi = doi
 
@@ -30,3 +33,4 @@ class Paper:
 		print('num pages = ' + str(self.num_pages)+'')
 		print('author = '+str(self.author))
 		print('title = '+str(self.title))
+		print('year = '+str(self.year))
