@@ -15,15 +15,15 @@ class Metadata:
 		self.author = []
 
 	def find_author(self, fpt):
-		regex = r"([A-Z][a-z]+\s+[A-Z][a-z]+)"
+		i = 0
+		regex = r"((([A-Z][a-z]+)|([A-Z]\.))\s+(([A-Z]\.)|([A-Z][a-z]+))\s*(([A-Z][a-z]+)|(\,)))"
 		with open(fpt) as f:
     			for line in f:
 					author = re.findall(regex, line)
 					if author:
-						for name in author:
-							self.author.append(name)
+						for i in range(0, len(author)):
+							self.author.append(author[i][0])
 						self.found_author = 1
-
 		""" The condition, where we know if we need to parse another page
 			"""
 		if(self.found_author==1):
