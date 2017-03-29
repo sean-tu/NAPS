@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#z-!b+4ic8x5d3ia9)xnkb-sah&ig1wditjhy$5mtdfh8f)vgg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["projectNAPS.me","52.42.240.126","127.0.0.1","127.0.1.1"]
 
@@ -75,11 +75,11 @@ WSGI_APPLICATION = 'NAPS.wsgi.application'
 
 DATABASES = {
     'default': {
-#       'ENGINE': 'django.db.backends.mysql',
-       'NAME': 'NAPS',
-	'USER': 'root',
-	'PASSWORD': 'n!afhg23ps',
-	'HOST': 'projectnaps.me',
+	'ENGINE': 'django.db.backends.mysql',
+	'NAME': 'NAPS',
+	'USER': 'admin',
+	'PASSWORD': 'n!afhg23psS',
+	'HOST': 'projectNAPS.me',
 	'PORT': '3306',
     }
 }
