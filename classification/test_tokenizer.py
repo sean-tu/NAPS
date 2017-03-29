@@ -1,5 +1,6 @@
 import unittest
 from tokenizer import Tokenizer
+import os
 
 string1 = "Microscopy is the use of microscopes to see micro-sized objects."
 str = ("This is a test file.\n"
@@ -18,6 +19,14 @@ class TestTokenizer(unittest.TestCase):
         t = Tokenizer()
         tokens = t.tokenize(string1)
         self.assertEquals(tokens, ['Microscopy', 'is', 'the', 'use', 'of', 'microscopes', 'to', 'see', 'micro-sized', 'objects', '.'])
+
+    def test_tokenize_file(self):
+        t = Tokenizer()
+        cwd = os.getcwd()
+        print os.listdir(cwd)
+        raw = t.load_input(path='classification/paper1.txt')
+        tokens = t.tokenize(raw)
+        self.assertGreater(len(tokens), 3000)   # Check a reasonable number of tokens were successfully extracted
 
     def test_filter_tokens(self):
         t = Tokenizer()

@@ -1,4 +1,5 @@
 """ From a list of tokens, extracts the set of features to be used for classification of a document"""
+# IMPORTANT: There's a bug in nltk/stem/porter.py. Must add 'len(word) >= 2 and' to line 214.
 
 __author__ = "Sean Reedy"
 

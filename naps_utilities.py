@@ -19,13 +19,13 @@ def get_subfolders(path="papers"):
     folders = []
 
     final_path = "{}/{}".format(Relative_Path, path)
-
+    print final_path
     sub_folders = [d for d in os.listdir(final_path) if os.path.isdir(os.path.join(final_path, d))]
 
     for folder in sub_folders:
         folders.append("{}/{}".format(path, folder))
 
-    return folders;
+    return folders
 # end get_subfolders
 
 
@@ -43,7 +43,9 @@ def get_pdfs(path="papers"):
 
 # return all pdfs in the subfolders of the path folder
 def batch_extract(path="papers"):
-    classifier = Corpus();
+
+    docs = []
+    extracted = 0
 
     for folder in get_subfolders(path):
         for pdf in get_pdfs(folder):
@@ -52,7 +54,18 @@ def batch_extract(path="papers"):
 
             if not os.path.isfile(txt):
                 extract(pdf, txt)
+                extracted += 1
 
             newdoc = Document(path=txt, class_label=folder_name)
-            classifier.add_document(document=newdoc)
+            docs.append(newdoc)
+    return docs
 # end batch_extract
+
+
+if __name__ == '__main__':
+    pathname = raw_input("Enter the path of the root folder to begin batch extraction: ")
+    docs = batch_extract(pathname)
+
+    import cPickle as pickle
+    savefile = raw_input("Enter the name of the file to save document set to: ")
+    pickle.dump(docs, savefile)

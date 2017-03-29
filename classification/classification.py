@@ -5,7 +5,7 @@ from feature_extractor import FeatureExtractor
 from corpus import Corpus, Document
 
 
-class Classification():
+class Classification:
 
     # Setup
     def __init__(self):
@@ -13,6 +13,7 @@ class Classification():
         self.feature_ext = FeatureExtractor(min_freq=2)
         self.classifier = Classifier()
 
+    # Extracts features from raw text
     def process_document(self, doc):
         """Tokenizes new document and extracts its features"""
         if doc.raw_text is None:

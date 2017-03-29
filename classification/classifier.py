@@ -4,12 +4,13 @@ Implements the classification algorithm to assign a class label to a given docum
 In: document with feature set
 Out: class label
 """
-
-__author__ = 'Sean Reedy'
-
+from __future__ import division
 from nltk.classify import SklearnClassifier
 from sklearn.naive_bayes import MultinomialNB
 # from sklearn.pipeline import Pipeline
+
+__author__ = 'Sean Reedy'
+
 
 
 class Classifier:
@@ -17,6 +18,8 @@ class Classifier:
     def __init__(self):
         self.classifier = None
         self.corpus = None
+
+        self.set_classifier()
 
     # TODO
     def load_classifier(self, path):
@@ -38,9 +41,7 @@ class Classifier:
 
     def classify(self, document):
         """Runs the classifier on a single document and returns the most likely class label."""
-        probs = self.classify_probs(document)
-        label = probs.max()
-        return label
+        return self.classifier.classify(document.get_features())
 
     def train(self, train_set):
         """Teaches the classifier with labeled data instances."""
@@ -53,43 +54,38 @@ class Classifier:
         # It is important the classifier has not been previously trained on the test set."""
         tested = 0
         correct = 0
-        collisions = 0  # number of times a doc in testing set occurs in corpus. These docs are ignored.
         errors = []
         print ('Testing %d documents' % (len(test_set)))
-        for d in test_set:
-            if d in self.corpus:
-                collisions += 1
+        #predicted_list = self.classifier.classify_many([d.get_features() for d in test_set])
+        predicted_list = [self.classify(d) for d in test_set]
+        for actual, predicted in zip([d.get_label() for d in test_set], predicted_list):
+            if actual == predicted:
+                correct += 1
             else:
-                prediction = self.classify(d)
-                actual = d.get_label()
-                if prediction == actual:
-                    correct += 1
-                else:
-                    errors.append((prediction, actual)) # add (prediction, actual) to list of errors
+                errors.append((predicted, actual))
             tested += 1
-        accuracy = correct/tested
-        print 'Tested=%d, correct=%d, accuracy=%f, collisions=%d' % (tested, correct, accuracy, collisions)
-        print 'Errors:'
-        for p, a in errors:
-            print('Predicted = %s, Actual = %s ' % (p, a))
+        accuracy = float(correct/tested)
+        print 'Accuracy=%f, tested=%d, correct=%d, errors=%d' % (accuracy, tested, correct, len(errors))
         return accuracy
 
     def train_and_test(self, dev_set, split=.5):
         """Splits dev set into training and testing sets then trains/tests
         # split: (0:1) """
         s = int(len(dev_set) * split)
-        train_set = dev_set[:s]
         test_set = dev_set[:s]
+        train_set = dev_set[s:]
         if not exclusive(train_set, self.corpus):
             print 'ERROR: training set must not be known to classifier!'
         self.train(train_set)
-        self.test(test_set)
+        accuracy = self.test(test_set)
+        return accuracy
 
 
 # Helper functions
-
 def exclusive(set1, set2):
     """Determine if two sets of Documents are exclusive"""
+    if set1 is None or set2 is None:
+        return True
     for d1 in set1:
         for d2 in set2:
             if d1 == d2:

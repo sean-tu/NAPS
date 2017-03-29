@@ -26,12 +26,13 @@ class Tokenizer:
 
     def tokenize(self, raw_text):
         """Convert string to a list of tokens, i.e. individual words """
+        # TODO implement
         raw_tokens = word_tokenize(raw_text)
         return self.filter_tokens(raw_tokens)
 
     def filter_tokens(self, tokens):
         """Remove non-words, short words (<minLength), and stopwords (common words that don't give information"""
-        # TODO hyphenated words
+        # TODO get hyphenated words
         filtered = [w.lower() for w in tokens
                     if len(w) > self.MIN_WORD_LENGTH
                     and w.isalpha()
