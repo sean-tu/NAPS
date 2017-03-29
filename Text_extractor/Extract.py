@@ -28,13 +28,14 @@ def extract(pdf_file, txt_file):
 
   outfp = file(txt_file, 'w')
   fp = file(pdf_file, 'rb')
-  doi_out_file = file(doi_file_name,'w')
 
   device = TextConverter(rsrcmgr, outfp, codec = 'utf-8', laparams=laparams, imagewriter = None)
-  doi_out = TextConverter(rsrcmgr, doi_out_file, codec = 'utf-8', laparams=laparams, imagewriter = None)
-
   interpreter = PDFPageInterpreter(rsrcmgr, device)
+  """
+  doi_out_file = file(doi_file_name,'w')
+  doi_out = TextConverter(rsrcmgr, doi_out_file, codec = 'utf-8', laparams=laparams, imagewriter = None)
   interpreter_doi = PDFPageInterpreter(rsrcmgr, doi_out)
+  """
 
   paper.set_pages(PDFPage.get_num(fp, pagenos, maxpages = pages_to_extract, password = '', caching = True, check_extractable = True))
 
@@ -46,16 +47,21 @@ def extract(pdf_file, txt_file):
         we need to restart the counter to 0, and get the next page to do the same procedure.
         Still needs work.
         """
+    """
     if current_page == 0:
       interpreter_doi.process_page(page)
       current_page+=1
       doi_out_file.close()
       search_eng.find_author(doi_file_name)
       paper.set_author(search_eng.author)
+    """
     interpreter.process_page(page)
   fp.close()
-  paper.printinfo(info_filename)
   device.close()
+  
+  """
+  paper.printinfo(info_filename)
   doi_out.close()
   doi_out_file.close()
+  """
   outfp.close()
