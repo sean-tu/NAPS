@@ -1,10 +1,10 @@
 """
-Gets all of the pdf files from the specified folder and every subfolder
+Gets all of the pdf files from the subfolders of a specified folder
 """
 
 import os
 from classification.corpus import Corpus, Document
-from Text_extractor.pdf2txt import extract
+from Text_extractor.Extract import extract
 
 __author__ = "Johnathan Sattler"
 
@@ -41,8 +41,9 @@ def get_pdfs(path="papers"):
 # end get_pdfs
 
 
-# return all pdfs in the path folder, and all of its subfolders
+# return all pdfs in the subfolders of the path folder
 def batch_extract(path="papers"):
+    classifier = Corpus();
 
     for folder in get_subfolders(path):
         for pdf in get_pdfs(folder):
@@ -52,6 +53,6 @@ def batch_extract(path="papers"):
             if not os.path.isfile(txt):
                 extract(pdf, txt)
 
-            newdoc = Document(txt)
-            Corpus.add_document(newdoc, label=folder_name)
+            newdoc = Document(path=txt, class_label=folder_name)
+            classifier.add_document(document=newdoc)
 # end batch_extract
