@@ -3,10 +3,15 @@ Gets all of the pdf files from the specified folder and every subfolder
 """
 
 import os
+from classification.corpus import Corpus, Document
+from Text_extractor.pdf2txt import extract
 
 __author__ = "Johnathan Sattler"
 
 Relative_Path = os.path.dirname(os.path.realpath(__file__))
+
+pdf_extension = "pdf"
+txt_extension = "txt"
 
 
 # returns all direct subfolders of the path folder
@@ -28,10 +33,8 @@ def get_subfolders(path="papers"):
 def get_pdfs(path="papers"):
     pdfs = []
 
-    extension = "pdf"
-
     for pdf in os.listdir("{}/{}".format(Relative_Path, path)):
-        if pdf.endswith(".{}".format(extension)):
+        if pdf.endswith(".{}".format(pdf_extension)):
             pdfs.append("{}/{}".format(path, pdf))
 
     return pdfs
@@ -40,20 +43,15 @@ def get_pdfs(path="papers"):
 
 # return all pdfs in the path folder, and all of its subfolders
 def batch_extract(path="papers"):
-    files = []
 
-    pdfs = get_pdfs(path)
+    for folder in get_subfolders(path):
+        for pdf in get_pdfs(folder):
+            folder_name = folder.split("/")[1]
+            txt = pdf.replace(".{}".format(pdf_extension), ".{}".format(txt_extension))
 
-    folders = get_subfolders(path)
+            if not os.path.isfile(txt):
+                extract(pdf, txt)
 
-    for pdf in pdfs:
-        files.append(pdf)
-
-    for folder in folders:
-        files.extend(batch_extract(folder))
-
-    return files
+            newdoc = Document(txt)
+            Corpus.add_document(newdoc, label=folder_name)
 # end batch_extract
-
-for pdf in batch_extract("papers"):
-    print pdf
