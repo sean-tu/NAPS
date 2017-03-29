@@ -5,32 +5,28 @@ from feature_extractor import FeatureExtractor
 from corpus import Corpus, Document
 
 
+class Classification():
+
+    # Setup
+    def __init__(self):
+        self.tokenizer = Tokenizer(min_length=2)
+        self.feature_ext = FeatureExtractor(min_freq=2)
+        self.classifier = Classifier()
+
+    def process_document(self, doc):
+        """Tokenizes new document and extracts its features"""
+        if doc.raw_text is None:
+            if doc.path:
+                doc.raw_text = self.tokenizer.load_input(doc.path)
+            # TODO else raise exception
+        tokens = self.tokenizer.tokenize(doc.raw_text)
+        features = self.feature_ext.process(tokens)
+        doc.set_tokens(tokens)
+        doc.set_features(features)
+
+
 def main():
-
-    # Tokenize
-    path = 'ex.txt'
-    processor = Tokenizer(path)
-    processor.filter_tokens()
-    tokens = processor.get_tokens()
-    print tokens
-
-    # Extract features
-    fe = FeatureExtractor(tokens)
-    fe.stem_words()
-    fe.filter_features()
-    features = fe.get_features()
-
-    # Create document
-    doc1 = Document()
-    doc1.set_tokens(tokens)
-    doc1.set_features(features)
-
-    # Classify
-
-
-    #Need to train classifier before classifying instances.
-
-
+    pass
 
 if __name__ == '__main__':
     main()

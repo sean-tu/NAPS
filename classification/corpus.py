@@ -29,6 +29,9 @@ class Document:
     def get_features(self):
         return self.features
 
+    def get_label(self):
+        return self.class_label
+
     # NOTE: may change to ref containing 'Class' class
     # NOTE: that might get confusing. When OO and classification/ML lingo collide!
     def set_label(self, label):
@@ -46,11 +49,12 @@ class Corpus:
         self.num_documents = 0
         self.classes = []
 
-    def add_document(self, document, label='uncategorized'):
+    def add_document(self, document):
         """Add a document to the corpus with the given class label.
         
         If not specified, document will be given 'uncategorized' label. 
         If corpus does not contain class with that label, create one."""
+        label = document.get_label()
         c = self.get_class(label)
         if not c:
             c = self.Class(label)

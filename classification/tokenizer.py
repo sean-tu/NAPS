@@ -13,45 +13,30 @@ __author__ = 'Sean Reedy'
 class Tokenizer:
     """Collects unigrams for bag of words style classification and filters out irrelevant tokens."""
 
-    def __init__(self, path=None, text=None):
+    def __init__(self, min_length=2):
         """Load raw text input, convert to tokens, and filter out unnecessary tokens."""
-
-        self.raw_text = text
-        self.tokens = None
-
         self.stopwords = stopwords.words('english') # TODO Update with low-information words
-        self.MIN_WORD_LENGTH = 2
-
-        if path is not None:
-            self.load_input(path)
-
-        self.tokenize()
-        self.filter_tokens()
-
-        # TODO exceptions for failed file loading cases
+        self.MIN_WORD_LENGTH = min_length
 
     def load_input(self, path):
         """ Read file to string """
         f = codecs.open(path, 'r', 'utf-8')
-        raw = f.read()
-        self.raw_text = raw
+        raw_text = f.read()
+        return raw_text
 
-    def tokenize(self):
+    def tokenize(self, raw_text):
         """Convert string to a list of tokens, i.e. individual words """
-        raw_tokens = word_tokenize(self.raw_text)
-        self.tokens = raw_tokens
+        raw_tokens = word_tokenize(raw_text)
+        return self.filter_tokens(raw_tokens)
 
-    def filter_tokens(self):
+    def filter_tokens(self, tokens):
         """Remove non-words, short words (<minLength), and stopwords (common words that don't give information"""
         # TODO hyphenated words
-        filtered = [w.lower() for w in self.tokens
+        filtered = [w.lower() for w in tokens
                     if len(w) > self.MIN_WORD_LENGTH
                     and w.isalpha()
                     and w.lower() not in self.stopwords]
-        self.tokens = filtered
-
-    def get_tokens(self):
-        return self.tokens
+        return filtered
 
 
 def main():

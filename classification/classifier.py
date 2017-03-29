@@ -1,7 +1,7 @@
 """
 Implements the classification algorithm to assign a class label to a given document
 
-In: feature set
+In: document with feature set
 Out: class label
 """
 
@@ -30,22 +30,27 @@ class Classifier:
     def classify_probs(self, document):
         """Determine class probabilities of a given document
 
-        Decide conditional probability of classes for a document instance, using the classifier and corpus.
+        Decide conditional probability of classes for a document instance, using the classifier.
         """
         features = document.get_features()
         probs = self.classifier.prob_classify(features)
         return probs
 
     def classify(self, document):
+        """Runs the classifier on a single document and returns the most likely class label."""
         probs = self.classify_probs(document)
-        label = max_prob(probs)
+        label = probs.max()
         return label
 
     def train(self, train_set):
-        self.classifier.train([(d.get_features(), d.get_label() ) for d in train_set])
+        """Teaches the classifier with labeled data instances."""
+        labeled_feature_set = [(d.get_features(), d.get_label()) for d in train_set]
+        self.classifier.train(labeled_feature_set)
 
     def test(self, test_set):
-        """Using a new set of documents, test the accuracy of the classifier"""
+        """Using a new set of documents, tests the accuracy of the classifier. 
+        
+        # It is important the classifier has not been previously trained on the test set."""
         tested = 0
         correct = 0
         collisions = 0  # number of times a doc in testing set occurs in corpus. These docs are ignored.
@@ -92,10 +97,11 @@ def exclusive(set1, set2):
     return True
 
 
-def max_prob(probs):
+def c_map(probs):
+    """Returns the maximum a posteriori class (most likely class) given a set of calculated probabilities."""
     maxP = 0
     label = None
-    for C, P in probs:
+    for C, P in probs.iteritems(): # class C, probability P
         if P > maxP:
             label = C
     return label

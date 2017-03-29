@@ -7,11 +7,16 @@ from collections import OrderedDict
 
 
 class FeatureExtractor:
-    def __init__(self, tokens):
-        self.features = self.featurize(tokens)
+    def __init__(self, min_freq=3):
         self.stemmer = PorterStemmer()
-        self.min_freq = 2   # minimum frequency of token to be considered in classification
-        self.weights = []   # maybe later
+        self.min_freq = min_freq        # minimum frequency of token to be considered in classification
+        # self.weights = []             # maybe later
+
+    def process(self, tokens):
+        f = self.featurize(tokens)
+        f = self.stem_words(f)
+        f = self.filter_features(f)
+        return f
 
     # Mutator methods
     def featurize(self, token_list):
@@ -25,41 +30,39 @@ class FeatureExtractor:
                 features[t] += 1
         return features
 
-    def stem_words(self):
-        """ Normalizes word forms using the Porter Stemming algorithm."""
+    def stem_words(self, features):
+        """ Normalizes word forms using the Porter Stemming algorithm.
+        
+        Given a set of features [(token, freq)], stemming compacts the set by combining tokens with common stems."""
         # TODO Associate tokens with stemmed features
         # TODO investigate other stemming methods
         stemmed = {}
-        for f, v in self.features.iteritems():
+        for f, v in features.iteritems():
             s = self.stemmer.stem(f)
             if s in stemmed:
                 stemmed[s] += v
             else:
                 stemmed[s] = v
-        self.set_features(stemmed)
+        return stemmed
 
-    def filter_features(self, min_freq=1):
+    def filter_features(self, features):
         """Remove from dictionary items with value smaller than min_freq"""
-        features = {}
-        for f, v in self.features.iteritems():
-            if v >= min_freq:
-                features[f] = v
-        self.set_features(features)
+        delete = []
+        for f, v in features.iteritems():
+            if v < self.min_freq:
+                delete.append(f)
+        for f in delete:
+            del features[f]
+        return features
 
     # Getters/setters
-    def get_features(self):
-        return self.features
-
-    def set_features(self, f):
-        self.features = f
-
-    def __str__(self):
+    def print_features(self, features):
         separator = '%s\n' % ('#'*12)
-        result = separator + 'Features (%d):' % len(self.features) + '\n' # TODO fix length
-        features = sort_dictionary(self.features)
+        result = separator + 'Features (%d):' % len(features) + '\n' # TODO fix length
+        features = sort_dictionary(features)
         for f, v in features.iteritems():
             result += '%s - %d' % (f.encode('utf-8'), v) + '\n'
-        return result + separator
+        print result + separator
 
 
 def sort_dictionary(d):
