@@ -41,25 +41,36 @@ def get_pdfs(path="papers"):
 # end get_pdfs
 
 
-# return all pdfs in the subfolders of the path folder
+# extracts text from all pdfs in the subfolders of the path folder
 def batch_extract(path="papers"):
-
-    docs = []
     extracted = 0
 
     for folder in get_subfolders(path):
         for pdf in get_pdfs(folder):
-            folder_name = folder.split("/")[1]
             txt = pdf.replace(".{}".format(pdf_extension), ".{}".format(txt_extension))
 
             if not os.path.isfile(txt):
                 extract(pdf, txt)
                 extracted += 1
 
+    return extracted
+# end batch_extract
+
+
+# creates document for all text files in the subfolders of the path folder
+def build_doc_set(path="papers"):
+    docs = []
+
+    for folder in get_subfolders(path):
+        for pdf in get_pdfs(folder):
+            folder_name = folder.split("/")[1]
+            txt = pdf.replace(".{}".format(pdf_extension), ".{}".format(txt_extension))
+
             newdoc = Document(path=txt, class_label=folder_name)
             docs.append(newdoc)
+
     return docs
-# end batch_extract
+# end build_doc_set
 
 
 if __name__ == '__main__':
