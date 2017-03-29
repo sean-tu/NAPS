@@ -8,6 +8,7 @@ class Paper:
 		self.author = None
 		self.title = None
 		self.text = None
+		self.year = 0
 
 	def set_pages(self,pages):
 		self.num_pages = pages
@@ -29,8 +30,10 @@ class Paper:
 
 	""" Debugging to see if it works
 		"""
-	def printinfo(self):
-		print('num pages = ' + str(self.num_pages)+'')
-		print('author = '+str(self.author))
-		print('title = '+str(self.title))
-		print('year = '+str(self.year))
+	def printinfo(self, fpt):
+		fp = file(fpt, 'w')
+		fp.write('num pages = ' + str(self.num_pages)+'\n')
+		fp.write('author = '+str(self.author)+'\n')
+		fp.write('title = '+str(self.title)+'\n')
+		fp.write('year = '+str(self.year)+'\n')
+		fp.close()
