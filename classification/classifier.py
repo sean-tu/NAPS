@@ -5,12 +5,14 @@ In: document with feature set
 Out: class label
 """
 from __future__ import division
+
+import random
+
 from nltk.classify import SklearnClassifier
 from sklearn.naive_bayes import MultinomialNB
 # from sklearn.pipeline import Pipeline
 
 __author__ = 'Sean Reedy'
-
 
 
 class Classifier:
@@ -46,6 +48,7 @@ class Classifier:
     def train(self, train_set):
         """Teaches the classifier with labeled data instances."""
         labeled_feature_set = [(d.get_features(), d.get_label()) for d in train_set]
+        print 'Training on %d documents\n' % len(labeled_feature_set)
         self.classifier.train(labeled_feature_set)
 
     def test(self, test_set):
@@ -56,9 +59,7 @@ class Classifier:
         correct = 0
         errors = []
         print ('Testing %d documents' % (len(test_set)))
-        #predicted_list = self.classifier.classify_many([d.get_features() for d in test_set])
-        predicted_list = [self.classify(d) for d in test_set]
-        for actual, predicted in zip([d.get_label() for d in test_set], predicted_list):
+        for actual, predicted in [(d.get_label(), self.classify(d)) for d in test_set]:
             if actual == predicted:
                 correct += 1
             else:
@@ -71,6 +72,7 @@ class Classifier:
     def train_and_test(self, dev_set, split=.5):
         """Splits dev set into training and testing sets then trains/tests
         # split: (0:1) """
+        random.shuffle(dev_set)
         s = int(len(dev_set) * split)
         test_set = dev_set[:s]
         train_set = dev_set[s:]

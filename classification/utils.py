@@ -63,7 +63,7 @@ def build_doc_set(path="papers"):
 
     for folder in get_subfolders(path):
         for pdf in get_pdfs(folder):
-            folder_name = folder.split("/")[1]
+            folder_name = folder.split("/")[2]  # CHECK
             txt = pdf.replace(".{}".format(pdf_extension), ".{}".format(txt_extension))
 
             docs.append((txt, folder_name))
