@@ -63,6 +63,10 @@ def extract(pdf_file, txt_file):
       doi_out_file.close()
       search_eng.find_author(doi_file_name)
       paper.set_author(search_eng.author)
+      search_eng.find_year(doi_file_name)
+      paper.set_year(search_eng.year)
+      search_eng.find_range(doi_file_name)
+      paper.set_page_range(search_eng.pages)
     """
     interpreter.process_page(page)
 
@@ -89,7 +93,7 @@ def extract(pdf_file, txt_file):
   device.close()
   
   """
-  paper.printinfo(info_filename)
+  paper.generate_citations(info_filename)
   doi_out.close()
   doi_out_file.close()
   """

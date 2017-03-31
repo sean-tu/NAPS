@@ -6,9 +6,11 @@ class Paper:
 	def __init__(self):
 		self.num_pages = 0
 		self.author = None
-		self.title = None
+		self.title = 'TITLE'
 		self.text = None
 		self.year = 0
+		self.publisher = 'PUBLISHER'
+		self.pages_range = None
 
 	def set_pages(self,pages):
 		self.num_pages = pages
@@ -23,20 +25,32 @@ class Paper:
 		self.title = name
 
 	def set_year (self, year):
-                self.year = year
+		self.year = year
 
 	def set_doi(self, doi):
-                self.doi = doi
+		self.doi = doi
 
 	def set_text(self, fpt):
 		self.text = fpt
 
+	def set_publisher(self, name):
+		self.publisher = name
+
+	def set_page_range(self, nums):
+		self.pages_range = nums
+
 	""" Debugging to see if it works
 		"""
-	def printinfo(self, fpt):
+	def generate_citations(self, fpt):
 		fp = file(fpt, 'w')
-		fp.write('num pages = ' + str(self.num_pages)+'\n')
-		fp.write('author = '+str(self.author)+'\n')
-		fp.write('title = '+str(self.title)+'\n')
-		fp.write('year = '+str(self.year)+'\n')
+		for author in self.author:
+			if(author.endswith(',')):
+				fp.write(str(author) + ' ');
+			else:
+				fp.write(str(author) + ', ');
+		fp.write(self.title + ' ')
+		fp.write(self.publisher + ' ')
+		fp.write(str(self.year) + ' ')
+		fp.write(str(self.pages_range) + ' ')
+
 		fp.close()
