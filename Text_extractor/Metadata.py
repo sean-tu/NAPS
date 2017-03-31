@@ -22,7 +22,10 @@ class Metadata:
 					author = re.findall(regex, line)
 					if author:
 						for i in range(0, len(author)):
-							self.author.append(author[i][0])
+							if(len(self.author)==0):
+								self.author.append(author[i][0])
+							elif(self.author[len(self.author)-1]!=author[i][0]):
+								self.author.append(author[i][0])
 						self.found_author = 1
 		""" The condition, where we know if we need to parse another page
 			"""

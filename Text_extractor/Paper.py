@@ -12,6 +12,9 @@ class Paper:
 
 	def set_pages(self,pages):
 		self.num_pages = pages
+
+	def get_pages(self):
+		return self.num_pages
 	
 	def set_author(self, name):
 		self.author = name
