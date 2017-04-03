@@ -7,6 +7,7 @@
 import sys
 import os
 import re
+from GetInfo import get_info
 from pdfminer.pdfdocument import PDFDocument
 from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
@@ -24,50 +25,26 @@ def extract(pdf_file, txt_file):
   laparams = LAParams()
   pagenos = set()
   paper = Paper()
-  search_eng = Metadata()
   rsrcmgr = PDFResourceManager(caching = True)
 
   outtype = 'text'
   pages_to_extract = 4
   current_page = 0
   temp_author = None
-  doi_file_name = txt_file[:-3]+'doi.txt'
-  info_filename = txt_file[:-3]+'info.txt'
 
   outfp = file(txt_file, 'w')
   fp = file(pdf_file, 'rb')
 
   device = TextConverter(rsrcmgr, outfp, codec = 'utf-8', laparams=laparams, imagewriter = None)
   interpreter = PDFPageInterpreter(rsrcmgr, device)
-
-  """
-  doi_out_file = file(doi_file_name,'w')
-  doi_out = TextConverter(rsrcmgr, doi_out_file, codec = 'utf-8', laparams=laparams, imagewriter = None)
-  interpreter_doi = PDFPageInterpreter(rsrcmgr, doi_out)
-  """
-
   paper.set_pages(PDFPage.get_num(fp, pagenos, maxpages = pages_to_extract, password = '', caching = True, check_extractable = True))
 
   for page in PDFPage.get_pages(fp, pagenos, maxpages = pages_to_extract, password = '', caching = True, check_extractable = True):
     page.rotate = (page.rotate) % 360
-    """ So here the extraction of metadata takes place
-        if the page == 0, which is the first one, it tries to extract everything
-        However, since pdf's are formatted differently, and the first page is not sufficient,
-        we need to restart the counter to 0, and get the next page to do the same procedure.
-        Still needs work.
-        """
-    """
+
     if current_page == 0:
-      interpreter_doi.process_page(page)
-      current_page+=1
-      doi_out_file.close()
-      search_eng.find_author(doi_file_name)
-      paper.set_author(search_eng.author)
-      search_eng.find_year(doi_file_name)
-      paper.set_year(search_eng.year)
-      search_eng.find_range(doi_file_name)
-      paper.set_page_range(search_eng.pages)
-    """
+      current_page += get_info(txt_file,page, paper)
+
     interpreter.process_page(page)
 
   counter = 1
@@ -91,12 +68,6 @@ def extract(pdf_file, txt_file):
   os.remove('buffer.txt')
   fp.close()
   device.close()
-  
-  """
-  paper.generate_citations(info_filename)
-  doi_out.close()
-  doi_out_file.close()
-  """
   outfp.close()
 
 def search(filename):
