@@ -10,6 +10,8 @@ import random
 
 from nltk.classify import SklearnClassifier
 from sklearn.naive_bayes import MultinomialNB
+from corpus import Corpus
+from naivebayes import NaiveBayes
 # from sklearn.pipeline import Pipeline
 
 __author__ = 'Sean Reedy'
@@ -19,9 +21,12 @@ class Classifier:
 
     def __init__(self):
         self.classifier = None
-        self.corpus = None
-
+        self.corpus = Corpus()
         self.set_classifier()
+
+    def output_probs(self):
+        if isinstance(self.classifier, NaiveBayes):
+            self.classifier.output_probs()
 
     # TODO
     def load_classifier(self, path):
@@ -49,7 +54,12 @@ class Classifier:
         """Teaches the classifier with labeled data instances."""
         labeled_feature_set = [(d.get_features(), d.get_label()) for d in train_set]
         print 'Training on %d documents\n' % len(labeled_feature_set)
-        self.classifier.train(labeled_feature_set)
+        for d in train_set:
+            self.corpus.add_document(d)
+        if isinstance(self.classifier, NaiveBayes):
+            self.classifier.train(self.corpus)
+        else:
+            self.classifier.train(labeled_feature_set)
 
     def test(self, test_set):
         """Using a new set of documents, tests the accuracy of the classifier. 
@@ -76,8 +86,8 @@ class Classifier:
         s = int(len(dev_set) * split)
         test_set = dev_set[:s]
         train_set = dev_set[s:]
-        if not exclusive(train_set, self.corpus):
-            print 'ERROR: training set must not be known to classifier!'
+        # if not exclusive(train_set, self.corpus):
+          #  print 'ERROR: training set must not be known to classifier!'
         self.train(train_set)
         accuracy = self.test(test_set)
         return accuracy

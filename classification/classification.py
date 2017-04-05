@@ -4,8 +4,10 @@ from tokenizer import Tokenizer
 from feature_extractor import FeatureExtractor
 import utils
 from corpus import Document
+from corpus import Corpus
 from classifier import Classifier
 from collections import OrderedDict
+from naivebayes import NaiveBayes
 
 
 class Processor:
@@ -39,15 +41,29 @@ def main():
     docs = build_doc_set('../papers')
 
     driver = Processor()
-    clf = Classifier()
-
+    corpus = Corpus()
     for d in docs:
         driver.process_document(d)
-    print_features(docs[0])
+        # corpus.add_document(d)
 
-    a = clf.train_and_test(docs, .3)
-    print a
-    print 'Done'
+    classifier = Classifier()
+    classifier.set_classifier(NaiveBayes())
+    classifier.train_and_test(docs)
+    classifier.output_probs()
+
+    # clf = Classifier()
+    #
+    # for d in docs:
+    #     driver.process_document(d)
+    # print_features(docs[0])
+    #
+    # a = clf.train_and_test(docs, .3)
+    # print a
+    #
+    #
+
+
+
 
 
 # Utility functions

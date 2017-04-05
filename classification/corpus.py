@@ -48,6 +48,13 @@ class Corpus:
     def __init__(self):
         self.num_documents = 0
         self.classes = []
+        self.vocabulary = {}
+
+    def get_classes(self):
+        return sorted(self.classes, key=lambda c: c.get_class_label())
+
+    def get_vocabulary(self):
+        return self.vocabulary
 
     def add_document(self, document):
         """Add a document to the corpus with the given class label.
@@ -60,6 +67,8 @@ class Corpus:
             c = self.Class(label)
             self.classes.append(c)
         c.add_document(document)
+        combine_features(self.vocabulary, document.get_features())
+        self.num_documents += 1
 
     def get_class(self, label):
         """Returns Class object with specified class label"""
@@ -122,6 +131,7 @@ class Corpus:
 
         def get_class_label(self):
             return self.class_label
+
 
 # Helper function
 def combine_features(set1, set2):
