@@ -10,6 +10,8 @@ class Metadata:
 	def __init__(self):
 		self.found_author = 0
 		self.found_title = 0
+		self.pages = 0
+		self.year = []
 		self.found_doi = 0
 		self.found_year = 0
 		self.author = []
@@ -22,7 +24,10 @@ class Metadata:
 					author = re.findall(regex, line)
 					if author:
 						for i in range(0, len(author)):
-							self.author.append(author[i][0])
+							if(len(self.author)==0):
+								self.author.append(author[i][0])
+							elif(self.author[len(self.author)-1]!=author[i][0]):
+								self.author.append(author[i][0])
 						self.found_author = 1
 		""" The condition, where we know if we need to parse another page
 			"""
@@ -30,21 +35,26 @@ class Metadata:
 			print('There is an author')
 		else:
 			print('Author not found')
+		f.close()
 
 	def find_year (self, fpt):
-                regex = r"(?:19[7-9]\d|2\d{3})(?=\D|$)"
-                with open (fpt) as f:
-                        for line in f:
-                                        year = re.findall (regex, line)
-                                        if year:
-                                                for name in year:
-                                                        self.year.append(name)
-                                                self.found_year = 1
-
-                if (self.found_year == 1):
-                        print ('There is a year')
-                else:
-                        print ('Year not found')
+		regex = r"(?:19[7-9]\d|2\d{3})(?=\D|$)"
+		with open (fpt) as f:
+			for line in f:
+				year = re.search (regex, line)
+				if year:
+					self.year = year.group(0)
                                         
 		f.close()
+
+	def find_range (self, fpt):
+		regex = r"([0-9]+-[0-9]+)"
+		with open (fpt) as f:
+			for line in f:
+				pages = re.search (regex, line)
+				if pages:
+					self.pages = pages.group(0)
+					break             
+		f.close()
+
 					
