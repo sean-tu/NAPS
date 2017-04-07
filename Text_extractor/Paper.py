@@ -6,6 +6,7 @@ class Paper:
 	def __init__(self):
 		self.num_pages = 0
 		self.author = None
+		self.doi = None
 		self.title = 'TITLE'
 		self.text = None
 		self.year = 0
@@ -15,6 +16,9 @@ class Paper:
 	def set_pages(self,pages):
 		self.num_pages = pages
 
+	def set_doi(self, doi):
+		self.doi = doi
+
 	def get_pages(self):
 		return self.num_pages
 	
@@ -22,7 +26,7 @@ class Paper:
 		self.author = name
 
 	def set_title(self, title):
-		self.title = name
+		self.title = title
 
 	def set_year (self, year):
 		self.year = year
@@ -43,14 +47,15 @@ class Paper:
 		"""
 	def generate_citations(self, fpt):
 		fp = file(fpt, 'w')
+		fp.write('Author:')
 		for author in self.author:
 			if(author.endswith(',')):
 				fp.write(str(author) + ' ');
 			else:
 				fp.write(str(author) + ', ');
-		fp.write(self.title + ' ')
-		fp.write(self.publisher + ' ')
-		fp.write(str(self.year) + ' ')
-		fp.write(str(self.pages_range) + ' ')
-
+		fp.write('\nTitle : ' + self.title + ' ')
+		fp.write('\nPublisher : ' + self.publisher + ' ')
+		fp.write('\nYear of publication : ' + str(self.year) + ' ')
+		fp.write('\nPages in the journal : ' + str(self.pages_range) + ' ')
+		fp.write('\n' + self.doi)
 		fp.close()
