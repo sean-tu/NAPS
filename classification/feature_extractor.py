@@ -8,7 +8,7 @@ from collections import OrderedDict
 
 
 class FeatureExtractor:
-    def __init__(self, min_freq=3):
+    def __init__(self, min_freq=4):
         self.stemmer = PorterStemmer()
         self.min_freq = min_freq        # minimum frequency of token to be considered in classification
         # self.weights = []             # maybe later

@@ -15,26 +15,20 @@ class NaiveBayes:
 #       self.condprob           # conditional probability of token t given class c
         self.prior = []            # prior probabilities of classes
 
-    def classify(self, document):
-        features = document.get_features()
+    def prob_classify(self, features):
         score = []
-        max = 0
-        cmap = 0
-        for c in range(len(self.classes())):
-            score[c] = math.log(self.prior[c])
+        for c in range(len(self.classes)):
+            score.append(math.log(self.prior[c], 10))
             for t in features:
-                i = self.vocabulary.values().index(t)
-                score[c] += math.log(self.condprob[c][i])
-            if score[c] > max:
-                cmap = c
-        return self.classes[cmap].get_class_label()
-
+                if t in self.vocabulary.keys():
+                    i = self.vocabulary.keys().index(t)
+                    score[c] += math.log(self.condprob[c][i], 10)
+        return zip([c.get_class_label() for c in self.classes], score)
 
     def train(self, corpus):
-        self.vocabulary = OrderedDict((sorted(corpus.get_vocabulary().items(), key=lambda t: t[0])))
+        self.vocabulary = OrderedDict((sorted(corpus.get_vocabulary().items(), key=lambda v: v[0])))
         vocab_length = len(self.vocabulary)     # number of terms in vocabulary
         N = corpus.num_documents
-        print '%d Documents\n' % N
         ci = 0   # class counter
         self.classes = corpus.get_classes()
         self.condprob = [[0 for x in range(vocab_length)] for y in range(len(self.classes))]
@@ -42,18 +36,23 @@ class NaiveBayes:
             self.prior.append(float(c.getN()) / float(N))
             ti = 0
             class_features = c.get_class_features()
-            class_length = sum_features(class_features)
+            class_length = sum_features(class_features) # TODO fix this to occurences not sum(freqs)
             for t in self.vocabulary:
-                if t in class_features:
-                    self.condprob[ci][ti] = float(class_features[t] + self.alpha) / float(class_length + vocab_length)
+                freq = 0
+                if t in class_features.keys():
+                    freq = class_features[t]
+                self.condprob[ci][ti] = float(freq + self.alpha) / float(class_length + vocab_length/10)
                 ti += 1
             ci += 1
+        self.output_probs()
 
     def output_probs(self):
+        print 'Probabilities (%d):' % len(self.vocabulary)
         header = ['Class', 'Prior']
         for k in self.vocabulary.keys():
             header.append(k)
         t = PrettyTable(header)
+        t.align = "l"
         i = 0
         for c in self.classes:
             row = [c.get_class_label()]

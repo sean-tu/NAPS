@@ -3,7 +3,11 @@ Gets all of the pdf files from the subfolders of a specified folder
 """
 
 import os
-from Text_extractor.Extract import extract
+from collections import OrderedDict
+
+from prettytable import PrettyTable
+
+from Text_extractor.extract import extract
 import cPickle as pickle
 
 __author__ = "Johnathan Sattler"
@@ -69,17 +73,51 @@ def build_doc_set(path="papers"):
             docs.append((txt, folder_name))
 
     return docs
-# end build_doc_set
+
+# OBJECT PERSISTENCE
 
 
-def save_file(obj, path):
+def save_object(obj, path):
     with open(path, 'wb') as fout:
         pickle.dump(obj, fout)
 
 
-def load_file(path):
+def load_object(path):
     with open(path, 'rb') as fin:
         return pickle.load(fin)
+
+
+# PRINT FUNCTIONS
+
+
+def print_features(doc):
+    features = sort_dictionary(doc.get_features())
+    print 'Doc: %s, %d features' % (doc.path, len(features))
+    table = PrettyTable(['Token', 'Frequency'])
+    table.align = 'l'
+    for t, f in features.iteritems():
+        table.add_row([t, f])
+    print table
+
+
+def print_docset(docs):
+    t = PrettyTable(['Path', 'Category'])
+    t.align = 'l'
+    for d in docs:
+        t.add_row([d.class_label, d.path])
+    print t
+
+# DICTIONARY FUNCTIONS
+
+
+def sort_dictionary(d):
+    """ Sorts dictionary in descending order of values 
+
+    >>> sort_dictionary({'lots': 20, 'none': 0, 'few': 2, 'some': 5})
+    OrderedDict([('lots', 20), ('some', 5), ('few', 2), ('none', 0)])
+    """
+    ordered = OrderedDict(sorted(d.items(), key=lambda t: t[1], reverse=True))
+    return ordered
 
 
 if __name__ == '__main__':
@@ -87,4 +125,4 @@ if __name__ == '__main__':
     docs = batch_extract(pathname)
 
     f = raw_input("Pickle file name: ")
-    save_file(docs, f)
+    save_object(docs, f)
