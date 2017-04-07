@@ -23,16 +23,11 @@ class Classifier:
     def __init__(self):
         self.classifier = None
         self.corpus = Corpus()
-        self.set_classifier()
 
     def output_probs(self):
+        """Use PrettyTable to print calculated probabilities"""
         if isinstance(self.classifier, NaiveBayes):
             self.classifier.output_probs()
-
-    # TODO
-    def load_classifier(self, path):
-        """Choose classifier to use for classification from file"""
-        pass
 
     def set_classifier(self, path=None):
         if path is None:
