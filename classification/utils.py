@@ -3,13 +3,12 @@ Gets all of the pdf files from the subfolders of a specified folder
 """
 
 import os
+import cPickle as pickle
 
 from collections import OrderedDict
-
 from prettytable import PrettyTable
-
 from Text_extractor.extract import extract
-import cPickle as pickle
+from corpus import Document
 
 __author__ = "Johnathan Sattler"
 
@@ -52,23 +51,22 @@ def batch_extract(path="papers"):
 
     for folder in get_subfolders(path):
         for pdf in get_pdfs(folder):
+            cats = folder.split("/")
+            cats.pop(0)
+
             txt = pdf.replace(".{}".format(pdf_extension), ".{}".format(txt_extension))
-            folder_name = folder.split("/")[len(folder.split("/")) - 1]
+            folder_name = cats[len(cats) - 1]
+
+            # print "Category: " + cats[0]
+            # print "Subcategory: " + (cats[1] if len(cats) > 1 else "")
+            # print "PDF File: " + pdf
+            # print "TXT File: " + txt + "\n"
 
             if not os.path.isfile(txt):
                 extract(pdf, txt)
                 extracted += 1
 
-            cats = folder.split("/")
-            cats.pop(0)
-
-            for cat in cats:
-                print cat
-            print pdf
-            print txt
-            print '\n'
-
-            batch_extract(os.path.join(path, folder_name))
+        batch_extract(os.path.join(path, folder_name))
 
     return extracted
 # end batch_extract
@@ -80,10 +78,20 @@ def build_doc_set(path="papers"):
 
     for folder in get_subfolders(path):
         for pdf in get_pdfs(folder):
-            folder_name = folder.split("/")[2]  # CHECK
-            txt = pdf.replace(".{}".format(pdf_extension), ".{}".format(txt_extension))
+            cats = folder.split("/")
+            cats.pop(0)
 
-            docs.append((txt, folder_name))
+            txt = pdf.replace(".{}".format(pdf_extension), ".{}".format(txt_extension))
+            folder_name = cats[len(cats) - 1]
+
+            # print "Category: " + cats[0]
+            # print "Subcategory: " + (cats[1] if len(cats) > 1 else "")
+            # print "PDF File: " + pdf
+            # print "TXT File: " + txt + "\n"
+
+            docs.append(Document(path=txt, class_label=cats[0], subclass_label=(cats[1] if len(cats) > 1 else '')))
+
+        docs.extend(build_doc_set(os.path.join(path, folder_name)))
 
     return docs
 
@@ -114,10 +122,10 @@ def print_features(doc):
 
 
 def print_docset(docs):
-    t = PrettyTable(['Path', 'Category'])
+    t = PrettyTable(['Path', 'Category', 'Subcategory'])
     t.align = 'l'
     for d in docs:
-        t.add_row([d.class_label, d.path])
+        t.add_row([d.path, d.class_label, d.subclass_label])
     print t
 
 # DICTIONARY FUNCTIONS
