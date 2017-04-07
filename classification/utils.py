@@ -3,7 +3,7 @@ Gets all of the pdf files from the subfolders of a specified folder
 """
 
 import os
-from Text_extractor.Extract import extract
+from Text_extractor.extract import extract
 import cPickle as pickle
 
 __author__ = "Johnathan Sattler"
@@ -48,10 +48,22 @@ def batch_extract(path="papers"):
     for folder in get_subfolders(path):
         for pdf in get_pdfs(folder):
             txt = pdf.replace(".{}".format(pdf_extension), ".{}".format(txt_extension))
+            folder_name = folder.split("/")[len(folder.split("/")) - 1]
 
             if not os.path.isfile(txt):
                 extract(pdf, txt)
                 extracted += 1
+
+            cats = folder.split("/")
+            cats.pop(0)
+
+            for cat in cats:
+                print cat
+            print pdf
+            print txt
+            print '\n'
+
+            batch_extract(os.path.join(path, folder_name))
 
     return extracted
 # end batch_extract
