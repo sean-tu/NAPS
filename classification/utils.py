@@ -8,7 +8,6 @@ import cPickle as pickle
 from collections import OrderedDict
 from prettytable import PrettyTable
 from Text_extractor.extract import extract
-from corpus import Document
 
 __author__ = "Johnathan Sattler"
 
@@ -89,7 +88,7 @@ def build_doc_set(path="papers"):
             # print "PDF File: " + pdf
             # print "TXT File: " + txt + "\n"
 
-            docs.append(Document(path=txt, class_label=cats[0], subclass_label=(cats[1] if len(cats) > 1 else '')))
+            docs.append((txt, cats[0], cats[1] if len(cats) > 1 else ''))
 
         docs.extend(build_doc_set(os.path.join(path, folder_name)))
 

@@ -47,7 +47,7 @@ class Processor:
 
 def build_doc_set(path):
     path_list = utils.build_doc_set(path)
-    docs = [Document(path=p, class_label=c) for p, c in path_list]
+    docs = [Document(path=p, class_label=c, subclass_label=s) for p, c, s in path_list]
     return docs
 
 
