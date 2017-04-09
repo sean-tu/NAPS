@@ -9,8 +9,6 @@ from collections import OrderedDict
 from prettytable import PrettyTable
 from Text_extractor.extract import extract
 
-__author__ = "Johnathan Sattler"
-
 Relative_Path = os.path.dirname(os.path.realpath(__file__))
 
 pdf_extension = "pdf"
@@ -22,7 +20,6 @@ def get_subfolders(path="papers"):
     folders = []
 
     final_path = "{}/{}".format(Relative_Path, path)
-    print final_path
     sub_folders = [d for d in os.listdir(final_path) if os.path.isdir(os.path.join(final_path, d))]
 
     for folder in sub_folders:
@@ -84,6 +81,7 @@ def batch_extract(path="papers"):
 
 # creates document for all text files in the subfolders of the path folder
 def build_doc_set(path="papers"):
+    batch_extract(path)
     docs = []
 
     for folder in get_subfolders(path):
@@ -128,15 +126,16 @@ def load_object(path):
 
 
 # PRINT FUNCTIONS
+separator = '\n############\n'
 
 
-def print_features(doc):
+def print_doc(doc):
     features = sort_dictionary(doc.get_features())
-    print 'Doc: %s, %d features' % (doc.path, len(features))
-    table = PrettyTable(['Token', 'Frequency'])
+    table = PrettyTable(['Token %d' % len(features), 'Frequency'])
     table.align = 'l'
     for t, f in features.iteritems():
         table.add_row([t, f])
+    print separator, 'Doc: %s, %s' % (doc.path, doc.get_labels())
     print table
 
 
@@ -145,6 +144,28 @@ def print_docset(docs):
     t.align = 'l'
     for d in docs:
         t.add_row([d.path, d.class_label, d.subclass_label])
+    print separator, 'DOCSET (%d docs)' % len(docs)
+    print t
+
+
+def print_corpus(corpus):
+    table = PrettyTable(['Class', 'Subclass', 'Doc'])
+    for c in corpus.get_classes():
+        class_label = c.get_label()
+        for s in c.get_classes():
+            subclass_label = s.get_label()
+            for d in s.documents:
+                table.add_row([class_label, subclass_label, d.path])
+    print separator, 'CORPUS (%d docs, %d classes)' % (corpus.num_docs, len(corpus.classes))
+    print table
+
+
+def print_errors(errors):
+    header = ['Actual', 'Predicted', 'Path']
+    t = PrettyTable(header)
+    t.align = 'l'
+    for e in errors:
+        t.add_row(e)
     print t
 
 # DICTIONARY FUNCTIONS
@@ -156,13 +177,29 @@ def sort_dictionary(d):
     >>> sort_dictionary({'lots': 20, 'none': 0, 'few': 2, 'some': 5})
     OrderedDict([('lots', 20), ('some', 5), ('few', 2), ('none', 0)])
     """
-    ordered = OrderedDict(sorted(d.items(), key=lambda t: t[1], reverse=True))
-    return ordered
+    return OrderedDict(sorted(d.items(), key=lambda t: t[1], reverse=True))
+
+
+def alphabetize_dictionary(d):
+    return OrderedDict(sorted(d.items(), key=lambda v: v[0]))
+
+
+def combine_features(set1, set2):
+    """Combines the {feature: value} pairs of two dictionaries
+
+    >>> combine_features({'a':1, 'b':1, 'c':1}, {'a':5, 'b':1, 'd':1}) == {'a':6, 'b':2, 'c':1, 'd':1}
+    True
+
+    Result is accumulated in set1 (first parameter), set2 is unchanged
+    """
+    for f, v in set2.iteritems():
+        if f in set1:
+            set1[f] += v
+        else:
+            set1[f] = v
+    return set1
 
 
 if __name__ == '__main__':
-    pathname = raw_input("Root folder for batch extraction: ")
-    docs = batch_extract(pathname)
+    pass
 
-    f = raw_input("Pickle file name: ")
-    save_object(docs, f)

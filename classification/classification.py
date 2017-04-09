@@ -5,8 +5,7 @@ import utils
 from corpus import Document
 from classifier import Classifier
 from naivebayes import NaiveBayes
-from collections import OrderedDict
-from prettytable import PrettyTable
+
 
 class Processor:
 
@@ -44,23 +43,23 @@ class Processor:
         utils.save_object(self.classifier.classifier, path)
 
 
-def build_doc_set(path_list):
-    # path_list = utils.build_doc_set(path)
+def build_doc_set(path):
+    utils.batch_extract(path)
+    path_list = utils.build_doc_set(path)
     docs = [Document(path=p, class_label=c, subclass_label=s) for p, c, s in path_list]
-    utils.print_docset(docs)
+    # utils.print_docset(docs)
     return docs
 
 
 def dev_test():
     """Train and test a new classifier on a directory of .txt documents."""
-    docs = utils.build_doc_set('../papers')
-    print docs
+    docs = build_doc_set('../papers')
     # docs = build_doc_set(docs)
     driver = Processor()
     for d in docs:
         driver.process_document(d)
     driver.classifier.set_classifier(NaiveBayes())
-    driver.classifier.train_and_test(docs, split=.25)
+    driver.classifier.train_and_test(docs, split=.1)
 
 
 def main():
