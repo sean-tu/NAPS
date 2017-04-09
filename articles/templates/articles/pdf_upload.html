@@ -1,0 +1,18 @@
+{% extends 'articles/base.html' %}
+
+{% block content %}
+	<!-- Upload form. Note enctype attribute! -->
+    <form action="{% url 'upload_pdf' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>{{ form.non_field_errors }}</p>
+        <p>{{ form.pdf_file.label_tag }} {{ form.pdf_file.help_text }}</p>
+        <p>
+            {{ form.pdf_file.errors }}
+            {{ form.pdf_file }}
+        </p>
+        <div class="form-buttons">
+            <input type="submit" class="btn btn-primary" value="Upload" />
+            <a href="{% url 'article_list' %}" class="btn btn-link" role="button">Cancel</a>
+        </div>
+    </form>
+{% endblock %}

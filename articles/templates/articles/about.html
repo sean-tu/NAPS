@@ -1,0 +1,47 @@
+{% extends 'articles/base.html' %}
+
+{% block content %}
+			
+			<h2>What is Project NAPS?</h2>
+			<p>
+				NAPS stands for <span class="underline">N</span>atural-language <span class="underline">A</span>rticle <span class="underline">P</span>rocessing <span class="underline">S</span>ystem.
+			</p>
+		</div><!-- /.col-md-8 -->
+	</div><!-- /.row -->
+</div><!-- /.container.content -->
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h2>Our Team</h2>
+			<ul>
+				<li>Sean Reedy - Project Manager</li>
+				<li>Howard Brown - Database and Server Admin</li>
+				<li>Victoria Proetsch - Web Developer</li>
+				<li>Megan Chipman - Text Extraction &amp; Classification</li>
+				<li>Johnathan Sattler - Text Extraction &amp; Classification</li>
+				<li>Maxim Shelopugin- Text Extraction &amp; Classification</li>
+			</ul>
+			<p>Project NAPS was developed for Dr. Nassiff's Processes of Object-Oriented Software Development class in Spring 2017.</p>
+		</div>
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h2>What makes it tick?</h2>
+			<p>
+				PDFMiner - A toolkit for extracting data from PDFs.
+			</p>
+			<p>
+				NLTK - the Natural Language Tool Kit, contains functions for tokenizing and analyzing the language we extract.
+			</p>
+			<p>
+				Django - A web framework for our application
+			</p>
+			<p>
+				AWS - Amazon Web Services keeps out server up and running.
+			</p>
+
+
+{% endblock %}

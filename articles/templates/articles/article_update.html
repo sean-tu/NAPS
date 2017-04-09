@@ -1,0 +1,18 @@
+{% extends 'articles/base.html' %}
+
+{% block content %}
+	<!-- Upload form. Note enctype attribute! -->
+    <form action="{% url 'article_update' pk=article.pk %}" method="post">
+        {% csrf_token %}
+        {% for boundfield in form %}
+        	<div class="form-group">
+        	{{ boundfield.label_tag }}
+            {{ boundfield }}
+            </div>
+        {% endfor %}
+        <div class="form-group form-buttons">
+	        <a class="btn btn-lg btn-link pull-left" role="button" href="{% url 'article_detail' pk=article.pk %}">Cancel</a>
+	        <input type="submit" class="btn btn-primary btn-lg pull-right" value="Save Changes" />
+        </div>
+    </form>
+{% endblock %}
