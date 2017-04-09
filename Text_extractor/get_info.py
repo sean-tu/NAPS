@@ -67,7 +67,7 @@ def author_line_num(fpt):
 	num = 0
 	author_line = 0
 
-	regex = r"((([A-Z][a-z]+)|([A-Z]\.))\s+(([A-Z]\.)|([A-Z][a-z]+))\s*(([A-Z][a-z]+)|(\,)))"
+	regex = r"((([A-Z][a-z]+)|([A-Z]\.))\s+(([A-Z]\.)|([A-Z][a-z]+))*\s*(([A-Z][a-z]+)|(\,)))"
 	with open(fpt) as f:
    			for line in f:
 				author = re.findall(regex, line)
