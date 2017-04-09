@@ -18,7 +18,6 @@ from pdfminer.cmapdb import CMapDB
 from pdfminer.layout import LAParams
 from pdfminer.image import ImageWriter
 from Paper import Paper
-from Metadata import Metadata
 
 def extract(pdf_file, txt_file):
 
