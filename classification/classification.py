@@ -44,15 +44,18 @@ class Processor:
         utils.save_object(self.classifier.classifier, path)
 
 
-def build_doc_set(path):
-    path_list = utils.build_doc_set(path)
+def build_doc_set(path_list):
+    # path_list = utils.build_doc_set(path)
     docs = [Document(path=p, class_label=c, subclass_label=s) for p, c, s in path_list]
+    utils.print_docset(docs)
     return docs
 
 
 def dev_test():
     """Train and test a new classifier on a directory of .txt documents."""
-    docs = build_doc_set('../papers')
+    docs = utils.build_doc_set('../papers')
+    print docs
+    # docs = build_doc_set(docs)
     driver = Processor()
     for d in docs:
         driver.process_document(d)
@@ -62,9 +65,10 @@ def dev_test():
 
 def main():
     dev_test()
-
+    docs = utils.build_doc_set('../papers')
+    utils.print_docset(docs)
 
 if __name__ == '__main__':
-    main()
+    dev_test()
 
 

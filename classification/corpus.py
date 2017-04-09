@@ -7,13 +7,15 @@ The Corpus contains the set of Classes and their associated Documents
 
 import pickle
 
+from prettytable import PrettyTable
+
 
 class Document:
-    def __init__(self, path=None, raw_text=None, class_label='uncategorized', subclass_label=''):
+    def __init__(self, path=None, raw_text=None, class_label='', subclass_label=''):
         self.path = path                # path to text file
         self.raw_text = raw_text        # string of text from text file
-        self.tokens = None              # list of tokens from text
-        self.features = None            # set of features (token, frequency)
+        self.tokens = None              # list of tokens from text [token]
+        self.features = None            # set of features [(token, frequency)]
         self.class_label = class_label  # name of assigned category
         self.subclass_label = subclass_label
 
@@ -46,109 +48,62 @@ class Corpus:
     Documents are organized by class. The Classifier uses the documents' features to calculate class probabilities.
     """
 
-    def __init__(self):
-        self.num_documents = 0
+    def __init__(self, level=0):
+        self.num_docs = 0
         self.classes = []
-        self.vocabulary = {}
+        self.vocabulary = {}        # overall feature set for Corpus
+        self.level = level
 
     def get_classes(self):
-        return sorted(self.classes, key=lambda c: c.get_class_label())
+        return sorted(self.classes, key=lambda c: c.get_label())
 
     def get_vocabulary(self):
         return self.vocabulary
 
-    def add_document(self, document):
+    def add_doc(self, doc):
         """Add a document to the corpus with the given class label.
         
         If not specified, document will be given 'uncategorized' label. 
         If corpus does not contain class with that label, create one."""
-        label = document.get_labels()[0]
-        c = self.get_class(label)
-        if not c:
-            c = self.Class(label)
-            self.classes.append(c)
-        c.add_document(document)
-        self.num_documents += 1
-        combine_features(self.vocabulary, document.get_features())
+        self.num_docs += 1
+        # combine_features(self.vocabulary, doc.get_features())
+        if self.level < 2:
+            label = doc.get_labels()[self.level]
+            print label, self.level
+            c = self.get_class(label)
+            c.add_doc(doc)
 
     def get_class(self, label):
         """Returns Class object with specified class label"""
         for c in self.classes:
-            if c.get_class_label() == label:
+            if c.get_label() == label:
                 return c
-        return None
+        newclass = Class(label, level=self.level+1)
+        self.classes.append(newclass)
+        return newclass
 
-    def load_corpus(self, path='corpus.pkl'):
-        """Populates corpus with documents from pickle file
+    def getN(self):
+        """How many docs in class"""
+        return self.num_docs
 
-        Args:
-            path (str): file path specifying pickle file from which to load corpus
-        """
-        with open(path, 'rb') as file_in:
-            saved_corpus = pickle.load(file_in)
-            self.classes = saved_corpus.classes
-            self.num_documents = saved_corpus.num_documents
 
-    def save_corpus(self, path='corpus.pkl'):
-        """Save corpus to pickle file"""
-        with open(path, 'wb') as output:
-            pickle.dump(self, output, pickle.HIGHEST_PROTOCOL)
+class Class(Corpus):
+    """Class of documents (ex: 'Biology') to which a document can be classified."""
+    # TODO implement subclasses
+    def __init__(self, label, level=1):
+        Corpus.__init__(self, level=level)
+        self.label = label
+        self.documents = []
 
-    # def add_class(self, label):
-    #     """Adds class with given label to corpus if it does not already exist."""
-    #     class_labels = self.get_class_labels()
-    #     if label not in class_labels:
-    #         new_class = self.Class(label)
-    #         self.classes.append(new_class)
+    def get_class_features(self):
+        return self.vocabulary
 
-    def get_class_labels(self):
-        class_names = []
-        for c in self.classes:
-            class_names.append(c.get_class_label())
-        return class_names
+    def get_label(self):
+        return self.label
 
-    class Class:
-        """Class of documents (ex: 'Biology') to which a document can be classified."""
-        # TODO implement subclasses
-        def __init__(self, label):
-            self.class_label = label
-            self.documents = []
-            self.num_documents = 0
-            self.subclasses = []
-            self.features = {}
-
-        def add_document(self, document):
-            self.documents.append(document)
-            self.num_documents += 1
-            combine_features(self.features, document.get_features())
-            sub_label = document.subclass_label
-            if sub_label != '' and self.class_label != sub_label:
-                s = self.get_subclass(sub_label)
-                if s is None:
-                    s = self.Class(sub_label)
-                    self.subclasses.append(s)
-                s.add_document(sub_label)
-
-        def get_subclass(self, label):
-            for c in self.subclasses:
-                if c.get_class_label() == label:
-                    return c
-            return None
-
-        def get_class_features(self):
-            # """Combine features dicts of all docs in class"""
-            # class_features = {}
-            # for d in self.documents:
-            #     combine_features(class_features, d.get_features())
-            return self.features
-
-        def getN(self):
-            """How many docs in class"""
-            return self.num_documents
-
-        def get_class_label(self):
-            return self.class_label
-
+    def add_doc(self, doc):
+        Corpus.add_doc(self, doc)
+        self.documents.append(doc)
 
 # Helper function
 def combine_features(set1, set2):
@@ -166,10 +121,29 @@ def combine_features(set1, set2):
             set1[f] = v
     return set1
 
+def print_corpus(corpus):
+    table = PrettyTable(['Class', 'Subclass', 'Doc'])
+    for c in corpus.get_classes():
+        class_label = c.get_label()
+        for s in c.get_classes():
+            subclass_label = s.get_label()
+            for d in s.documents:
+                table.add_row([class_label, subclass_label, d.path])
+    print table
+
 
 def main():
     pass
 
 if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
+    docs = []
+    docs.append(Document(path='a1', class_label='a', subclass_label='1'))
+    docs.append(Document(path='a2', class_label='a', subclass_label='2'))
+    docs.append(Document(path='b1', class_label='b', subclass_label='1'))
+    docs.append(Document(path='b2', class_label='b', subclass_label='2'))
+    docs.append(Document(path='c1', class_label='c', subclass_label='1'))
+    docs.append(Document(path='a2a', class_label='a', subclass_label='2'))
+    corpus = Corpus()
+    for d in docs:
+        corpus.add_doc(d)
+    print_corpus(corpus)

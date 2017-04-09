@@ -12,14 +12,14 @@ class NaiveBayes:
         self.alpha = 1          # laplace smoothing
         self.vocabulary = {}    # all tokens in corpus and their frequencies, alphabetized
         self.classes = []       # list of classes, alphabetized
-#       self.condprob           # conditional probability of token t given class c
-        self.prior = []            # prior probabilities of classes
+        self.condprob = None    # conditional probability of token t given class c
+        self.prior = []         # prior probabilities of classes
 
-    def prob_classify(self, features):
+    def prob_classify(self, feature_set):
         score = []
         for c in range(len(self.classes)):
             score.append(math.log(self.prior[c], 10))
-            for t in features:
+            for t in feature_set:
                 if t in self.vocabulary.keys():
                     i = self.vocabulary.keys().index(t)
                     score[c] += math.log(self.condprob[c][i], 10)
@@ -28,7 +28,7 @@ class NaiveBayes:
     def train(self, corpus):
         self.vocabulary = OrderedDict((sorted(corpus.get_vocabulary().items(), key=lambda v: v[0])))
         vocab_length = len(self.vocabulary)     # number of terms in vocabulary
-        N = corpus.num_documents
+        N = corpus.num_docs
         ci = 0   # class counter
         self.classes = corpus.get_classes()
         self.condprob = [[0 for x in range(vocab_length)] for y in range(len(self.classes))]

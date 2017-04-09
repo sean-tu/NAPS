@@ -67,7 +67,7 @@ class Classifier:
         labeled_feature_set = [(d.get_features(), d.get_labels()[0]) for d in train_set]
         print 'Training on %d documents...\n' % len(labeled_feature_set)
         for d in train_set:
-            self.corpus.add_document(d)
+            self.corpus.add_doc(d)
         if isinstance(self.classifier, NaiveBayes):
             self.classifier.train(self.corpus)
         else:

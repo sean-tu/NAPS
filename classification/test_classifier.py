@@ -35,7 +35,7 @@ class TestClassifier(unittest.TestCase):
 
         testcorp = Corpus()
         for d in chinatest:
-            testcorp.add_document(d)
+            testcorp.add_doc(d)
 
         clf = Classifier()
         clf.set_classifier()
