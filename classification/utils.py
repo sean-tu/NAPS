@@ -92,10 +92,10 @@ def build_doc_set(path="papers"):
         for pdf in get_pdfs(folder):
             txt = pdf.replace(".{}".format(pdf_extension), ".{}".format(txt_extension))
 
-            print "Category: " + folder_name
-            print "Subcategory: "
-            print "PDF File: " + pdf
-            print "TXT File: " + txt + "\n"
+            # print "Category: " + folder_name
+            # print "Subcategory: "
+            # print "PDF File: " + pdf
+            # print "TXT File: " + txt + "\n"
 
             docs.append((txt, folder_name, ''))
 
@@ -105,10 +105,10 @@ def build_doc_set(path="papers"):
             for pdf in get_pdfs(subfolder):
                 txt = pdf.replace(".{}".format(pdf_extension), ".{}".format(txt_extension))
 
-                print "Category: " + folder_name
-                print "Subcategory: " + subfolder_name
-                print "PDF File: " + pdf
-                print "TXT File: " + txt + "\n"
+                # print "Category: " + folder_name
+                # print "Subcategory: " + subfolder_name
+                # print "PDF File: " + pdf
+                # print "TXT File: " + txt + "\n"
 
                 docs.append((txt, folder_name, subfolder_name))
 
