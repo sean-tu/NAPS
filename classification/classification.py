@@ -8,7 +8,6 @@ from naivebayes import NaiveBayes
 from collections import OrderedDict
 from prettytable import PrettyTable
 
-
 class Processor:
 
     def __init__(self):

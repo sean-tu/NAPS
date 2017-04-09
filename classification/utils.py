@@ -49,15 +49,13 @@ def batch_extract(path="papers"):
     extracted = 0
 
     for folder in get_subfolders(path):
+        folder_name = os.path.basename(os.path.normpath(folder))
+
         for pdf in get_pdfs(folder):
-            cats = folder.split("/")
-            cats.pop(0)
-
             txt = pdf.replace(".{}".format(pdf_extension), ".{}".format(txt_extension))
-            folder_name = cats[len(cats) - 1]
 
-            # print "Category: " + cats[0]
-            # print "Subcategory: " + (cats[1] if len(cats) > 1 else "")
+            # print "Category: " + folder_name
+            # print "Subcategory: "
             # print "PDF File: " + pdf
             # print "TXT File: " + txt + "\n"
 
@@ -65,7 +63,20 @@ def batch_extract(path="papers"):
                 extract(pdf, txt)
                 extracted += 1
 
-        batch_extract(os.path.join(path, folder_name))
+        for subfolder in get_subfolders(os.path.join(path, folder_name)):
+            # subfolder_name = os.path.basename(os.path.normpath(sub_folder))
+
+            for pdf in get_pdfs(subfolder):
+                txt = pdf.replace(".{}".format(pdf_extension), ".{}".format(txt_extension))
+
+                # print "Category: " + folder_name
+                # print "Subcategory: " + subfolder_name
+                # print "PDF File: " + pdf
+                # print "TXT File: " + txt + "\n"
+
+                if not os.path.isfile(txt):
+                    extract(pdf, txt)
+                    extracted += 1
 
     return extracted
 # end batch_extract
@@ -76,21 +87,30 @@ def build_doc_set(path="papers"):
     docs = []
 
     for folder in get_subfolders(path):
+        folder_name = os.path.basename(os.path.normpath(folder))
+
         for pdf in get_pdfs(folder):
-            cats = folder.split("/")
-            cats.pop(0)
-
             txt = pdf.replace(".{}".format(pdf_extension), ".{}".format(txt_extension))
-            folder_name = cats[len(cats) - 1]
 
-            # print "Category: " + cats[0]
-            # print "Subcategory: " + (cats[1] if len(cats) > 1 else "")
-            # print "PDF File: " + pdf
-            # print "TXT File: " + txt + "\n"
+            print "Category: " + folder_name
+            print "Subcategory: "
+            print "PDF File: " + pdf
+            print "TXT File: " + txt + "\n"
 
-            docs.append((txt, cats[0], cats[1] if len(cats) > 1 else ''))
+            docs.append((txt, folder_name, ''))
 
-        docs.extend(build_doc_set(os.path.join(path, folder_name)))
+        for subfolder in get_subfolders(os.path.join(path, folder_name)):
+            subfolder_name = os.path.basename(os.path.normpath(subfolder))
+
+            for pdf in get_pdfs(subfolder):
+                txt = pdf.replace(".{}".format(pdf_extension), ".{}".format(txt_extension))
+
+                print "Category: " + folder_name
+                print "Subcategory: " + subfolder_name
+                print "PDF File: " + pdf
+                print "TXT File: " + txt + "\n"
+
+                docs.append((txt, folder_name, subfolder_name))
 
     return docs
 
