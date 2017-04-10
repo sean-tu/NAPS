@@ -44,7 +44,12 @@
 		{% endif %}
 	</p>
 	<p>
-		<a class="btn btn-default" href="#"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> Download PDF</a>
+		<a class="btn btn-default" href="{{ article.pdf_file.url }}"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> Download PDF</a>
+		<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#full-text">Show Full Text</button>
 	</p>
+
+	<div id="full-text" class="collapse">
+	    {{article.full_text}}
+  	</div>
 
 {% endblock %}
