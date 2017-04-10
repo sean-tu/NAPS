@@ -7,7 +7,7 @@ import random
 #import the Classifier class from /classify/classify.py
 from classification import classification
 #import the Extractor class from /extractor/extract.py
-from Text_extractor import Extract, get_info, Paper
+from Text_extractor import extract, get_info, Paper
 
 
 # Create your models here.
