@@ -150,6 +150,7 @@ def print_docset(docs):
 
 def print_corpus(corpus):
     table = PrettyTable(['Class', 'Subclass', 'Doc'])
+    table.align = 'l'
     for c in corpus.get_classes():
         class_label = c.get_label()
         for s in c.get_classes():

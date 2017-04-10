@@ -3,6 +3,7 @@ from tokenizer import Tokenizer
 import os
 
 string1 = "Microscopy is the use of microscopes to see micro-sized objects."
+string2 = "Microscopy is the use of microscopes to see tiny objects"
 str = ("This is a test file.\n"
        "\n"
        "The cell is the basic unit of life. Cellular division is\n"
@@ -20,7 +21,7 @@ class TestTokenizer(unittest.TestCase):
 
     def test_tokenize(self):
         tokens = self.t.tokenize(string1)
-        self.assertEquals(tokens, ['microscopy', 'use', 'microscopes', 'see', 'objects', '.'])
+        self.assertEquals(tokens, ['microscopy', 'use', 'microscopes', 'see', 'objects'])
 
     def test_tokenize_file(self):
         t = Tokenizer()
