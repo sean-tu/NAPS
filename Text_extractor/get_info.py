@@ -29,7 +29,6 @@ def get_info(pdf_file, txt_file):
 	temp_author = None
 
 	fp = file(pdf_file, 'rb')
-	info_filename = txt_file[:-3]+'info.txt'
 	file_name = txt_file[:-3]+'firstpage.txt'
 	out_file = file(file_name,'w')
 
@@ -58,9 +57,12 @@ def get_info(pdf_file, txt_file):
 
 	os.remove(file_name)
 
+	"""
+	info_filename = txt_file[:-3]+'info.txt'
  	paper.generate_citations(info_filename)
+ 		"""
 
- 	return 1
+ 	return paper
 
 """	Find all the authors for a given article
 	"""
