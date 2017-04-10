@@ -29,7 +29,15 @@ class Tokenizer:
         """Convert string to a list of tokens, i.e. individual words """
         # TODO implement
         raw_tokens = word_tokenize(raw_text)
-        return self.filter_tokens(raw_tokens)
+        return self.split_by(raw_tokens, '-')
+
+    def split_by(self, tokens, char):
+        """Split tokens containing char"""
+        raw_tokens = [token.split(char) for token in tokens]
+        return_tokens = []
+        for token in raw_tokens:
+            return_tokens.extend(token)
+        return return_tokens
 
     def filter_tokens(self, tokens):
         """Remove non-words, short words (<minLength), and stopwords (common words that don't give information"""
