@@ -1,12 +1,14 @@
 from __future__ import unicode_literals
 from django.db import models
+from NAPS.settings import MEDIA_ROOT
 import re
 import datetime
+import random
 
 #import the Classifier class from /classify/classify.py
-from classification import classifier
+from classification import classification
 #import the Extractor class from /extractor/extract.py
-from Text_extractor import *
+from Text_extractor import extract, get_info, Paper
 
 
 # Create your models here.
@@ -38,7 +40,23 @@ class Article(models.Model):
 		return self.title + ' (' + self.authors + ')'
 
 	def categorize(self):
-		self.category = Classifier.classify(Article)
+		self.category = 'Chemistry'
+		self.subcategory = 'Analytical Chemistry'
+		#categories = classification.classify(self.full_text)
+		#self.category = categories[0]
+		#self.subcategory = categories[1]
+
+	def extract(self):
+		tmp_filename = MEDIA_ROOT + 'text-' + str( random.randint(100000,999999) ) + '.txt'
+		extract.extract(self.pdf_file.url, tmp_filename)
+		self.full_text = open(tmp_filename, 'r').read()
+		paper = get_info.get_info(self.pdf_file.url, tmp_filename)
+		self.doi = paper.get_doi()
+		self.authors = paper.get_author()
+		self.title = paper.get_title()
+		self.date_published = paper.get_year()
+		self.publisher = paper.get_publisher()
+
 
 	def validate_category(self, input_category):
 		if (input_category in Article.CATEGORIES):

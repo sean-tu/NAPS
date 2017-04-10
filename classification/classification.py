@@ -5,8 +5,7 @@ import utils
 from corpus import Document
 from classifier import Classifier
 from naivebayes import NaiveBayes
-from collections import OrderedDict
-from prettytable import PrettyTable
+
 
 class Processor:
 
@@ -33,7 +32,8 @@ class Processor:
             self.load_classifier('saved_classifier_4-7_7-60')
         self.process_document(doc)
         label = self.classifier.classify(doc)
-        return label
+        sublabel = self.classifier.subclassify(doc, label)
+        return [label, sublabel]
 
     def load_classifier(self, path):
         """Loads a trained classifier from file.
@@ -44,31 +44,58 @@ class Processor:
         utils.save_object(self.classifier.classifier, path)
 
 
-def build_doc_set(path_list):
-    # path_list = utils.build_doc_set(path)
+def build_doc_set(path):
+    utils.batch_extract(path)
+    path_list = utils.build_doc_set(path)
     docs = [Document(path=p, class_label=c, subclass_label=s) for p, c, s in path_list]
-    utils.print_docset(docs)
+    # utils.print_docset(docs)
     return docs
 
 
-def dev_test():
+def dev_train_test():
     """Train and test a new classifier on a directory of .txt documents."""
-    docs = utils.build_doc_set('../papers')
-    print docs
+    docs = build_doc_set('../papers')
     # docs = build_doc_set(docs)
     driver = Processor()
     for d in docs:
         driver.process_document(d)
     driver.classifier.set_classifier(NaiveBayes())
-    driver.classifier.train_and_test(docs, split=.25)
+    driver.classifier.train_and_test(docs, split=.1)
+
+
+def dev_train():
+    docs = build_doc_set('../papers')
+    driver = Processor()
+    for d in docs:
+        driver.process_document(d)
+    driver.classifier.set_classifier(NaiveBayes())
+    driver.classifier.train(docs)
+    utils.save_object(driver.classifier, 'saved_classifier-367')
+
+
+def dev_test(test_doc):
+    docs = build_doc_set('../papers')
+    driver = Processor
+    driver.process_document(test_doc)
+    driver.classifier = utils.load_object('saved_classifier-367')
+    driver.classifier.classify(test_doc)
+
+
+def classify(text):
+    driver = Processor()
+    doc = Document(raw_text=text)
+    driver.process_document(doc)
+    driver.classifier = utils.load_object('saved_classifier-367')
+    class_label = driver.classifier.classify(doc)
+    subclass_label = driver.classifier.subclassify(doc, class_label)
+    labels = [class_label, subclass_label]
+    print labels
+    return labels
 
 
 def main():
-    dev_test()
-    docs = utils.build_doc_set('../papers')
-    utils.print_docset(docs)
+    pass
 
 if __name__ == '__main__':
-    dev_test()
-
-
+    classifier = utils.load_object('saved_classifier-367')
+    utils.print_corpus(classifier.corpus)

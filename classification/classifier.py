@@ -5,14 +5,14 @@ In: document with feature set
 Out: class label
 """
 from __future__ import division
-
 import random
 
 from nltk.classify import SklearnClassifier
 from sklearn.naive_bayes import MultinomialNB
+
+import utils
 from corpus import Corpus
 from naivebayes import NaiveBayes
-from prettytable import PrettyTable
 # from sklearn.pipeline import Pipeline
 
 __author__ = 'Sean Reedy'
@@ -21,17 +21,13 @@ __author__ = 'Sean Reedy'
 class Classifier:
 
     def __init__(self):
-        self.classifier = None
         self.corpus = Corpus()
-
-    def output_probs(self):
-        """Use PrettyTable to print calculated probabilities"""
-        if isinstance(self.classifier, NaiveBayes):
-            self.classifier.output_probs()
+        self.classifier = None
+        self.subclassifiers = {}
 
     def set_classifier(self, path=None):
-        if path is None:
-            path = SklearnClassifier(MultinomialNB())
+        # if path is None:
+        #     path = SklearnClassifier(MultinomialNB())
         self.classifier = path
 
     def prob_classify(self, document):
@@ -48,6 +44,13 @@ class Classifier:
         probs = self.prob_classify(document)
         return self.c_map(probs)
 
+    def subclassify(self, document, class_label):
+        if class_label not in self.subclassifiers:
+            return ''
+        subclassifier = self.subclassifiers[class_label]
+        probs = subclassifier.prob_classify(document.get_features())
+        return self.c_map(probs)
+
     def c_map(self, probs):
         """Returns the maximum a posteriori class (most likely class) given a set of calculated probabilities."""
         if isinstance(self.classifier, SklearnClassifier): return probs.max()
@@ -59,20 +62,6 @@ class Classifier:
                 label = C
         return label
 
-    def train(self, train_set):
-        """Teaches the classifier with labeled data instances.
-        sub = 0 : normal 
-        sub = 1 : subclasses 
-        """
-        labeled_feature_set = [(d.get_features(), d.get_labels()[0]) for d in train_set]
-        print 'Training on %d documents...\n' % len(labeled_feature_set)
-        for d in train_set:
-            self.corpus.add_doc(d)
-        if isinstance(self.classifier, NaiveBayes):
-            self.classifier.train(self.corpus)
-        else:
-            self.classifier.train(labeled_feature_set)
-
     def test(self, test_set):
         """Using a new set of documents, tests the accuracy of the classifier. 
         
@@ -80,25 +69,42 @@ class Classifier:
         tested = 0
         correct = 0
         errors = []
+        level = 0   # 0=class, 1=subclass
         print ('Testing with %d documents...' % (len(test_set)))
-        for path, actual, predicted in [(d.path, d.get_labels()[0], self.classify(d)) for d in test_set]:
+        for doc in test_set:
+            actual = doc.get_labels()   # [class_label, subclass_label
+            p_class = self.classify(doc)
+            p_subclass = self.subclassify(doc, actual[0])   # use correct subclassifier for now
+            predicted = [p_class, p_subclass]
+
             if actual == predicted:
                 correct += 1
             else:
-                errors.append((actual, predicted, path))
+                errors.append((actual, predicted, doc))
             tested += 1
         accuracy = float(correct/tested)
         print 'Accuracy=%f, tested=%d, correct=%d, errors=%d' % (accuracy, tested, correct, len(errors))
-        self.print_errors(errors)
+        utils.print_errors(errors)
         return accuracy
 
-    def print_errors(self, errors):
-        header = ['Actual', 'Predicted', 'Path']
-        t = PrettyTable(header)
-        t.align = 'l'
-        for e in errors:
-            t.add_row(e)
-        print t
+    def train(self, train_set):
+        """Teaches the classifier with labeled data instances.
+        sub = 0 : normal 
+        sub = 1 : subclasses 
+        """
+        for d in train_set:
+            self.corpus.add_doc(d)
+        print 'Training on %d documents...\n' % len(train_set)
+        if isinstance(self.classifier, NaiveBayes):
+            self.classifier.train(self.corpus)
+            for c in self.corpus.get_classes():
+                if len(c.get_classes()) > 1:
+                    subclassifier = NaiveBayes()
+                    subclassifier.train(c)
+                    self.subclassifiers[c.get_label()] = subclassifier
+        else:   # for nltk classifiers
+            labeled_feature_set = [(d.get_features(), d.get_labels()[0]) for d in train_set]
+            self.classifier.train(labeled_feature_set)  # Sklearn classifiers
 
     def train_and_test(self, dev_set, split=.5):
         """Splits dev set into training and testing sets then trains/tests
@@ -112,6 +118,11 @@ class Classifier:
         self.train(train_set)
         accuracy = self.test(test_set)
         return accuracy
+
+    def output_probs(self):
+        """Use PrettyTable to print calculated probabilities"""
+        if isinstance(self.classifier, NaiveBayes):
+            self.classifier.output_probs()
 
 
 # Helper functions

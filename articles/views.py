@@ -67,10 +67,12 @@ def upload_pdf(request):
             article = form.save(commit=False)
             article.owner = request.user
             #create a new Extractor and pass article.file to it
-            #extract fields and set the to article
             article.save()
+            article.extract()
+            article.save(update_fields=['full_text', 'doi', 'authors', 'date_published', 'publisher'])
             #create a new Classifier and pass article.file to it
-            #attempt a classification
+            article.categorize()
+            article.save(update_fields=['category', 'subcategory'])
             #if certainty is low:
             	#article.save
             	#redirect to a select category page

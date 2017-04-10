@@ -2,7 +2,7 @@ import random
 import unittest
 from corpus import *
 from classifier import Classifier
-from classification import Classification
+from classification import Processor
 
 
 class TestClassifier(unittest.TestCase):

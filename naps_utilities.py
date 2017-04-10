@@ -3,7 +3,7 @@ Gets all of the pdf files from the subfolders of a specified folder
 """
 
 import os
-from Text_extractor.Extract import extract
+from Text_extractor.extract import extract
 import cPickle as pickle
 
 __author__ = "Johnathan Sattler"

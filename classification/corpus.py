@@ -41,6 +41,8 @@ class Document:
         self.class_label = label
         # TODO change class if containing class.class_label != class_label
 
+    def __str__(self):
+        return self.path
 
 class Corpus:
     """Contains the documents known to the classifier. 
@@ -66,10 +68,9 @@ class Corpus:
         If not specified, document will be given 'uncategorized' label. 
         If corpus does not contain class with that label, create one."""
         self.num_docs += 1
-        # combine_features(self.vocabulary, doc.get_features())
+        combine_features(self.vocabulary, doc.get_features())
         if self.level < 2:
             label = doc.get_labels()[self.level]
-            print label, self.level
             c = self.get_class(label)
             c.add_doc(doc)
 
@@ -86,10 +87,12 @@ class Corpus:
         """How many docs in class"""
         return self.num_docs
 
+    def __str__(self):
+        return 'Corpus (%d docs, %d cats' % (self.num_docs, len(self.classes))
+
 
 class Class(Corpus):
     """Class of documents (ex: 'Biology') to which a document can be classified."""
-    # TODO implement subclasses
     def __init__(self, label, level=1):
         Corpus.__init__(self, level=level)
         self.label = label
@@ -104,6 +107,7 @@ class Class(Corpus):
     def add_doc(self, doc):
         Corpus.add_doc(self, doc)
         self.documents.append(doc)
+
 
 # Helper function
 def combine_features(set1, set2):
@@ -121,29 +125,20 @@ def combine_features(set1, set2):
             set1[f] = v
     return set1
 
-def print_corpus(corpus):
-    table = PrettyTable(['Class', 'Subclass', 'Doc'])
-    for c in corpus.get_classes():
-        class_label = c.get_label()
-        for s in c.get_classes():
-            subclass_label = s.get_label()
-            for d in s.documents:
-                table.add_row([class_label, subclass_label, d.path])
-    print table
-
 
 def main():
     pass
 
 if __name__ == '__main__':
-    docs = []
-    docs.append(Document(path='a1', class_label='a', subclass_label='1'))
-    docs.append(Document(path='a2', class_label='a', subclass_label='2'))
-    docs.append(Document(path='b1', class_label='b', subclass_label='1'))
-    docs.append(Document(path='b2', class_label='b', subclass_label='2'))
-    docs.append(Document(path='c1', class_label='c', subclass_label='1'))
-    docs.append(Document(path='a2a', class_label='a', subclass_label='2'))
-    corpus = Corpus()
-    for d in docs:
-        corpus.add_doc(d)
-    print_corpus(corpus)
+    main()
+    # docs = []
+    # docs.append(Document(path='a1', class_label='a', subclass_label='1'))
+    # docs.append(Document(path='a2', class_label='a', subclass_label='2'))
+    # docs.append(Document(path='b1', class_label='b', subclass_label='1'))
+    # docs.append(Document(path='b2', class_label='b', subclass_label='2'))
+    # docs.append(Document(path='c1', class_label='c', subclass_label='1'))
+    # docs.append(Document(path='a2a', class_label='a', subclass_label='2'))
+    # corpus = Corpus()
+    # for d in docs:
+    #     corpus.add_doc(d)
+    # utils.print_corpus(corpus)
