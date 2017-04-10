@@ -18,13 +18,14 @@ class TestTokenizer(unittest.TestCase):
     def test_tokenize(self):
         t = Tokenizer()
         tokens = t.tokenize(string1)
-        self.assertEquals(tokens, ['Microscopy', 'is', 'the', 'use', 'of', 'microscopes', 'to', 'see', 'micro-sized', 'objects', '.'])
+        self.assertEquals(tokens, ['Microscopy', 'is', 'the', 'use', 'of', 'microscopes', 'to', 'see', 'micro', 'sized',
+                                   'objects', '.'])
 
     def test_tokenize_file(self):
         t = Tokenizer()
         cwd = os.getcwd()
-        print os.listdir(cwd)
-        raw = t.load_input(path='classification/paper1.txt')
+        #print os.listdir(cwd)
+        raw = t.load_input(path='paper1.txt')
         tokens = t.tokenize(raw)
         self.assertGreater(len(tokens), 3000)   # Check a reasonable number of tokens were successfully extracted
 
@@ -33,13 +34,13 @@ class TestTokenizer(unittest.TestCase):
         tokens = t.tokenize(string1)
         filtered = t.filter_tokens(tokens)
         self.assertEquals(filtered,
-                          ['microscopy', 'use', 'microscopes', 'see','objects'])
+                          ['microscopy', 'use', 'microscopes', 'see', 'micro', 'sized', 'objects'])
 
     def test_tokenizer_long(self):
         t = Tokenizer()
         tokens = t.tokenize(str)
         filtered = t.filter_tokens(tokens)
-        print filtered
+        #print filtered
 
 
 if __name__ == '__main__':
