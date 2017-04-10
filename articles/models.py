@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
+from NAPS.settings import MEDIA_ROOT
 import re
 import datetime
 import random
@@ -46,7 +47,7 @@ class Article(models.Model):
 		#self.subcategory = categories[1]
 
 	def extract(self):
-		tmp_filename = 'text-' + str( random.randint(100000,999999) ) + '.txt'
+		tmp_filename = MEDIA_ROOT + 'text-' + str( random.randint(100000,999999) ) + '.txt'
 		extract.extract(self.pdf_file.url, tmp_filename)
 		self.full_text = open(tmp_filename, 'r').read()
 		paper = get_info.get_info(self.pdf_file.url, tmp_filename)
