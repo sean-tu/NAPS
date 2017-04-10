@@ -15,10 +15,12 @@ str = ("This is a test file.\n"
 
 class TestTokenizer(unittest.TestCase):
 
+    def setUp(self):
+        self.t = Tokenizer()
+
     def test_tokenize(self):
-        t = Tokenizer()
-        tokens = t.tokenize(string1)
-        self.assertEquals(tokens, ['Microscopy', 'is', 'the', 'use', 'of', 'microscopes', 'to', 'see', 'micro-sized', 'objects', '.'])
+        tokens = self.t.tokenize(string1)
+        self.assertEquals(tokens, ['microscopy', 'use', 'microscopes', 'see', 'objects', '.'])
 
     def test_tokenize_file(self):
         t = Tokenizer()
