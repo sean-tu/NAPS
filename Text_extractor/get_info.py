@@ -1,5 +1,6 @@
 """Module GetInfo, searches for author, page range, title, publisher,
 	year in the given article. Saves everything in a text out_info.txt
+	get_info(pdf_file, txt_file) get all the info from the first page of 'pdf_file'.pdf and save it to 'txt_file'.txt 
 	"""
 
 import sys
@@ -16,18 +17,36 @@ from pdfminer.layout import LAParams
 from pdfminer.image import ImageWriter
 from Paper import Paper
 
-def get_info(txt_file, page, paper):
+def get_info(pdf_file, txt_file):
 
-	info_filename = txt_file[:-3]+'info.txt'
-	laparams = LAParams()	
+	laparams = LAParams()
+	pagenos = set()
 	rsrcmgr = PDFResourceManager(caching = True)
+
+	outtype = 'text'
+ 	pages_to_extract = 1
+	current_page = 0
+	temp_author = None
+
+	fp = file(pdf_file, 'rb')
 	file_name = txt_file[:-3]+'firstpage.txt'
 	out_file = file(file_name,'w')
-	doi_out = TextConverter(rsrcmgr, out_file, codec = 'utf-8', laparams=laparams, imagewriter = None)
-	interpreter_doi = PDFPageInterpreter(rsrcmgr, doi_out)
 
-	interpreter_doi.process_page(page)
+	device = TextConverter(rsrcmgr, out_file, codec = 'utf-8', laparams=laparams, imagewriter = None)
+	interpreter = PDFPageInterpreter(rsrcmgr, device)
+
+	paper = Paper()
+	paper.set_pages(PDFPage.get_num(fp, pagenos, maxpages = pages_to_extract, password = '', caching = True, check_extractable = True))
+	laparams = LAParams()	
+	rsrcmgr = PDFResourceManager(caching = True)
+
+	for page in PDFPage.get_pages(fp, pagenos, maxpages = pages_to_extract, password = '', caching = True, check_extractable = True):
+		page.rotate = (page.rotate) % 360
+		interpreter.process_page(page)
+
 	out_file.close()
+	fp.close()
+	device.close()
 	
 	paper.set_author(find_author(file_name))
 	paper.set_page_range(find_range(file_name))
@@ -36,31 +55,45 @@ def get_info(txt_file, page, paper):
 	paper.set_title(find_title(file_name, line))
 	paper.set_year(find_year(file_name))
 
+	os.remove(file_name)
+
+	"""
+	info_filename = txt_file[:-3]+'info.txt'
  	paper.generate_citations(info_filename)
- 	doi_out.close()
+ 		"""
 
- 	return 1
+ 	return paper
 
+"""	Find all the authors for a given article
+	"""
 def find_author(fpt):
 
 	i = 0
 	num = 0
-	author_arr = []
+	author_arr = set()
+	author_duplicates = []
 
-	regex = r"((([A-Z][a-z]+)|([A-Z]\.))\s+(([A-Z]\.)|([A-Z][a-z]+))*\s*(([A-Z][a-z]+)|(\,)))"
+	regex = r"((([A-Z][a-z]+)|([A-Z]\.))\s+(([A-Z]\.)|([A-Z][a-z]+))\s*(([A-Z][a-z]+)|(\,)))"
 	with open(fpt) as f:
    			for line in f:
 				author = re.findall(regex, line)
 				num = num + 1
 				if author:
 					for i in range(0, len(author)):
-						if(len(author_arr)==0):
-							author_arr.append(author[i][0])
-						elif(author_arr[len(author_arr)-1]!=author[i][0]):
-							author_arr.append(author[i][0])
+						if author[i][0] not in author_arr:
+							author_arr.add(author[i][0])
+						else:
+							author_duplicates.append(author[i][0])
+
+	for name in author_duplicates:
+		if name in author_arr:
+			author_arr.remove(name)
 	f.close()
 	return author_arr
 
+
+""" Get the line number for authors, used in the title search
+	"""
 def author_line_num(fpt):
 
 	i = 0
@@ -78,6 +111,9 @@ def author_line_num(fpt):
 	f.close()
 	return author_line
 
+
+""" Find the year of publication
+	"""
 def find_year (fpt):
 
 	year_arr = []
@@ -91,6 +127,9 @@ def find_year (fpt):
 	f.close()
 	return year_arr
 
+
+""" Find the range of pages in the journal for a given article
+	"""
 def find_range (fpt):
 
 	pages_arr = None
@@ -104,6 +143,10 @@ def find_range (fpt):
 	f.close()
 	return pages_arr
 
+
+""" Find the title on the first page.
+	Title is defined as 3 lines right before the authors
+	"""
 def find_title (fpt, line_num):
 
 	title_arr = ''
@@ -123,6 +166,9 @@ def find_title (fpt, line_num):
 	f.close()
 	return title_arr	
 
+
+""" Find the DOI on the first page 
+	"""
 def find_doi (fpt):
 
 	doi_arr = None
