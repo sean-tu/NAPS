@@ -47,7 +47,7 @@ class Article(models.Model):
 
 	def extract(self):
 		tmp_filename = 'text-' + str( random.randint(100000,999999) ) + '.txt'
-		Extract.extract(self.pdf_file.url, tmp_filename)
+		extract.extract(self.pdf_file.url, tmp_filename)
 		self.full_text = open(tmp_filename, 'r').read()
 		paper = get_info.get_info(self.pdf_file.url, tmp_filename)
 		self.doi = paper.get_doi()
