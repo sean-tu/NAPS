@@ -53,7 +53,7 @@ class Corpus:
     def __init__(self, level=0):
         self.num_docs = 0
         self.classes = []
-        self.vocabulary = {}        # overall feature set for Corpus
+        self.vocabulary = {}        # {token: [token_frequency, document_frequency]}
         self.level = level
 
     def get_classes(self):
@@ -110,7 +110,7 @@ class Class(Corpus):
 
 
 # Helper function
-def combine_features(set1, set2):
+def combine_features(vocab, new_set):
     """Combines the {feature: value} pairs of two dictionaries
 
     >>> combine_features({'a':1, 'b':1, 'c':1}, {'a':5, 'b':1, 'd':1}) == {'a':6, 'b':2, 'c':1, 'd':1}
@@ -118,12 +118,12 @@ def combine_features(set1, set2):
     
     Result is accumulated in set1 (first parameter), set2 is unchanged
     """
-    for f,v in set2.iteritems():
-        if f in set1:
-            set1[f] += v
+    for f,v in new_set.iteritems():
+        if f in vocab:
+            vocab[f] = [vocab[f][0] + v, vocab[f][1] + 1]
         else:
-            set1[f] = v
-    return set1
+            vocab[f] = [v, 1]
+    return vocab
 
 
 def main():

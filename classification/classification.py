@@ -29,8 +29,9 @@ class Processor:
     def classify_document(self, doc):
         """Processes then classifies a new document."""
         if self.classifier.classifier is None:
-            self.load_classifier('saved_classifier_4-7_7-60')
+            self.load_classifier('saved_classifier-367-1')
         self.process_document(doc)
+        # utils.print_doc(doc)
         label = self.classifier.classify(doc)
         sublabel = self.classifier.subclassify(doc, label)
         return [label, sublabel]
@@ -70,16 +71,15 @@ def dev_train():
         driver.process_document(d)
     driver.classifier.set_classifier(NaiveBayes())
     driver.classifier.train(docs)
-    utils.save_object(driver.classifier, 'saved_classifier-367')
+    utils.save_object(driver.classifier, 'saved_classifier-367-1')
 
 
-def dev_test(test_doc):
+def dev_test():
     docs = build_doc_set('../papers')
-    driver = Processor
-    driver.process_document(test_doc)
-    driver.classifier = utils.load_object('saved_classifier-367')
-    driver.classifier.classify(test_doc)
-
+    test_doc = docs[4]
+    driver = Processor()
+    labels = driver.classify_document(test_doc)
+    print labels
 
 def classify(text):
     driver = Processor()
@@ -93,9 +93,5 @@ def classify(text):
     return labels
 
 
-def main():
-    pass
-
 if __name__ == '__main__':
-    classifier = utils.load_object('saved_classifier-367')
-    utils.print_corpus(classifier.corpus)
+    dev_test()

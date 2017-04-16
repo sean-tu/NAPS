@@ -70,4 +70,10 @@ def main():
     pass
 
 if __name__ == '__main__':
-    main()
+    tokens = ['test', 'testing', 'tester', 'cellular', 'division', 'cells', 'microscopy', 'use', 'microscopes', 'biologists',
+           'study', 'biology', 'biologist', 'biological', 'entity', 'biologists', 'study', 'cool']
+    print tokens
+    f = FeatureExtractor(min_freq=1)
+    features = f.process(tokens)
+    f.print_features(features)
+    print features

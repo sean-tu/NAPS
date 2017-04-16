@@ -130,12 +130,30 @@ separator = '\n############\n'
 
 
 def print_doc(doc):
-    features = sort_dictionary(doc.get_features())
+    print_features(doc.get_features())
+    print separator, 'Doc: %s, %s' % (doc.path, doc.get_labels())
+
+
+def print_features(f):
+    features = sort_dictionary(f)
     table = PrettyTable(['Token %d' % len(features), 'Frequency'])
     table.align = 'l'
     for t, f in features.iteritems():
         table.add_row([t, f])
-    print separator, 'Doc: %s, %s' % (doc.path, doc.get_labels())
+    print table
+
+def compare_features(feat1, feat2):
+    """See feature sets side by side"""
+    feat1 = sort_dictionary(feat1)
+    feat2 = sort_dictionary(feat2)  # this must be the smaller dictionary
+    table = PrettyTable(['t1', 'f1', 't2', 'f2'])
+    table.align = 'l'
+    size = len(feat2)
+    print size
+    for i in range(size):
+        (t1, f1) = feat1.popitem()
+        (t2, f2) = feat2.popitem()
+        table.add_row([t1, f1, t2, f2])
     print table
 
 

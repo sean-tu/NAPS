@@ -16,12 +16,44 @@ class NaiveBayes:
         self.classes = []       # list of classes, alphabetized
         self.condprob = None    # conditional probability of token t given class c
         self.prior = []         # prior probabilities of classes
+        self.N = 0              # number of documents in corpus
+
+    def normalize(self, vector):
+        """Transform vector into it's unit vector"""
+        u = []      # unit vector = vector/magnitude
+        sum = 0     # radicand = (v1^2 + v2^2 + ... + vn^2)
+        for v in vector:
+            sum += v*v
+        magnitude = math.sqrt(sum)  # = sqrt(v1^2 + v2^2 + ... + vn^2)
+        for v in vector:
+            u.append(float(v) / float(magnitude))
+        return u
+
+    def idf(self, term):
+        idf = float(self.N) / float(1 + self.vocabulary[term][1])
+        return math.log(idf, 10)
+
+    def tf_idf(self, term):
+        """Calculate the term-frequency inverse-document frequency of a term in the vocabulary"""
+        return self.vocabulary[term][0] * self.idf(term)
+
+    def weight_features(self, feature_set, k=80):
+        """Pick k features with highest tfidf weight"""
+        weighted = {}
+        for f, v in feature_set.iteritems():
+            weighted[f] = v * self.idf(f)
+        return dict(sorted(weighted.items(), key=lambda t: t[1], reverse=True)[:k])
+
+    def print_feats(self, features):
+        weighted = self.weight_features(features)
+        utils.compare_features(features, weighted)
 
     def prob_classify(self, feature_set):
         score = []
+        weighted_set = self.weight_features(feature_set)
         for c in range(len(self.classes)):
             score.append(math.log(self.prior[c], 10))
-            for t in feature_set:
+            for t in weighted_set:
                 if t in self.vocabulary.keys():
                     i = self.vocabulary.keys().index(t)
                     score[c] += math.log(self.condprob[c][i], 10)
@@ -30,23 +62,23 @@ class NaiveBayes:
     def train(self, corpus):
         self.vocabulary = utils.alphabetize_dictionary(corpus.get_vocabulary())
         vocab_length = len(self.vocabulary)     # number of terms in vocabulary
-        N = corpus.num_docs
+        self.N = corpus.num_docs
         ci = 0   # class counter
         self.classes = corpus.get_classes()
         self.condprob = [[0 for x in range(vocab_length)] for y in range(len(self.classes))]
         for c in self.classes:
-            self.prior.append(float(c.getN()) / float(N))
+            self.prior.append(float(c.getN()) / float(self.N))
             ti = 0
             class_features = c.get_class_features()
-            class_length = sum_features(class_features) # TODO fix this to occurences not sum(freqs)
+            class_length = sum_features(class_features) # TODO fix this to occurences not sum(freqs) maybe
             for t in self.vocabulary:
                 freq = 0
                 if t in class_features.keys():
-                    freq = class_features[t]
+                    freq = class_features[t][0]
                 self.condprob[ci][ti] = float(freq + self.alpha) / float(class_length + vocab_length/10)
                 ti += 1
             ci += 1
-        self.output_probs()
+        # self.output_probs()
 
     def output_probs(self):
         print 'Probabilities (%d):' % len(self.vocabulary)
@@ -70,7 +102,7 @@ class NaiveBayes:
 def sum_features(features):
     sum = 0
     for f, v in features.iteritems():
-        sum += v
+        sum += v[0]
     return sum
 
 
@@ -80,5 +112,4 @@ def sort_dictionary(d):
     >>> sort_dictionary({'lots': 20, 'none': 0, 'few': 2, 'some': 5})
     OrderedDict([('lots', 20), ('some', 5), ('few', 2), ('none', 0)])
     """
-    ordered = OrderedDict(sorted(d.items(), key=lambda t: t[1], reverse=True))
-    return ordered
+    return OrderedDict(sorted(d.items(), key=lambda t: t[1], reverse=True))

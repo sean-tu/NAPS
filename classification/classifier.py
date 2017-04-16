@@ -48,7 +48,7 @@ class Classifier:
         if class_label not in self.subclassifiers:
             return ''
         subclassifier = self.subclassifiers[class_label]
-        probs = subclassifier.prob_classify(document.get_features())
+        probs = subclassifier.prob_classify(document)
         return self.c_map(probs)
 
     def c_map(self, probs):
@@ -72,11 +72,10 @@ class Classifier:
         level = 0   # 0=class, 1=subclass
         print ('Testing with %d documents...' % (len(test_set)))
         for doc in test_set:
-            actual = doc.get_labels()   # [class_label, subclass_label
+            actual = doc.get_labels()   # [class_label, subclass_label]
             p_class = self.classify(doc)
             p_subclass = self.subclassify(doc, actual[0])   # use correct subclassifier for now
             predicted = [p_class, p_subclass]
-
             if actual == predicted:
                 correct += 1
             else:
@@ -88,10 +87,7 @@ class Classifier:
         return accuracy
 
     def train(self, train_set):
-        """Teaches the classifier with labeled data instances.
-        sub = 0 : normal 
-        sub = 1 : subclasses 
-        """
+        """Teaches the classifier with labeled data instances."""
         for d in train_set:
             self.corpus.add_doc(d)
         print 'Training on %d documents...\n' % len(train_set)
