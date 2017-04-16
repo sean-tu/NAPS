@@ -30,7 +30,11 @@ class NaiveBayes:
         return u
 
     def idf(self, term):
-        idf = float(self.N) / float(1 + self.vocabulary[term][1])
+        if term in self.vocabulary:
+            occurences = self.vocabulary[term][1]
+        else:
+            occurences = 0
+        idf = float(self.N) / float(1 + occurences)
         return math.log(idf, 10)
 
     def tf_idf(self, term):

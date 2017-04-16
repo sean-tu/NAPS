@@ -12,6 +12,7 @@ from sklearn.naive_bayes import MultinomialNB
 
 import utils
 from corpus import Corpus
+from corpus import Document
 from naivebayes import NaiveBayes
 # from sklearn.pipeline import Pipeline
 
@@ -48,7 +49,7 @@ class Classifier:
         if class_label not in self.subclassifiers:
             return ''
         subclassifier = self.subclassifiers[class_label]
-        probs = subclassifier.prob_classify(document)
+        probs = subclassifier.prob_classify(document.get_features())
         return self.c_map(probs)
 
     def c_map(self, probs):
@@ -76,7 +77,7 @@ class Classifier:
             p_class = self.classify(doc)
             p_subclass = self.subclassify(doc, actual[0])   # use correct subclassifier for now
             predicted = [p_class, p_subclass]
-            if actual == predicted:
+            if actual[0] == predicted[0]:
                 correct += 1
             else:
                 errors.append((actual, predicted, doc))
@@ -109,8 +110,6 @@ class Classifier:
         s = int(len(dev_set) * split)
         test_set = dev_set[:s]
         train_set = dev_set[s:]
-        # if not exclusive(train_set, self.corpus):
-          #  print 'ERROR: training set must not be known to classifier!'
         self.train(train_set)
         accuracy = self.test(test_set)
         return accuracy

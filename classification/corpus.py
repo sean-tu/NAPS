@@ -35,6 +35,10 @@ class Document:
     def get_labels(self):
         return [self.class_label, self.subclass_label]
 
+    def set_labels(self, label, sub_label):
+        self.class_label = label
+        self.subclass_label = sub_label
+
     # NOTE: may change to ref containing 'Class' class
     # NOTE: that might get confusing. When OO and classification/ML lingo collide!
     def set_label(self, label):

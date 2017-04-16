@@ -13,7 +13,7 @@ class Processor:
         """Set up tokenizer, feature extractor, and classifier"""
         self.tokenizer = Tokenizer(min_length=2)
         self.feature_ext = FeatureExtractor(min_freq=3)
-        self.classifier = Classifier()
+        self.clf = Classifier()
 
     def process_document(self, doc):
         """Tokenizes a new document and extracts its features."""
@@ -28,21 +28,29 @@ class Processor:
 
     def classify_document(self, doc):
         """Processes then classifies a new document."""
-        if self.classifier.classifier is None:
+        if self.clf.classifier is None:
             self.load_classifier('saved_classifier-367-1')
         self.process_document(doc)
-        # utils.print_doc(doc)
-        label = self.classifier.classify(doc)
-        sublabel = self.classifier.subclassify(doc, label)
+        utils.print_doc(doc)
+        doc.class_label = doc.subclass_label = ''   # clear labels
+        label = self.clf.classify(doc)
+        sublabel = self.clf.subclassify(doc, label)
+        doc.set_labels(label, sublabel)
         return [label, sublabel]
 
     def load_classifier(self, path):
         """Loads a trained classifier from file.
         IMPORTANT: Doesn't load the associated corpus, so it can't train, just classify/test."""
-        self.classifier.set_classifier(utils.load_object(path))
+        main_clf = utils.load_object(path)
+        sub_clfs = utils.load_object(path + '1')
+        self.clf.set_classifier(main_clf)
+        self.clf.subclassifiers = sub_clfs
 
     def save_classifier(self, path):
-        utils.save_object(self.classifier.classifier, path)
+        main_clf = self.clf.classifier
+        sub_clfs = self.clf.subclassifiers
+        utils.save_object(main_clf, path)
+        utils.save_object(sub_clfs, path + '1')
 
 
 def build_doc_set(path):
@@ -56,12 +64,12 @@ def build_doc_set(path):
 def dev_train_test():
     """Train and test a new classifier on a directory of .txt documents."""
     docs = build_doc_set('../papers')
-    # docs = build_doc_set(docs)
+    print 'Processing docset with %d docs...' % len(docs)
     driver = Processor()
     for d in docs:
         driver.process_document(d)
-    driver.classifier.set_classifier(NaiveBayes())
-    driver.classifier.train_and_test(docs, split=.1)
+    driver.clf.set_classifier(NaiveBayes())
+    driver.clf.train_and_test(docs, split=.07)
 
 
 def dev_train():
@@ -69,26 +77,29 @@ def dev_train():
     driver = Processor()
     for d in docs:
         driver.process_document(d)
-    driver.classifier.set_classifier(NaiveBayes())
-    driver.classifier.train(docs)
-    utils.save_object(driver.classifier, 'saved_classifier-367-1')
+    driver.clf.set_classifier(NaiveBayes())
+    driver.clf.train(docs)
+    driver.save_classifier('saved_classifier-367-1')
 
 
 def dev_test():
     docs = build_doc_set('../papers')
-    test_doc = docs[4]
+    test_doc = docs[100]
+    test_doc.class_label = test_doc.subclass_label = ''
     driver = Processor()
     labels = driver.classify_document(test_doc)
     print labels
+
 
 def classify(text):
     driver = Processor()
     doc = Document(raw_text=text)
     driver.process_document(doc)
-    driver.classifier = utils.load_object('saved_classifier-367')
-    class_label = driver.classifier.classify(doc)
-    subclass_label = driver.classifier.subclassify(doc, class_label)
+    driver.clf = utils.load_object('saved_classifier-367')
+    class_label = driver.clf.classify(doc)
+    subclass_label = driver.clf.subclassify(doc, class_label)
     labels = [class_label, subclass_label]
+    print 'Labels: '
     print labels
     return labels
 

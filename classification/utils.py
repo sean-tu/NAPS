@@ -130,8 +130,8 @@ separator = '\n############\n'
 
 
 def print_doc(doc):
-    print_features(doc.get_features())
     print separator, 'Doc: %s, %s' % (doc.path, doc.get_labels())
+    print_features(doc.get_features())
 
 
 def print_features(f):
@@ -141,6 +141,7 @@ def print_features(f):
     for t, f in features.iteritems():
         table.add_row([t, f])
     print table
+
 
 def compare_features(feat1, feat2):
     """See feature sets side by side"""
