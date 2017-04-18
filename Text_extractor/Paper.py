@@ -8,7 +8,7 @@ class Paper:
 		self.author = ''
 		self.doi = None
 		self.title = ''
-		self.year = None
+		self.year = 0
 		self.publisher = ''
 		self.pages_range = None
 
@@ -67,7 +67,7 @@ class Paper:
 		return str(self.title)
 
 	def get_year (self):
-		return str(self.year)
+		return self.year
 
 	def get_publisher(self):
 		return str(self.publisher)
