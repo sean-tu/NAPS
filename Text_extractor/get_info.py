@@ -116,7 +116,7 @@ def author_line_num(fpt):
 	"""
 def find_year (fpt):
 
-	year_arr = []
+	year_arr = None
 	regex = r"(?:19[7-9]\d|2\d{3})(?=\D|$)"
 	with open (fpt) as f:
 		for line in f:

@@ -4,12 +4,12 @@
 class Paper:
 
 	def __init__(self):
-		self.num_pages = 0
+		self.num_pages = None
 		self.author = ''
 		self.doi = None
-		self.title = 'TITLE'
-		self.year = 0
-		self.publisher = 'PUBLISHER'
+		self.title = ''
+		self.year = None
+		self.publisher = ''
 		self.pages_range = None
 
 	def set_pages(self,pages):
@@ -19,14 +19,17 @@ class Paper:
 		self.doi = doi
 	
 	def set_author(self, name):
+		i=1
 		for author in name:
-			if(author.endswith(',')):
+			if(author.endswith(',') or i == len(name)):
 				self.author += (str(author) + ' ');
+				i+=1
 			else:
 				self.author += (str(author) + ', ');
+				i+=1
 
 	def set_title(self, title):
-		self.title = title
+		self.title = title.strip()
 
 	def set_year (self, year):
 		self.year = year
@@ -73,4 +76,4 @@ class Paper:
 		return str(self.pages_range)
 
 	def get_pages(self):
-		return self.num_pages
+		return str(self.num_pages)
