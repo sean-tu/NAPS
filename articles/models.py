@@ -68,6 +68,8 @@ class Article(models.Model):
 		return self.category.replace('-',' ').title()
 
 	def format_authors_mla(self):
+		if self.authors is None or self.authors == '':
+			return ''
 		#use with flag re.U. Gets fullname, first, last but may match 0-9 or _, so be sure to strip those.
 		names_pattern = '(?P<fullname>(?P<first>(\w((\.\s)|\w+\s))+)(?P<last>\w+))'
 		name_iter = re.compile(names_pattern, re.U).finditer(self.authors)
@@ -78,6 +80,8 @@ class Article(models.Model):
 		return formatted_authors.strip(', ')
 
 	def format_authors_apa(self):
+		if self.authors is None or self.authors == '':
+			return ''
 		#use with flag re.U. Gets fullname, first, last but may match 0-9 or _, so be sure to strip those.
 		names_pattern = '(?P<fullname>(?P<first>(\w((\.\s)|\w+\s))+)(?P<last>\w+))'
 		name_iter = re.compile(names_pattern, re.U).finditer(self.authors)
