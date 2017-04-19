@@ -9,7 +9,7 @@ class Paper:
 		self.doi = None
 		self.title = ''
 		self.year = 0
-		self.publisher = ''
+		self.publisher = None
 		self.pages_range = None
 
 	def set_pages(self,pages):
@@ -29,7 +29,7 @@ class Paper:
 				i+=1
 
 	def set_title(self, title):
-		self.title = title.strip()
+		self.title += title.strip()
 
 	def set_year (self, year):
 		self.year = year
