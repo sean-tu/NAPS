@@ -143,6 +143,14 @@ def print_features(f):
     print table
 
 
+def print_vocab(v):
+    table = PrettyTable(['Token (%d)' % len(v), 'Freq', 'Doc Freq']);
+    table.align = 'l'
+    for t, [tf, df] in v.iteritems():
+        table.add_row([t, tf, df])
+    print table
+
+
 def compare_features(feat1, feat2):
     """See feature sets side by side"""
     feat1 = sort_dictionary(feat1)

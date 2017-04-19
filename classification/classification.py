@@ -106,4 +106,4 @@ def classify(text):
 
 
 if __name__ == '__main__':
-    dev_train_test()
+    dev_test()
