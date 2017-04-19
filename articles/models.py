@@ -40,11 +40,11 @@ class Article(models.Model):
 		return self.title + ' (' + self.authors + ')'
 
 	def categorize(self):
-		#self.category = 'Chemistry'
-		#self.subcategory = 'Analytical Chemistry'
-		categories = classification.classify(self.full_text)
-		self.category = categories[0]
-		self.subcategory = categories[1]
+		self.category = 'Earth Science'
+		self.subcategory = 'Geology'
+		#categories = classification.classify(self.full_text)
+		#self.category = categories[0]
+		#self.subcategory = categories[1]
 
 	def extract(self):
 		tmp_filename = MEDIA_ROOT + 'text-' + str( random.randint(100000,999999) ) + '.txt'
