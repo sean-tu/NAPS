@@ -31,6 +31,10 @@ class NaiveBayes:
 
     def idf(self, term):
         if term in self.vocabulary:
+            #testing ??? :)
+            print self.vocabulary.get(term)
+            print self.vocabulary.get(term)[1]
+            
             occurences = self.vocabulary.get(term)[1]
         else:
             occurences = 0
