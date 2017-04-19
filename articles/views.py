@@ -56,6 +56,20 @@ def article_detail(request, pk):
 	article = get_object_or_404(Article, pk=pk)
 	return render(request, 'articles/article_detail.html', {'article' : article})
 
+#delete: removes an article record
+@login_required
+def article_delete(request, pk):
+	current_user = request.user
+	article = get_object_or_404(Article, pk=pk)
+	if article.owner == current_user:
+		article.delete()
+		articles = Article.objects.filter(owner = current_user).order_by('category')
+		return render(request, 'articles/article_list.html', {'articles':articles, 'categories':Article.CATEGORIES, 'message':'Article successfully deleted.', 'message_type':'success'})
+	else:
+		articles = Article.objects.filter(owner = current_user).order_by('category')
+		return render(request, 'articles/article_list.html', {'articles':articles, 'categories':Article.CATEGORIES, 'message':'You cant\'t delete an article that isn\'t yours!'})
+
+
 #upload_pdf: on a POST request, creates a new Article object belonging to current user with uploaded file,
 #	and displays an upload form on GET or any other request
 @login_required
