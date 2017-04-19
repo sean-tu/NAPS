@@ -4,6 +4,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 #import the singup form
 from django.contrib.auth.forms import UserCreationForm
+#import Q for complex queries
+from django.db.models import Q
 #import the Article model
 from .models import Article # the . means same directory and eliminates need for .py extension
 #import the Articles forms from forms.py
@@ -31,6 +33,12 @@ def article_list(request):
 	current_user = request.user
 	articles = Article.objects.filter(owner = current_user).order_by('category')
 	return render(request, 'articles/article_list.html', {'articles':articles, 'categories':Article.CATEGORIES})
+
+@login_required
+def article_search(request, qterm):
+	current_user = request.user
+	articles = Article.objects.filter(Q(title__icontains=qterm) | Q(full_text__icontains=qterm)).filter(owner = current_user)
+	return render(request, 'articles/article_list.html', {'articles':articles, 'categories':Article.CATEGORIES, 'message':'Showing search results for: '+qterm})
 
 #article_update: updates an Article instance on POST request, serves a form on GET or other request
 @login_required
