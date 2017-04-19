@@ -104,3 +104,6 @@ def home(request):
 
 def about(request):
 	return render(request, 'articles/about.html')
+
+def help(request):
+	return render(request, 'articles/help.html')
