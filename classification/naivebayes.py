@@ -33,7 +33,7 @@ class NaiveBayes:
         if term in self.vocabulary:
 
             file = open('pleasework.txt', 'w+')
-            file.write(self.vocabulary.get(term))
+            file.write(str(self.vocabulary.get(term))
 
             #testing??
             #print self.vocabulary.get(term)
