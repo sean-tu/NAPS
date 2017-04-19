@@ -3,12 +3,21 @@ Gets all of the pdf files from the subfolders of a specified folder
 """
 
 import os
+import sys
 import cPickle as pickle
 
 from collections import OrderedDict
 from prettytable import PrettyTable
 from Text_extractor.extract import extract
 from NAPS.settings import STATIC_ROOT
+
+# to fix pickle module location problem
+from . import classifier 
+import corpus
+import naivebayes
+sys.modules['classifier'] = classifier
+sys.modules['corpus'] = corpus
+sys.modules['naivebayes'] = naivebayes
 
 Relative_Path = os.path.dirname(os.path.realpath(__file__))
 
