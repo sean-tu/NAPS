@@ -116,12 +116,12 @@ def build_doc_set(path="papers"):
 
 
 def save_object(obj, path):
-    with open(path, 'wb') as fout:
+    with open(Relative_Path + '\\' + path, 'wb') as fout:
         pickle.dump(obj, fout)
 
 
 def load_object(path):
-    with open(path, 'rb') as fin:
+    with open(Relative_Path + '\\' + path, 'rb') as fin:
         return pickle.load(fin)
 
 
