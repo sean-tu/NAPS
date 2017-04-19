@@ -32,9 +32,9 @@ class NaiveBayes:
     def idf(self, term):
         if term in self.vocabulary:
 
-            file = open('pleasework.txt', w+)
+            file = open('pleasework.txt', 'w+')
             file.write(self.vocabulary.get(term))
-            
+
             #testing??
             #print self.vocabulary.get(term)
             #print self.vocabulary.get(term)[1]
