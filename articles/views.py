@@ -83,7 +83,7 @@ def upload_pdf(request):
             #create a new Extractor and pass article.file to it
             article.save()
             article.extract()
-            article.save(update_fields=['full_text', 'doi', 'authors', 'date_published', 'publisher'])
+            article.save(update_fields=['full_text', 'doi', 'authors', 'date_published', 'publisher', 'title'])
             #create a new Classifier and pass article.file to it
             article.categorize()
             article.save(update_fields=['category', 'subcategory'])
