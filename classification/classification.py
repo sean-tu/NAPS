@@ -47,6 +47,7 @@ class Processor:
         self.clf.subclassifiers = sub_clfs
 
     def save_classifier(self, path):
+        """Saves Classifier.classifier to path and Classifier.subclassifiers to path1"""
         main_clf = self.clf.classifier
         sub_clfs = self.clf.subclassifiers
         utils.save_object(main_clf, path)
@@ -105,4 +106,4 @@ def classify(text):
 
 
 if __name__ == '__main__':
-    dev_test()
+    dev_train_test()
