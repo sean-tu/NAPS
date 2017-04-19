@@ -39,7 +39,10 @@ class NaiveBayes:
 
     def tf_idf(self, term):
         """Calculate the term-frequency inverse-document frequency of a term in the vocabulary"""
-        term_freq = self.vocabulary.get(term)[0]
+        if term in self.vocabulary:
+            term_freq = self.vocabulary.get(term)[0]
+        else:
+            term_freq = 0
         return term_freq * self.idf(term)
 
     def weight_features(self, feature_set, k=.5):
@@ -55,7 +58,7 @@ class NaiveBayes:
         utils.compare_features(features, weighted)
 
     def prob_classify(self, feature_set):
-        #   utils.print_vocab(self.vocabulary)
+        utils.print_vocab(self.vocabulary)
         score = []
         weighted_set = self.weight_features(feature_set)
         for c in range(len(self.classes)):

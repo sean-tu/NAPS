@@ -39,8 +39,6 @@ class Document:
         self.class_label = label
         self.subclass_label = sub_label
 
-    # NOTE: may change to ref containing 'Class' class
-    # NOTE: that might get confusing. When OO and classification/ML lingo collide!
     def set_label(self, label):
         self.class_label = label
         # TODO change class if containing class.class_label != class_label
