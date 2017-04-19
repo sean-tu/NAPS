@@ -43,7 +43,7 @@ class Article(models.Model):
 		#self.category = 'Earth Science'
 		#self.subcategory = 'Geology'
 		categories = classification.classify(self.full_text)
-		self.category = categories[0]
+		self.category = categories[0].lower().replace(' ','-')
 		self.subcategory = categories[1]
 
 	def extract(self):
