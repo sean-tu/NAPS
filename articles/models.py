@@ -39,7 +39,7 @@ class Article(models.Model):
 	def __str__(self):
 		return self.title + ' (' + self.authors + ')'
 
-	ddef categorize(self):
+	def categorize(self):
 		#self.category = 'Chemistry'
 		#self.subcategory = 'Analytical Chemistry'
 		categories = classification.classify(self.full_text)
