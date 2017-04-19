@@ -68,7 +68,8 @@ class NaiveBayes:
     def prob_classify(self, feature_set):
         # utils.print_vocab(self.vocabulary)
         score = []
-        weighted_set = self.weight_features(feature_set)
+        # weighted_set = self.weight_features(feature_set)
+        weighted_set = feature_set
         for c in range(len(self.classes)):
             score.append(math.log(self.prior[c], 10))
             for t in weighted_set:
