@@ -53,7 +53,8 @@ class Article(models.Model):
 		paper = get_info.get_info(self.pdf_file.url, tmp_filename)
 		self.doi = paper.get_doi()
 		self.authors = paper.get_author()
-		self.title = paper.get_title()
+		temp_title = paper.get_title()
+		self.title = temp_title[:99] if len(temp_title) > 100 else temp_title
 		self.date_published = paper.get_year()
 		self.publisher = paper.get_publisher()
 
