@@ -24,7 +24,6 @@
                             <li role="navigation"><a href="{% url 'help' %}">Help</a></li>
                         {% if user.is_authenticated %}
                             <li role="navigation"><a href="{% url 'article_list' %}">Articles</a></li>
-                            <li role="navigation"><a href="#">Projects</a></li>
                             {% if user.is_superuser %}
                             <li role="navigation"><a href="{% url 'admin:index' %}">Admin</a></li>
                             {% endif %}
