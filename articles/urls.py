@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^articles/(?P<pk>\d+)/delete$', articles_views.article_delete, name='article_delete'),
     url(r'^articles/(?P<pk>\d+)/$', articles_views.article_detail, name='article_detail'),
     url(r'^about/$', articles_views.about, name='about'),
+    url(r'^help/$', articles_views.about, name='help'),
     url(r'^$', articles_views.home, name='home')
 ]
