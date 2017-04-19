@@ -8,6 +8,7 @@ import cPickle as pickle
 from collections import OrderedDict
 from prettytable import PrettyTable
 from Text_extractor.extract import extract
+from NAPS.settings import STATIC_ROOT
 
 Relative_Path = os.path.dirname(os.path.realpath(__file__))
 
