@@ -131,5 +131,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 MEDIA_ROOT = '/var/www/uploads/'
 #os.path.join(BASE_DIR, 'uploads/')
-MEDIA_URL = 'http://projectnaps.me/uploads/'
-#'http://projectnaps.me/upload/'
+MEDIA_URL = '/var/www/uploads/'
+#'http://projectnaps.me/uploads/'
