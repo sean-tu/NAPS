@@ -54,6 +54,7 @@ def get_info(pdf_file, txt_file):
 	line = author_line_num(file_name)
 	paper.set_title(find_title(file_name, line))
 	paper.set_year(find_year(file_name))
+	paper.set_publisher(find_publisher(file_name))
 
 	os.remove(file_name)
 
@@ -181,3 +182,16 @@ def find_doi (fpt):
 				break            
 	f.close()
 	return doi_arr
+
+def find_publisher (fpt):
+
+	publisher = None
+	regex = r"(Published(.\D)*|.*Journal(.\D)*)"
+	with open (fpt) as f:
+		for line in f:
+			doi = re.search (regex, line, re.IGNORECASE)
+			if doi:
+				publisher = doi.group(0)
+				break            
+	f.close()
+	return publisher

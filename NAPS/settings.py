@@ -128,7 +128,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
 MEDIA_ROOT = '/var/www/uploads/'
 #os.path.join(BASE_DIR, 'uploads/')
 MEDIA_URL = '/var/www/uploads/'
-#'http://projectnaps.me/upload/'
+#'http://projectnaps.me/uploads/'

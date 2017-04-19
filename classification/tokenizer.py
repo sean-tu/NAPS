@@ -28,7 +28,7 @@ class Tokenizer:
     def tokenize(self, raw_text):
         """Convert string to a list of tokens, i.e. individual words """
         # TODO implement
-        raw_tokens = word_tokenize(raw_text)
+        raw_tokens = word_tokenize(raw_text.decode('utf8'))
         return self.filter_tokens(raw_tokens)
         # return self.split_by(raw_tokens, '-')
 
