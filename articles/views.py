@@ -35,7 +35,11 @@ def article_list(request):
 	return render(request, 'articles/article_list.html', {'articles':articles, 'categories':Article.CATEGORIES})
 
 @login_required
-def article_search(request, qterm):
+def article_search(request):
+	query = {}
+	for i in request.META["QUERY_STRING"].split("&"):
+		query[i.split("=")[0]] = i.split("=")[1]
+	qterm = query["q"]
 	current_user = request.user
 	articles = Article.objects.filter(Q(title__icontains=qterm) | Q(full_text__icontains=qterm)).filter(owner = current_user)
 	return render(request, 'articles/article_list.html', {'articles':articles, 'categories':Article.CATEGORIES, 'message':'Showing search results for: '+qterm})
