@@ -38,20 +38,21 @@
             </div> <!-- /.row -->
         </div> <!-- /.container -->
 
-        <div class="content container-fluid main">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                {% if message %}
-                    <div class="alert {% if message_type %}alert-{{message_type}}{% else %}alert-info{% endif %}">
-                        {{message}}
+        <div class="main-size-control">
+            <div class="content container-fluid main">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                    {% if message %}
+                        <div class="alert {% if message_type %}alert-{{message_type}}{% else %}alert-info{% endif %}">
+                            {{message}}
+                        </div>
+                    {% endif %}
+                    {% block content %}
+                    {% endblock %}
                     </div>
-                {% endif %}
-                {% block content %}
-                {% endblock %}
                 </div>
             </div>
-        </div>
-
+        </div><!-- /.main-size-control-->
         <div class="content container-fluid footer">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
