@@ -47,16 +47,27 @@ class Article(models.Model):
 		self.subcategory = categories[1]
 
 	def extract(self):
+		#create a text file for extraction
 		tmp_filename = MEDIA_ROOT + 'text-' + str( random.randint(100000,999999) ) + '.txt'
 		extract.extract(MEDIA_ROOT + self.pdf_file.name, tmp_filename)
+		#get text from file created by extract()
 		self.full_text = open(tmp_filename, 'r').read()
+		#create Paper object from text
 		paper = get_info.get_info(self.pdf_file.url, tmp_filename)
-		self.doi = paper.get_doi()
-		self.authors = paper.get_author()
+		#get & concat doi
+		temp_doi = paper.get_doi()
+		self.doi = temp_doi[:49]
+		#get & concat author
+		temp_authors = paper.get_author()
+		self.authors = temp_authors[:199]
+		#get & concat title
 		temp_title = paper.get_title()
 		self.title = temp_title[:99]
-		self.date_published = paper.get_year()
-		self.publisher = paper.get_publisher()
+		#get a year, cast to int
+		self.date_published = int( paper.get_year() )
+		#get & concat publisher
+		temp_publisher = paper.get_publisher()
+		self.publisher = temp_publisher[:99]
 
 
 	def validate_category(self, input_category):
