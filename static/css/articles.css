@@ -51,9 +51,6 @@ body {
 	background-color: #222;
 	margin-bottom: 40px;
 }
-.main {
-	margin-top:;
-}
 .bg-image {
 	background-image: url('../images/paperclip.jpg');
 }
@@ -160,6 +157,16 @@ a.btn-default:active:focus {
 	border-color: #000;
 }
 
+/* FOOTER */
+.main {
+	min-height: 500px;
+}
+.footer {
+	background-color: #222;
+	color: #666;
+	margin-top: 20px;
+	padding: 20px;
+}
 
 /**
  * CSS Animation
