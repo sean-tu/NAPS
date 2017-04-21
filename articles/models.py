@@ -15,7 +15,7 @@ from Text_extractor import extract, get_info, Paper
 class Article(models.Model):
 
 	#list of Categories used by the Classifier
-	category_list = ['Anthropology', 'Chemistry', 'Computer Science', 'Earth Science', 'Engineering', 'Life Science', 'Materials Science', 'Medicine', 'Mathematics', 'Physics']
+	category_list = ['Anthropology', 'Chemistry', 'Computer Science', 'Earth Sciences', 'Engineering', 'Life Sciences', 'Materials Science', 'Medicine', 'Mathematics', 'Physics']
 	CATEGORIES = []
 	for cat in category_list:
 		CATEGORIES.append( (cat.lower().replace(' ','-'), cat) )
