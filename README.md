@@ -11,6 +11,7 @@ Group 7 - Contributers:
 - Megan Chipman
 - Johnathan Sattler
 - Maxim Shelopugin
+- Victoria Proetsch 
 
 Components: 
 - Website
